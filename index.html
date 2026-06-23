@@ -181,6 +181,63 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   .cl-item{grid-template-columns:24px 1fr;grid-template-rows:auto auto}
   .cl-scores{flex-direction:row;align-items:center;grid-column:1/-1;justify-content:flex-start;min-width:unset}
 }
+
+/* ── CHECKLIST SAVE CONTROLS ── */
+.cl-btn.save{background:rgba(63,185,80,.15);border-color:var(--green);color:var(--green)}
+.cl-btn.save:hover{background:rgba(63,185,80,.25);color:var(--green)}
+.cl-btn.danger{background:rgba(248,81,73,.12);border-color:var(--red);color:var(--red)}
+.cl-btn.danger:hover{background:rgba(248,81,73,.22);color:var(--red)}
+.save-status{font-size:11px;font-weight:700;color:var(--green);align-self:center;opacity:0;transition:opacity .25s}
+.save-status.show{opacity:1}
+.persist-note{font-size:11px;color:var(--text-dim);align-self:center;display:flex;align-items:center;gap:6px}
+.persist-warn{display:none;background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:6px;padding:9px 14px;margin-top:12px;font-size:12px;color:var(--red);line-height:1.5}
+.persist-warn.show{display:block}
+
+/* ── REGULATORY GAPS TAB ── */
+.strat-box{background:rgba(0,180,216,.05);border:1px solid rgba(0,180,216,.2);border-left:4px solid var(--accent);border-radius:8px;padding:16px 20px;margin-bottom:22px}
+.strat-box h3{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.strat-box p{font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:7px}
+.strat-box p:last-child{margin-bottom:0}
+.strat-box strong{color:var(--text-primary)}
+.gap-bucket-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.gap-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .15s}
+.gap-card:hover{border-color:var(--text-dim)}
+.gap-card.open{border-color:var(--accent)}
+.gap-head{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;user-select:none}
+.gap-num{font-size:13px;font-weight:800;color:var(--text-dim);min-width:30px}
+.gap-title-wrap{flex:1}
+.gap-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.gap-sub{font-size:11px;color:var(--text-secondary);margin-top:2px}
+.sev{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.sev-c{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.35)}
+.sev-h{background:rgba(210,153,34,.15);color:var(--yellow);border:1px solid rgba(210,153,34,.35)}
+.sev-m{background:rgba(0,180,216,.12);color:var(--accent);border:1px solid rgba(0,180,216,.3)}
+.gap-chev{font-size:12px;color:var(--text-dim);transition:transform .2s}
+.gap-card.open .gap-chev{transform:rotate(180deg)}
+.gap-body{display:none;padding:0 18px 16px 62px}
+.gap-card.open .gap-body{display:block}
+.gap-body p{font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px}
+.ask-box{background:var(--surface2);border-left:3px solid var(--accent);border-radius:5px;padding:9px 13px;font-size:12px;color:var(--text-secondary);line-height:1.6}
+.ask-box strong{color:var(--text-primary);display:block;margin-bottom:3px;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+
+/* ── MES / SCADA TAB ── */
+.mes-stack{display:flex;flex-direction:column;gap:8px;margin:18px 0 24px}
+.mes-level{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px}
+.mes-level.build{border-left:3px solid var(--green)}
+.mes-level.vendor{border-left:3px solid var(--canaan)}
+.mes-level.future{border-left:3px solid var(--text-dim);opacity:.75}
+.mes-lvl-tag{font-size:16px;font-weight:800;color:var(--text-dim)}
+.mes-lvl-title{font-size:13px;font-weight:700;color:var(--text-primary)}
+.mes-lvl-desc{font-size:11px;color:var(--text-secondary);margin-top:3px}
+.mes-own{font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.mes-own.build{background:rgba(63,185,80,.15);color:var(--green)}
+.mes-own.vendor{background:rgba(0,180,216,.15);color:var(--canaan)}
+.mes-own.future{background:var(--tag-bg);color:var(--text-dim)}
+.pill-rec{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3);font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+.map-mand{color:var(--red);font-weight:700}
+.map-req{color:var(--yellow);font-weight:700}
+.map-rec{color:var(--accent);font-weight:700}
+.map-exempt{color:var(--text-dim)}
 </style>
 </head>
 <body>
@@ -203,6 +260,8 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <button class="tab-btn" onclick="showTab('packaging',this)">Packaging</button>
   <button class="tab-btn" onclick="showTab('terms',this)">Commercial Terms</button>
   <button class="tab-btn" onclick="showTab('checklist',this)">GMP Checklist</button>
+  <button class="tab-btn" onclick="showTab('gaps',this)">Regulatory Gaps</button>
+  <button class="tab-btn" onclick="showTab('mes',this)">MES/SCADA</button>
   <button class="tab-btn" onclick="showTab('verdict',this)">Recommendation</button>
 </div>
 
@@ -633,11 +692,193 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
     </div>
   </div>
   <div class="cl-actions">
-    <button class="cl-btn primary" onclick="exportChecklist()">Export Summary</button>
-    <button class="cl-btn" onclick="clearVendorScores()">Reset This Vendor</button>
-    <span style="font-size:11px;color:var(--text-dim);align-self:center">Scores auto-saved per vendor · M = Mandatory (0 = disqualify) · P = Preferred</span>
+    <button class="cl-btn save" onclick="saveAllToFile()">⬇ Save to File (backup all vendors)</button>
+    <button class="cl-btn" onclick="triggerLoad()">⬆ Load from File</button>
+    <button class="cl-btn primary" onclick="exportChecklist()">Export This Vendor (text)</button>
+    <button class="cl-btn danger" onclick="clearVendorScores()">Reset This Vendor</button>
+    <input type="file" id="load-file-input" accept="application/json,.json" style="display:none" onchange="loadFromFile(event)">
+    <span class="save-status" id="save-status">✓ Saved</span>
+    <span class="persist-note">Scores &amp; notes auto-save as you type · M = Mandatory (0 = disqualify) · P = Preferred</span>
   </div>
+  <div class="persist-warn" id="persist-warn">⚠ This browser is blocking automatic local storage (private mode, or the file is opened directly from disk). Your scores and notes will be lost on refresh unless you click <strong>Save to File</strong> regularly. Loading the saved file back restores everything.</div>
   <div class="cl-sections" id="cl-sections"></div>
+</div>
+
+<!-- ════════ REGULATORY GAPS ════════ -->
+<div class="tab-content" id="tab-gaps">
+  <div class="strat-box">
+    <h3>What these four vendors do NOT cover</h3>
+    <p>The vendor comparison answers "which machine," not "can we pass an HSA / PIC-S inspection." A GMP solid-dose licence depends on equipment, instrumentation, facility infrastructure, and a documentation system working as one. The 16 gaps below are everything outside the four quotations that still has to be sourced, built, or written before the first PPQ batch.</p>
+    <p><strong>Severity key:</strong> <span class="sev sev-c">Critical</span> blocks licensing or batch release · <span class="sev sev-h">High</span> required, has lead time, plan now · <span class="sev sev-m">Medium</span> needed but lower risk. Click any card for the rationale and what to ask.</p>
+  </div>
+
+  <div class="gap-bucket-label">Bucket A — Equipment &amp; Instrumentation Gaps</div>
+
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A1</span><div class="gap-title-wrap"><div class="gap-title">Validated CIP / WIP cleaning across the line</div><div class="gap-sub">Only the coater WIP is quoted — granulation, press, capsule, blister are not</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Cleaning validation needs a defined, repeatable cleaning method for every product-contact surface, not just the coating drum. The granulator bowl, FBD, bin blender, press turret/feed frame, and capsule dosing parts all need either an automated wash or a documented, validatable manual SOP with swab-accessible geometry.</p><div class="ask-box"><strong>Ask all vendors</strong>Recommended cleaning procedure per machine, product-contact Ra values, and whether any CIP/WIP option exists. Confirm no dead legs or inaccessible crevices on product-contact paths.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A2</span><div class="gap-title-wrap"><div class="gap-title">Potent-API containment / OEB rating</div><div class="gap-sub">No containment or OEB classification in any quote</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>If any current or future product is a potent compound, open handling at dispensing, granulation, and compression creates an operator-exposure and cross-contamination risk. Containment (closed transfers, isolators, or split butterfly valves) is far cheaper designed in now than retrofitted.</p><div class="ask-box"><strong>Decide internally, then ask</strong>Define the highest OEB band the facility must handle. Then ask each vendor what containment options exist for the relevant machines.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A3</span><div class="gap-title-wrap"><div class="gap-title">Automated tablet visual inspection</div><div class="gap-sub">Blister camera ≠ whole-tablet defect inspection</div></div><span class="sev sev-m">Medium</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>The blister-line camera checks pocket fill and print, not tablet cosmetic defects (capping, chipping, spots). For higher volumes a standalone tablet inspection unit may be needed; at launch volumes documented manual AQL sampling can bridge it.</p><div class="ask-box"><strong>Ask press vendor</strong>Whether a tablet sorter/inspection add-on is available and its cost — decide build-now vs manual-AQL-for-now.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A4</span><div class="gap-title-wrap"><div class="gap-title">Real-time tablet weight / force feedback control</div><div class="gap-sub">Confirm closed-loop, not just a reject gate</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Item 59 in the checklist asks about weight variation, but in-process control is stronger than end-of-line rejection: the press should measure compression force per tablet and auto-correct fill depth. Confirm whether the HGZ-26D does closed-loop control or only rejects out-of-spec tablets.</p><div class="ask-box"><strong>Ask Rich Packing (press)</strong>Does the press auto-adjust fill on force drift, or only reject? Is force logged per batch to the audit trail?</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A5</span><div class="gap-title-wrap"><div class="gap-title">Stability chambers (ICH Q1A(R2))</div><div class="gap-sub">~$80K–200K · Memmert / Binder / Weiss · not in any quote</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Registration and shelf-life claims require ICH stability data: long-term (25°C/60%RH), intermediate (30°C/65%), accelerated (40°C/75%), plus Zone IVb (30°C/75%) for tropical markets. Chambers have long lead times and must run for months before you have data — order early.</p><div class="ask-box"><strong>Separate procurement</strong>Source from Memmert, Binder, or Weiss. Specify mapping/qualification and 21 CFR Part 11-capable data logging.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A6</span><div class="gap-title-wrap"><div class="gap-title">Serialisation / aggregation (DSCSA, EU FMD)</div><div class="gap-sub">Needed for US/EU export — printing + vision + data</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Exporting to the US (DSCSA) or EU (FMD) requires unit-level serialisation: print, verify, and aggregate codes to case/pallet with a data backbone reporting to authorities. This bolts onto the cartoning line and is easiest specified before the cartoner is built.</p><div class="ask-box"><strong>Ask Hualian (cartoner)</strong>Whether a serialisation module (Antares, Laetus, or Optel) can integrate on the ZHJ-150K cartoner, and what data interface it exposes.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A7</span><div class="gap-title-wrap"><div class="gap-title">QC laboratory</div><div class="gap-sub">~$500K–1.5M · HPLC, dissolution, KF, etc. + LIMS · entirely separate</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>No batch can be released without QC testing. A solid-dose lab needs HPLC, dissolution apparatus, disintegration, hardness/friability, Karl Fischer, balances, and a LIMS or validated spreadsheet system — all qualified and all Part 11 relevant. This is a major separate capital line frequently underestimated.</p><div class="ask-box"><strong>Not a vendor question</strong>Build a standalone QC lab capital plan and headcount. This is independent of the four equipment vendors.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">A8</span><div class="gap-title-wrap"><div class="gap-title">Calibration &amp; metrology management</div><div class="gap-sub">Every instrument needs traceable, scheduled calibration</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Each temperature probe, pressure gauge, balance, and flow meter on the line needs initial and periodic calibration traceable to national standards, with a managed schedule. Inspectors check this early. Decide on in-house metrology vs an accredited (CNAS/ILAC) service contract.</p><div class="ask-box"><strong>Ask all vendors + plan internally</strong>Request the instrument list per machine with calibration points; set up a calibration management programme before commissioning.</div></div>
+  </div>
+
+  <div class="gap-bucket-label">Bucket B — Facility Infrastructure (none of the four vendors supply this)</div>
+
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">B1</span><div class="gap-title-wrap"><div class="gap-title">HVAC &amp; cleanroom classification</div><div class="gap-sub">PharmOut scope — Grade C/D, pressure cascades, AHUs</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Solid-dose processing runs in classified space (typically Grade C/D) with controlled temperature, humidity, pressure cascades, and HEPA filtration. This is the single largest facility cost and the backbone of contamination control — it sits with PharmOut, not the equipment vendors.</p><div class="ask-box"><strong>PharmOut design item</strong>Confirm classification per room, pressure scheme, and air-change rates are in the facility design package.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">B2</span><div class="gap-title-wrap"><div class="gap-title">Purified Water generation &amp; distribution loop</div><div class="gap-sub">PW system + hot/cold recirculating loop, validated</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Coating, granulation binder solution, and cleaning all need Purified Water meeting pharmacopoeia spec, produced and distributed through a sanitisable recirculating loop and validated over a multi-month programme. Long lead time and long qualification — start early.</p><div class="ask-box"><strong>Separate utility project</strong>Specify PW generation capacity, loop design, and a 3-phase qualification plan with the facility team.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">B3</span><div class="gap-title-wrap"><div class="gap-title">Oil-free compressed air (ISO 8573-1)</div><div class="gap-sub">Product-contact air must be clean &amp; dry to spec</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Compressed air touches product (fluidisation, conveying, blowing). It must be oil-free and meet ISO 8573-1 limits for particles, water, and oil, with the testing to prove it. Several vendor machines assume a clean dry air supply that the facility has to provide.</p><div class="ask-box"><strong>Facility utility + ask vendors</strong>Get each machine's air quality/pressure/flow requirement; size an oil-free compressor + dryer + filtration train to ISO 8573-1.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">B4</span><div class="gap-title-wrap"><div class="gap-title">Multi-product facility flow &amp; cross-contamination control</div><div class="gap-sub">Material/personnel flow, airlocks, segregation</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>A multi-product plant must prevent mix-ups and cross-contamination through one-directional material and personnel flow, airlocks, gowning, and dedicated or validated-shared equipment. This is a facility-design and procedural matter that frames how the equipment is laid out.</p><div class="ask-box"><strong>PharmOut design item</strong>Confirm flow diagrams, airlock strategy, and segregation approach are documented in the design.</div></div>
+  </div>
+
+  <div class="gap-bucket-label">Bucket C — Regulatory &amp; Documentation Systems (you must build these)</div>
+
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">C1</span><div class="gap-title-wrap"><div class="gap-title">Pharmaceutical Quality System (ICH Q10 / PIC-S)</div><div class="gap-sub">The QMS the whole licence sits on</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>HSA expects a functioning PQS aligned to PIC-S GMP and ICH Q10: change control, deviations, CAPA, document control, batch release by a qualified person, management review. No amount of good equipment substitutes for this. It must exist and be operating before licensing.</p><div class="ask-box"><strong>Not a vendor question</strong>Stand up the QMS (in-house or consultant-built) on its own timeline — it gates the licence.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">C2</span><div class="gap-title-wrap"><div class="gap-title">Technology transfer + 3 PPQ batches</div><div class="gap-sub">Process validation before commercial release</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Each product needs documented technology transfer and process validation — conventionally three consecutive successful Process Performance Qualification batches at commercial scale — before routine release. This depends on equipment being qualified first, so it sits at the end of the commissioning chain.</p><div class="ask-box"><strong>Internal protocol</strong>Write tech-transfer and PPQ protocols per product; schedule after IQ/OQ/PQ of the line.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">C3</span><div class="gap-title-wrap"><div class="gap-title">Computer System Validation Master Plan</div><div class="gap-sub">First document inspectors ask for on computerised systems</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Every PLC/HMI, the SCADA/MES layer, LIMS, and stability-chamber logger is a computerised system needing validation under a CSV Master Plan and a GAMP 5 risk-based approach. This is the document an inspector requests first when reviewing data integrity — see the MES/SCADA tab for the system architecture it governs.</p><div class="ask-box"><strong>Internal — links to MES/SCADA tab</strong>Author a CSV Master Plan covering all computerised systems and their Part 11 controls.</div></div>
+  </div>
+  <div class="gap-card" onclick="toggleGap(this)">
+    <div class="gap-head"><span class="gap-num">C4</span><div class="gap-title-wrap"><div class="gap-title">Analytical method validation (ICH Q2(R2))</div><div class="gap-sub">Test methods must be validated, not just available</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
+    <div class="gap-body"><p>Assay, dissolution, impurity, and content-uniformity methods must be validated to ICH Q2(R2) — specificity, accuracy, precision, linearity, range — and, for transferred compendial methods, verified on your instruments. This pairs with the QC lab (A7) and gates batch release.</p><div class="ask-box"><strong>QC lab workstream</strong>Plan method validation/verification per product alongside QC lab build-out.</div></div>
+  </div>
+</div>
+
+<!-- ════════ MES / SCADA ════════ -->
+<div class="tab-content" id="tab-mes">
+  <div class="strat-box">
+    <h3>Why build the data layer internally</h3>
+    <p>The four vendors deliver machine-level control (PLC + HMI). They do not deliver the layer that ties machines together into electronic batch records, a process historian, and inspection-ready data integrity. That layer — SCADA + MES — is the part HSA scrutinises most under Part 11, and it is the part that becomes a reusable asset across every future Citia site. Outsourcing it per-site rebuilds the same thing repeatedly; building it once internally turns it into transferable infrastructure.</p>
+    <p>The principle matches the rest of the business: <strong>own the system, not just the product.</strong> A validated SCADA/MES platform with internal capability is a moat — it is hard to replicate, it compounds across facilities, and it keeps data-integrity control in-house rather than renting it.</p>
+  </div>
+
+  <div class="section-label">The 4-level data stack</div>
+  <div class="mes-stack">
+    <div class="mes-level vendor"><span class="mes-lvl-tag">L0</span><div><div class="mes-lvl-title">Field / Machine — PLC + HMI</div><div class="mes-lvl-desc">Siemens / Mitsubishi / Omron controllers on each machine. Audit trail, user tiers, alarms live here.</div></div><span class="mes-own vendor">Vendor-provided</span></div>
+    <div class="mes-level build"><span class="mes-lvl-tag">L1</span><div><div class="mes-lvl-title">SCADA + Process Historian (OPC-UA)</div><div class="mes-lvl-desc">Collects tags from every machine into one time-series historian. Built on Ignition. This is the linchpin layer.</div></div><span class="mes-own build">Build internally</span></div>
+    <div class="mes-level build"><span class="mes-lvl-tag">L2</span><div><div class="mes-lvl-title">MES / electronic Batch Records (eBR)</div><div class="mes-lvl-desc">Recipe management, electronic batch records, review-by-exception. Built on Sepasoft on top of Ignition.</div></div><span class="mes-own build">Build internally</span></div>
+    <div class="mes-level future"><span class="mes-lvl-tag">L3</span><div><div class="mes-lvl-title">ERP / QMS integration</div><div class="mes-lvl-desc">Links batch data to inventory, release, and the quality system. Deferred until L1/L2 are validated.</div></div><span class="mes-own future">Future phase</span></div>
+  </div>
+
+  <div class="section-label">Platform comparison</div>
+  <div class="tbl-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Platform</th><th>Licensing model</th><th>GAMP 5 fit</th><th>Assessment</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="cat">Inductive Automation Ignition + Sepasoft</td>
+        <td><span class="spec good">Unlimited tags / clients — server-based, not per-seat</span></td>
+        <td><span class="spec">GAMP 5 Category 4 (configured product)</span></td>
+        <td><span class="badge green">Recommended</span><br><span class="spec good">Cost scales with sites, not seats or tags. Standard in pharma. Configurable, so validatable as Cat 4 rather than bespoke.</span></td>
+      </tr>
+      <tr>
+        <td class="cat">Siemens Opcenter</td>
+        <td><span class="spec warn">Enterprise licensing, high entry cost</span></td>
+        <td><span class="spec">Category 4, but heavy</span></td>
+        <td><span class="badge yellow">Overspecified</span><br><span class="spec warn">Built for large multi-site enterprises. Cost and complexity exceed a first single-line facility's needs.</span></td>
+      </tr>
+      <tr>
+        <td class="cat">Tulip</td>
+        <td><span class="spec bad">Per-seat / per-operator subscription</span></td>
+        <td><span class="spec">App-based</span></td>
+        <td><span class="badge red">Structurally wrong</span><br><span class="spec bad">Per-seat model penalises exactly the scaling pattern intended. Strong for human work instructions, weak as a plant historian/SCADA backbone.</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-label">Part 11 coverage map — recommended 3-vendor split</div>
+  <div class="tbl-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Tier</th><th>Machines</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="cat"><span class="map-mand">Mandatory</span></td><td><span class="spec">GHL-250 granulator, FG-80 FBD, GK-50 dry gran, HTD-250 blender (Urban); BGB-80 coater (Rich); NJP-2500 capsule, BGB-80 / blister DPB-270J (Hualian)</span></td><td><span class="spec">Generate or directly determine CPPs and batch data. Full audit trail + OPC-UA into the historian is non-negotiable.</span></td></tr>
+      <tr><td class="cat"><span class="map-req">Required</span></td><td><span class="spec">DPB-270J blister line incl. camera, pinhole, cartoner (Hualian)</span></td><td><span class="spec">Inspection results and reconciliation are batch-record evidence; must be captured and locked.</span></td></tr>
+      <tr><td class="cat"><span class="map-rec">Recommended</span></td><td><span class="spec">ZHJ-150K cartoner data, future serialisation module</span></td><td><span class="spec">Strengthens traceability and is the natural hook for DSCSA/FMD serialisation later.</span></td></tr>
+      <tr><td class="cat"><span class="map-exempt">Exempt</span></td><td><span class="spec">ZS-800 vibro sifter, solution tank, vacuum feeder</span></td><td><span class="spec">No CPPs, no electronic records generated — simple mechanical aids, outside Part 11 scope.</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="risk-box" style="border-left-color:var(--accent);background:rgba(0,180,216,.06);border-color:rgba(0,180,216,.25)">
+    <h4 style="color:var(--accent)">⚠ The OPC-UA question is the linchpin — ask it at every machine</h4>
+    <ul style="list-style:none">
+      <li>For every "Mandatory" and "Required" machine, confirm the PLC/HMI exposes an <strong>OPC-UA server</strong> and can hand over a <strong>tag list</strong>. Without it, that machine's data cannot flow into the historian and integration becomes a costly custom job. This single answer determines whether the build is GAMP Category 4 (configured) or slides toward bespoke Category 5.</li>
+    </ul>
+  </div>
+
+  <div class="section-label">People &amp; indicative cost (planning estimates)</div>
+  <div class="tbl-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Item</th><th>Indicative cost</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="cat">SCADA / Controls Engineer (hire)</td><td><span class="price">~SGD 90–130K / yr</span></td><td><span class="spec">Owns L1 historian + integration. Core internal capability.</span></td></tr>
+      <tr><td class="cat">CSV Specialist (hire)</td><td><span class="price">~SGD 80–120K / yr</span></td><td><span class="spec">Owns validation of all computerised systems; authors the CSV Master Plan (Gaps C3).</span></td></tr>
+      <tr><td class="cat">System integrator (initial)</td><td><span class="price">~USD 120–220K</span></td><td><span class="spec">Build + knowledge transfer for first site, so capability stays in-house.</span></td></tr>
+      <tr><td class="cat">Ignition + Sepasoft licences</td><td><span class="price">~USD 40–70K</span></td><td><span class="spec">Server-based; one-time + maintenance. Unlimited tags.</span></td></tr>
+      <tr><td class="cat">Infrastructure (servers, network)</td><td><span class="price">~USD 15–30K</span></td><td><span class="spec">On-prem or hybrid; redundancy for batch-critical data.</span></td></tr>
+      <tr class="total-row"><td class="cat">Year-1 total (indicative)</td><td><span class="price" style="font-size:14px">~USD 350–500K</span></td><td><span class="spec">Break-even vs per-site outsourcing ≈ 24–30 months.</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="strat-box">
+    <h3>Replication across Citia Group</h3>
+    <p>The first site carries the full design, validation, and knowledge-transfer cost. A second or third facility reuses the validated platform, templates, and in-house team — replication runs an estimated <strong>30–40% of first-site cost</strong>. That is the entire economic argument: outsourcing pays the full price every time; building once converts the spend into a transferable, compounding asset.</p>
+    <p>This only pencils out if there will be <strong>≥2 more facilities</strong>. If TruVet SG is genuinely a one-site endeavour, the build-vs-outsource maths is much closer and outsourcing the integration deserves serious weight.</p>
+  </div>
+
+  <div class="risk-box">
+    <h4>⚠ Key MES/SCADA risks</h4>
+    <ul style="list-style:none">
+      <li>OPC-UA availability per machine is the make-or-break technical dependency — confirm it on-site for every Mandatory/Required machine before committing to the in-house build path.</li>
+      <li>GAMP Category 4 (configured) vs Category 5 (bespoke) drives validation effort. Off-the-shelf Ignition/Sepasoft configuration keeps it at Cat 4; heavy custom code pushes toward Cat 5 and far more validation.</li>
+      <li>Break-even depends on ≥2 further facilities materialising. Re-test this assumption against the actual roll-out plan.</li>
+      <li>Validation adds 4–6 months before first commercial batch — sequence the CSV programme so it does not become the critical path after equipment arrives.</li>
+      <li>All figures here are planning estimates for internal discussion, not quotations.</li>
+    </ul>
+  </div>
 </div>
 
 <!-- ════════ VERDICT ════════ -->
@@ -873,18 +1114,62 @@ const SECTIONS = [
 function getKey(vendor, itemN) { return `tsg_cl_${vendor}_item_${itemN}`; }
 function getNoteKey(vendor, itemN) { return `tsg_cl_${vendor}_note_${itemN}`; }
 
+/* ── Fail-safe storage layer ──
+   localStorage can be blocked (private mode, or file:// in some browsers).
+   We wrap every call so it never throws, and keep an in-memory mirror so the
+   session always works even when the browser refuses to persist. _storageOK
+   tells the UI whether to warn the user to use Save-to-File. */
+let _storageOK = true;
+const _mem = {};
+(function testStorage(){
+  try {
+    const t = '__tsg_test__';
+    localStorage.setItem(t, '1');
+    localStorage.removeItem(t);
+    _storageOK = true;
+  } catch (e) { _storageOK = false; }
+})();
+function _set(k, v) {
+  _mem[k] = String(v);
+  try { localStorage.setItem(k, v); } catch (e) { _storageOK = false; }
+}
+function _get(k) {
+  try {
+    const v = localStorage.getItem(k);
+    if (v !== null) return v;
+  } catch (e) { _storageOK = false; }
+  return (k in _mem) ? _mem[k] : null;
+}
+function _del(k) {
+  delete _mem[k];
+  try { localStorage.removeItem(k); } catch (e) { _storageOK = false; }
+}
+
 function loadScore(vendor, itemN) {
-  const v = localStorage.getItem(getKey(vendor, itemN));
+  const v = _get(getKey(vendor, itemN));
   return v !== null ? parseInt(v) : -1;
 }
 function saveScore(vendor, itemN, score) {
-  localStorage.setItem(getKey(vendor, itemN), score);
+  _set(getKey(vendor, itemN), score);
+  flashSaved();
 }
 function loadNote(vendor, itemN) {
-  return localStorage.getItem(getNoteKey(vendor, itemN)) || '';
+  return _get(getNoteKey(vendor, itemN)) || '';
 }
 function saveNote(vendor, itemN, note) {
-  localStorage.setItem(getNoteKey(vendor, itemN), note);
+  _set(getNoteKey(vendor, itemN), note);
+  flashSaved();
+}
+
+let _flashTimer = null;
+function flashSaved() {
+  const el = document.getElementById('save-status');
+  if (!el) return;
+  el.textContent = _storageOK ? '✓ Saved' : '✓ Saved (in memory only)';
+  el.style.color = _storageOK ? 'var(--green)' : 'var(--yellow)';
+  el.classList.add('show');
+  clearTimeout(_flashTimer);
+  _flashTimer = setTimeout(() => el.classList.remove('show'), 1400);
 }
 
 function buildChecklist() {
@@ -920,7 +1205,7 @@ function buildChecklist() {
           ${pre ? `<div class="cl-prenote" id="prenote_${item.n}">${pre}</div>` : ''}
           <button class="note-toggle" onclick="toggleNote(${item.n})">+ add note</button>
           <div class="note-area" id="note_area_${item.n}">
-            <textarea class="cl-notes" id="note_${item.n}" placeholder="On-site observations..." rows="2" onchange="saveNote('${currentVendor}',${item.n},this.value)">${savedNote}</textarea>
+            <textarea class="cl-notes" id="note_${item.n}" placeholder="On-site observations..." rows="2" oninput="saveNote('${currentVendor}',${item.n},this.value)">${savedNote}</textarea>
           </div>
           <div class="cl-mandatory-flag" id="mfail_${item.n}"></div>
         </div>
@@ -1046,9 +1331,10 @@ function selectVendor(v, btn) {
 }
 
 function clearVendorScores() {
-  if (!confirm(`Reset all scores for ${currentVendor}?`)) return;
+  if (!confirm(`Reset all scores AND notes for ${currentVendor}? This cannot be undone. (Tip: click "Save to File" first to keep a backup.)`)) return;
   SECTIONS.forEach(sec => sec.items.forEach(item => {
-    localStorage.removeItem(getKey(currentVendor, item.n));
+    _del(getKey(currentVendor, item.n));
+    _del(getNoteKey(currentVendor, item.n));
   }));
   buildChecklist();
 }
@@ -1074,7 +1360,75 @@ function exportChecklist() {
   a.click();
 }
 
+// ── Regulatory Gaps accordion ──
+function toggleGap(card) {
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('#tab-gaps .gap-card').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
+}
+
+// ── Save ALL vendors' scores + notes to a JSON file (browser-independent backup) ──
+function saveAllToFile() {
+  const data = { app:'TruVet SG GMP Vendor Assessment', version:1, savedAt:new Date().toISOString(), scores:{}, notes:{} };
+  VENDORS.forEach(v => SECTIONS.forEach(sec => sec.items.forEach(item => {
+    const s = loadScore(v, item.n);
+    if (s >= 0) data.scores[`${v}_${item.n}`] = s;
+    const n = loadNote(v, item.n);
+    if (n) data.notes[`${v}_${item.n}`] = n;
+  })));
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `TruVet_GMP_Assessment_ALL_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  flashSaved();
+}
+
+function triggerLoad() {
+  document.getElementById('load-file-input').click();
+}
+
+function loadFromFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data || (!data.scores && !data.notes)) throw new Error('Unrecognised file');
+      if (!confirm('Load this file? It will overwrite scores and notes currently on screen for any matching items.')) return;
+      _restore(data);
+      buildChecklist();
+      flashSaved();
+      alert('Loaded successfully.');
+    } catch (err) {
+      alert('Could not read that file — it does not look like a saved assessment.\n\n' + err.message);
+    } finally {
+      event.target.value = '';
+    }
+  };
+  reader.readAsText(file);
+}
+
+// keys are vendor_itemN; no vendor name contains '_', so split on the LAST underscore
+function _restore(data) {
+  if (data.scores) Object.keys(data.scores).forEach(k => {
+    const i = k.lastIndexOf('_');
+    const v = k.slice(0, i), n = k.slice(i + 1);
+    if (VENDORS.includes(v)) _set(getKey(v, n), data.scores[k]);
+  });
+  if (data.notes) Object.keys(data.notes).forEach(k => {
+    const i = k.lastIndexOf('_');
+    const v = k.slice(0, i), n = k.slice(i + 1);
+    if (VENDORS.includes(v)) _set(getNoteKey(v, n), data.notes[k]);
+  });
+}
+
 // Init
+(function initPersist(){
+  const warn = document.getElementById('persist-warn');
+  if (warn && !_storageOK) warn.classList.add('show');
+})();
 buildChecklist();
 </script>
 </body>

@@ -238,6 +238,41 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .map-req{color:var(--yellow);font-weight:700}
 .map-rec{color:var(--accent);font-weight:700}
 .map-exempt{color:var(--text-dim)}
+
+/* ── INSTRUMENTATION TAB ── */
+.instr-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.instr-summary{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-secondary);margin-left:auto}
+.instr-summary strong{color:var(--green);font-size:14px}
+.instr-sec{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.instr-sechead{display:flex;align-items:center;gap:12px;padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.instr-mname{font-size:13px;font-weight:700;color:var(--text-primary);flex:1;min-width:200px}
+.vbadge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.vb-canaan{background:rgba(88,166,255,.15);color:var(--canaan);border:1px solid rgba(88,166,255,.35)}
+.vb-urban{background:rgba(0,180,216,.15);color:var(--accent);border:1px solid rgba(0,180,216,.35)}
+.vb-hualian{background:rgba(188,140,255,.15);color:var(--hualian);border:1px solid rgba(188,140,255,.35)}
+.vb-rich{background:rgba(255,159,67,.15);color:var(--rich);border:1px solid rgba(255,159,67,.35)}
+.vb-all{background:var(--tag-bg);color:var(--text-dim);border:1px solid var(--border)}
+.instr-prog{font-size:11px;font-weight:700;color:var(--text-secondary);white-space:nowrap}
+.instr-prog.done{color:var(--green)}
+.instr-note-m{font-size:11px;color:var(--text-dim);padding:8px 18px;line-height:1.6;border-bottom:1px solid var(--border);background:rgba(0,180,216,.03)}
+.instr-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--border)}
+.instr-row:last-child{border-bottom:none}
+.instr-q{font-size:12px;color:var(--text-primary);line-height:1.45}
+.tier{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.tier-cpp{background:rgba(248,81,73,.13);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+.tier-pat{background:var(--tag-bg);color:var(--text-dim);border:1px solid var(--border)}
+.chip-grp{display:flex;gap:5px}
+.chip{font-size:10px;font-weight:700;min-width:30px;text-align:center;padding:5px 8px;border-radius:5px;border:1px solid var(--border);background:var(--surface2);color:var(--text-dim);cursor:pointer;user-select:none;transition:all .12s}
+.chip:hover{border-color:var(--text-secondary)}
+.chip.on{background:rgba(63,185,80,.18);border-color:var(--green);color:var(--green)}
+.chip.miss{background:rgba(248,81,73,.15);border-color:var(--red);color:var(--red)}
+.chip-conf{min-width:96px}
+.instr-rownote{grid-column:1/-1;margin-top:2px}
+.instr-rownote textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text-primary);font-family:inherit;font-size:11px;padding:6px 9px;resize:vertical}
+.instr-rownote textarea:focus{outline:none;border-color:var(--accent)}
+.instr-legend{font-size:11px;color:var(--text-dim);line-height:1.7;margin-top:6px}
+.instr-legend b{color:var(--text-secondary)}
+@media(max-width:680px){.instr-row{grid-template-columns:1fr;gap:8px}.chip-grp{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -262,6 +297,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <button class="tab-btn" onclick="showTab('checklist',this)">GMP Checklist</button>
   <button class="tab-btn" onclick="showTab('gaps',this)">Regulatory Gaps</button>
   <button class="tab-btn" onclick="showTab('mes',this)">MES/SCADA</button>
+  <button class="tab-btn" onclick="showTab('instr',this)">Instrumentation</button>
   <button class="tab-btn" onclick="showTab('verdict',this)">Recommendation</button>
 </div>
 
@@ -881,6 +917,28 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
 </div>
 
+<!-- ════════ INSTRUMENTATION ════════ -->
+<div class="tab-content" id="tab-instr">
+  <div class="strat-box">
+    <h3>Sensor &amp; tag requirements — what each machine must measure and expose</h3>
+    <p>MES/SCADA can only record what a machine measures <strong>and is willing to hand over</strong>. Every requirement below is two things, not one: the <strong>physical sensor exists</strong> and feeds the PLC, AND its live value + setpoint is <strong>exposed as a named OPC-UA tag</strong> with units. CPP sensors must also be <strong>calibratable with a traceable certificate</strong> — a process-indication gauge is not enough.</p>
+    <p>Tick each on-site as you verify it against the vendor's I/O list and tag list. <strong>This data saves into the same backup file as the GMP checklist</strong> — use Save to File after each machine.</p>
+  </div>
+
+  <div class="instr-toolbar">
+    <button class="cl-btn save" onclick="saveAllToFile()">⬇ Save to File (all tabs)</button>
+    <button class="cl-btn" onclick="triggerLoad()">⬆ Load from File</button>
+    <span class="save-status" id="save-status-2">✓ Saved</span>
+    <div class="instr-summary" id="instr-summary">CPP tags confirmed: <strong>0</strong> / 0</div>
+  </div>
+
+  <div class="instr-legend">
+    <b>Per-sensor chips (tap to cycle):</b> &nbsp;<b>E</b> = physical sensor Exists &amp; feeds PLC &nbsp;·&nbsp; <b>T</b> = exposed as OPC-UA Tag (value + setpoint, with units) &nbsp;·&nbsp; <b>C</b> = Calibratable, traceable certificate. &nbsp;Tap once = confirmed (green), tap again = missing (red), tap again = clears. &nbsp;<b>Confirmed</b> = single check for data/record items that aren't physical sensors. &nbsp;<span class="tier tier-cpp">CPP</span> = hard requirement &nbsp; <span class="tier tier-pat">PAT</span> = optional, deferrable to offline lab at launch.
+  </div>
+
+  <div id="instr-sections" style="margin-top:16px"></div>
+</div>
+
 <!-- ════════ VERDICT ════════ -->
 <div class="tab-content" id="tab-verdict">
   <div class="rec-box">
@@ -1163,13 +1221,15 @@ function saveNote(vendor, itemN, note) {
 
 let _flashTimer = null;
 function flashSaved() {
-  const el = document.getElementById('save-status');
-  if (!el) return;
-  el.textContent = _storageOK ? '✓ Saved' : '✓ Saved (in memory only)';
-  el.style.color = _storageOK ? 'var(--green)' : 'var(--yellow)';
-  el.classList.add('show');
+  const els = document.querySelectorAll('.save-status');
+  if (!els.length) return;
+  els.forEach(el => {
+    el.textContent = _storageOK ? '✓ Saved' : '✓ Saved (in memory only)';
+    el.style.color = _storageOK ? 'var(--green)' : 'var(--yellow)';
+    el.classList.add('show');
+  });
   clearTimeout(_flashTimer);
-  _flashTimer = setTimeout(() => el.classList.remove('show'), 1400);
+  _flashTimer = setTimeout(() => els.forEach(el => el.classList.remove('show')), 1400);
 }
 
 function buildChecklist() {
@@ -1368,8 +1428,206 @@ function toggleGap(card) {
 }
 
 // ── Save ALL vendors' scores + notes to a JSON file (browser-independent backup) ──
+// ═══════════ INSTRUMENTATION ENGINE ═══════════
+const INSTR = [
+  { m:'Universal — every machine', v:'all',
+    note:'Backbone that makes all sensor data Part 11-valid — confirm on all nine machines. The ZS-800 vibro sifter is the exception (exempt: run-status only).',
+    items:[
+      {kind:'data', q:'PLC with OPC-UA server exposing all tags below'},
+      {kind:'data', q:'Machine state (idle / running / paused / fault / cleaning)'},
+      {kind:'data', q:'Timestamped alarm &amp; event log'},
+      {kind:'data', q:'Loaded recipe / parameter-set ID'},
+      {kind:'data', q:'Batch / lot ID field (operator-entered or pushed from MES)'},
+      {kind:'data', q:'User login / electronic signature'},
+      {kind:'data', q:'NTP clock synchronisation (timestamp integrity)'},
+      {kind:'data', q:'Setpoint-vs-actual pair for every controlled parameter'},
+      {kind:'data', q:'E-stop / interlock status'},
+    ]},
+  { m:'GHL-250 High-Shear Granulator', v:'urban', items:[
+      {kind:'sensor', tier:'cpp', q:'Impeller speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Chopper speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Main motor power / torque (kW or A) — granulation end-point, the key tag'},
+      {kind:'sensor', tier:'cpp', q:'Product temperature (RTD in bowl)'},
+      {kind:'sensor', tier:'cpp', q:'Binder addition by mass (load cell) or flow meter + binder pump speed'},
+      {kind:'sensor', tier:'cpp', q:'Jacket inlet / outlet temperature'},
+      {kind:'data', q:'Batch timer'},
+      {kind:'sensor', tier:'pat', q:'In-line NIR moisture'},
+    ]},
+  { m:'FG-80 Fluid Bed Dryer', v:'urban', items:[
+      {kind:'sensor', tier:'cpp', q:'Inlet air temperature'},
+      {kind:'sensor', tier:'cpp', q:'Outlet / exhaust air temperature (drying end-point)'},
+      {kind:'sensor', tier:'cpp', q:'Product bed temperature'},
+      {kind:'sensor', tier:'cpp', q:'Inlet air humidity (%RH)'},
+      {kind:'sensor', tier:'cpp', q:'Airflow rate (m³/h, or fan speed + damper position)'},
+      {kind:'sensor', tier:'cpp', q:'Differential pressure across filter bags'},
+      {kind:'sensor', tier:'cpp', q:'Differential pressure across product bed'},
+      {kind:'sensor', tier:'pat', q:'In-line NIR moisture probe (LOD end-point) — worth pricing'},
+    ]},
+  { m:'GK-50 Dry Granulator / Roller Compactor', v:'urban', items:[
+      {kind:'sensor', tier:'cpp', q:'Roll compaction force / hydraulic pressure (kN or bar)'},
+      {kind:'sensor', tier:'cpp', q:'Roll gap (mm — LVDT / position sensor)'},
+      {kind:'sensor', tier:'cpp', q:'Roll speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Feed screw speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Mill speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Feed auger torque'},
+      {kind:'sensor', tier:'cpp', q:'Roll temperature'},
+    ]},
+  { m:'HTD-250 Bin Blender', v:'urban', items:[
+      {kind:'sensor', tier:'cpp', q:'Drum rotation speed (RPM)'},
+      {kind:'data', q:'Total revolution counter (revolutions, not just time — the real blend parameter)'},
+      {kind:'data', q:'Blend timer'},
+      {kind:'data', q:'Bin clamp / interlock position'},
+      {kind:'sensor', tier:'pat', q:'In-line NIR blend-uniformity end-point'},
+    ]},
+  { m:'HGZ-26D Rotary Tablet Press', v:'rich',
+    note:'Your most data-rich machine — the batch record leans on it heavily.', items:[
+      {kind:'sensor', tier:'cpp', q:'Main compression force (load cell), ideally per station'},
+      {kind:'sensor', tier:'cpp', q:'Pre-compression force'},
+      {kind:'sensor', tier:'cpp', q:'Turret speed (RPM → tablets/hr)'},
+      {kind:'sensor', tier:'cpp', q:'Fill depth / dosing cam position'},
+      {kind:'sensor', tier:'cpp', q:'Ejection force'},
+      {kind:'sensor', tier:'cpp', q:'Feeder / paddle speed'},
+      {kind:'data', q:'Reject-station counter + total / good / reject tablet counts (reconciliation evidence)'},
+      {kind:'data', q:'Closed-loop force-to-fill control CONFIRMED — auto-corrects fill, not reject-only (Gap A4)'},
+      {kind:'sensor', tier:'pat', q:'In-line checkweigher'},
+      {kind:'sensor', tier:'pat', q:'Automated tablet-defect inspection (Gap A3)'},
+    ]},
+  { m:'BGB-80 Film Coater', v:'rich', items:[
+      {kind:'sensor', tier:'cpp', q:'Inlet air temperature'},
+      {kind:'sensor', tier:'cpp', q:'Exhaust air temperature'},
+      {kind:'sensor', tier:'cpp', q:'Tablet bed / product temperature (IR or RTD) — critical coating CPP'},
+      {kind:'sensor', tier:'cpp', q:'Pan rotation speed (RPM)'},
+      {kind:'sensor', tier:'cpp', q:'Spray rate — pump speed + load cell on solution vessel (mass balance → weight gain)'},
+      {kind:'sensor', tier:'cpp', q:'Atomizing air pressure (bar)'},
+      {kind:'sensor', tier:'cpp', q:'Pattern / fan air pressure (bar)'},
+      {kind:'sensor', tier:'cpp', q:'Airflow'},
+      {kind:'sensor', tier:'cpp', q:'Pan differential / negative pressure'},
+      {kind:'sensor', tier:'cpp', q:'Exhaust humidity or dew point'},
+      {kind:'data', q:'WIP wash-cycle confirmation logged (the reason coating is bought from Rich, not Hualian)'},
+    ]},
+  { m:'NJP-2500 Capsule Filler', v:'hualian', items:[
+      {kind:'sensor', tier:'cpp', q:'Turret / machine speed (RPM → capsules/hr)'},
+      {kind:'sensor', tier:'cpp', q:'Tamping-pin force &amp; penetration depth (fill-weight control)'},
+      {kind:'sensor', tier:'cpp', q:'Dosing disc position / fill depth'},
+      {kind:'sensor', tier:'cpp', q:'Vacuum level (capsule separation / rectification)'},
+      {kind:'sensor', tier:'cpp', q:'Powder hopper level'},
+      {kind:'data', q:'Reject counter'},
+      {kind:'data', q:'Closing-station status'},
+      {kind:'sensor', tier:'pat', q:'In-line capsule checkweigher — more defensible here (fill weight is the CQA)'},
+    ]},
+  { m:'DPB-270J Blister Line', v:'hualian',
+    note:'Push the Basler camera upgrade as a PO condition. Inspection data must be captured as locked electronic records.', items:[
+      {kind:'sensor', tier:'cpp', q:'Forming-station temperature'},
+      {kind:'sensor', tier:'cpp', q:'Sealing temperature (heating-plate RTD)'},
+      {kind:'sensor', tier:'cpp', q:'Sealing pressure (bar)'},
+      {kind:'sensor', tier:'cpp', q:'Forming vacuum / pressure'},
+      {kind:'sensor', tier:'cpp', q:'Web / film speed'},
+      {kind:'sensor', tier:'cpp', q:'Cooling-station temperature'},
+      {kind:'data', q:'Vision-camera results — pass/fail, defect type, count (locked records)'},
+      {kind:'data', q:'Pinhole-detection results (alu-alu)'},
+      {kind:'data', q:'Empty-pocket detection'},
+      {kind:'data', q:'Lot / expiry print verification'},
+      {kind:'data', q:'Reconciliation counts'},
+    ]},
+  { m:'ZHJ-150K Cartoner', v:'hualian',
+    note:'Recommended tier — traceability, not a CPP machine (excluded from the CPP-tag count). Specify the serialisation hook NOW; retrofitting a cartoner later is far costlier (Gap A6).', items:[
+      {kind:'data', tier:'pat', q:'Machine speed'},
+      {kind:'data', tier:'pat', q:'Carton-erection / presence detection'},
+      {kind:'data', tier:'pat', q:'Leaflet-insertion detection'},
+      {kind:'data', tier:'pat', q:'Product-in-carton detection'},
+      {kind:'data', tier:'pat', q:'Lot / expiry coding &amp; print verification'},
+      {kind:'data', tier:'pat', q:'Reconciliation counts'},
+      {kind:'sensor', tier:'pat', q:'Final-carton checkweigher'},
+      {kind:'data', tier:'pat', q:'Serialisation-camera data hook (build now, populate at DSCSA / FMD)'},
+    ]},
+  { m:'ZS-800 Vibro Sifter', v:'urban',
+    note:'Part 11-EXEMPT — no CPPs, no electronic records generated. Confirm run-status only; do not pay for added instrumentation here.', items:[
+      {kind:'data', tier:'pat', q:'Run status only'},
+    ]},
+];
+
+let instr = { checks:{}, notes:{} };
+function persistInstr() { _set('tsg_instr', JSON.stringify(instr)); flashSaved(); }
+function loadInstr() {
+  const raw = _get('tsg_instr');
+  if (raw) { try { const o = JSON.parse(raw); if (o && typeof o === 'object') instr = {checks:o.checks||{}, notes:o.notes||{}}; } catch (e) {} }
+}
+// a row counts toward the CPP-tag total if it's a CPP sensor or a mandatory data item
+function instrCounts(it) { return (it.kind === 'sensor' && it.tier === 'cpp') || (it.kind === 'data' && it.tier !== 'pat'); }
+// a counted row is "confirmed" when its tag (T) / confirmed (X) chip is on
+function instrConfirmed(mi, ii, it) {
+  return it.kind === 'sensor' ? instr.checks[`${mi}_${ii}_T`] === 'on' : instr.checks[`${mi}_${ii}_X`] === 'on';
+}
+
+function buildInstr() {
+  const root = document.getElementById('instr-sections');
+  if (!root) return;
+  let totC = 0, totN = 0;
+  let html = '';
+  INSTR.forEach((mc, mi) => {
+    let secC = 0, secN = 0;
+    let rows = '';
+    mc.items.forEach((it, ii) => {
+      if (instrCounts(it)) { secN++; if (instrConfirmed(mi, ii, it)) secC++; }
+      const tier = it.kind === 'sensor'
+        ? `<span class="tier ${it.tier === 'cpp' ? 'tier-cpp' : 'tier-pat'}">${it.tier.toUpperCase()}</span>`
+        : `<span class="tier ${it.tier === 'pat' ? 'tier-pat' : 'tier-cpp'}">${it.tier === 'pat' ? 'PAT' : 'REQ'}</span>`;
+      let chips;
+      if (it.kind === 'sensor') {
+        chips = ['E','T','C'].map(f => {
+          const s = instr.checks[`${mi}_${ii}_${f}`] || '';
+          return `<div class="chip ${s === 'on' ? 'on' : s === 'miss' ? 'miss' : ''}" onclick="instrCycle(${mi},${ii},'${f}')" title="${f === 'E' ? 'Sensor exists & feeds PLC' : f === 'T' ? 'Exposed as OPC-UA tag (value + setpoint, units)' : 'Calibratable, traceable certificate'}">${f}</div>`;
+        }).join('');
+      } else {
+        const s = instr.checks[`${mi}_${ii}_X`] || '';
+        chips = `<div class="chip chip-conf ${s === 'on' ? 'on' : s === 'miss' ? 'miss' : ''}" onclick="instrCycle(${mi},${ii},'X')" title="Present / exposed on tag list">${s === 'miss' ? '✗ Missing' : '✓ Confirmed'}</div>`;
+      }
+      const nv = (instr.notes[`${mi}_${ii}`] || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      rows += `<div class="instr-row">
+        <div class="instr-q">${it.q}</div>
+        ${tier}
+        <div class="chip-grp">${chips}</div>
+        <div class="instr-rownote"><textarea rows="1" placeholder="note (e.g. tag present but no setpoint exposed)…" oninput="instrNote(${mi},${ii},this.value)">${nv}</textarea></div>
+      </div>`;
+    });
+    totC += secC; totN += secN;
+    const done = secN > 0 && secC === secN;
+    const prog = secN > 0 ? `<span class="instr-prog ${done ? 'done' : ''}">${done ? '✓ ' : ''}CPP tags ${secC}/${secN}</span>` : '';
+    html += `<div class="instr-sec">
+      <div class="instr-sechead">
+        <span class="instr-mname">${mc.m}</span>
+        <span class="vbadge vb-${mc.v}">${mc.v === 'all' ? 'All machines' : mc.v}</span>
+        ${prog}
+      </div>
+      ${mc.note ? `<div class="instr-note-m">${mc.note}</div>` : ''}
+      ${rows}
+    </div>`;
+  });
+  root.innerHTML = html;
+  const sum = document.getElementById('instr-summary');
+  if (sum) {
+    const pct = totN ? Math.round(totC / totN * 100) : 0;
+    sum.innerHTML = `CPP tags confirmed: <strong>${totC}</strong> / ${totN} &nbsp;(${pct}%)`;
+  }
+}
+
+// tri-state cycle: '' → on → miss → ''
+function instrCycle(mi, ii, f) {
+  const k = `${mi}_${ii}_${f}`;
+  const cur = instr.checks[k] || '';
+  const next = cur === '' ? 'on' : cur === 'on' ? 'miss' : '';
+  if (next === '') delete instr.checks[k]; else instr.checks[k] = next;
+  persistInstr();
+  buildInstr();
+}
+function instrNote(mi, ii, val) {
+  const k = `${mi}_${ii}`;
+  if (val) instr.notes[k] = val; else delete instr.notes[k];
+  persistInstr();
+}
+
 function saveAllToFile() {
-  const data = { app:'TruVet SG GMP Vendor Assessment', version:1, savedAt:new Date().toISOString(), scores:{}, notes:{} };
+  const data = { app:'TruVet SG GMP Vendor Assessment', version:2, savedAt:new Date().toISOString(), scores:{}, notes:{}, instr:instr };
   VENDORS.forEach(v => SECTIONS.forEach(sec => sec.items.forEach(item => {
     const s = loadScore(v, item.n);
     if (s >= 0) data.scores[`${v}_${item.n}`] = s;
@@ -1395,10 +1653,11 @@ function loadFromFile(event) {
   reader.onload = e => {
     try {
       const data = JSON.parse(e.target.result);
-      if (!data || (!data.scores && !data.notes)) throw new Error('Unrecognised file');
-      if (!confirm('Load this file? It will overwrite scores and notes currently on screen for any matching items.')) return;
+      if (!data || (!data.scores && !data.notes && !data.instr)) throw new Error('Unrecognised file');
+      if (!confirm('Load this file? It will overwrite scores, notes and instrumentation currently on screen for any matching items.')) return;
       _restore(data);
       buildChecklist();
+      buildInstr();
       flashSaved();
       alert('Loaded successfully.');
     } catch (err) {
@@ -1422,6 +1681,10 @@ function _restore(data) {
     const v = k.slice(0, i), n = k.slice(i + 1);
     if (VENDORS.includes(v)) _set(getNoteKey(v, n), data.notes[k]);
   });
+  if (data.instr && typeof data.instr === 'object') {
+    instr = { checks: data.instr.checks || {}, notes: data.instr.notes || {} };
+    _set('tsg_instr', JSON.stringify(instr));
+  }
 }
 
 // Init
@@ -1429,7 +1692,9 @@ function _restore(data) {
   const warn = document.getElementById('persist-warn');
   if (warn && !_storageOK) warn.classList.add('show');
 })();
+loadInstr();
 buildChecklist();
+buildInstr();
 </script>
 </body>
 </html>

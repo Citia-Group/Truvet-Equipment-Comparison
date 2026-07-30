@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Pricing Configurator — Truvet SG</title>
+<style>
+:root {
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;
+  --accent:#2ec4b6;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-dim:#484f58;
+  --green:#3fb950;--yellow:#d29922;--red:#f85149;--tag-bg:#21262d;--urban:#2ec4b6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55}
+a{color:var(--accent)}
+.header{border-bottom:1px solid var(--border);padding:20px 40px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);z-index:5}
+.header h1{font-size:19px;font-weight:700;letter-spacing:-.4px;color:var(--urban)}
+.header .subtitle{color:var(--text-secondary);font-size:12px;margin-top:3px}
+.back-link{font-size:12px;color:var(--text-secondary);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:6px;white-space:nowrap}
+.back-link:hover{border-color:var(--urban);color:var(--urban)}
+.layout{display:grid;grid-template-columns:1fr 340px;gap:0;align-items:start}
+.main{padding:20px 32px 60px;max-width:900px}
+.sidebar{position:sticky;top:78px;padding:20px 24px;border-left:1px solid var(--border);height:calc(100vh - 78px);overflow-y:auto}
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:16px 18px;margin-bottom:20px;font-size:13px;color:var(--text-secondary);line-height:1.7}
+.intro strong{color:var(--text-primary)}
+.intro .src{font-size:11px;color:var(--text-dim);margin-top:8px}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin:22px 0 10px}
+.line-note{font-size:12px;color:var(--text-dim);margin:-4px 0 10px;line-height:1.6}
+.machine{background:var(--surface);border:1px solid var(--border);border-radius:9px;margin-bottom:12px;overflow:hidden}
+.m-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+.m-head input[type=checkbox]{width:17px;height:17px;accent-color:var(--urban);flex-shrink:0}
+.m-title{font-weight:700;font-size:14px}
+.m-model{font-size:11px;color:var(--text-dim);font-weight:400}
+.m-price{margin-left:auto;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--urban);white-space:nowrap}
+.m-badges{display:flex;gap:6px;margin-top:3px}
+.badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.badge.gmp{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3)}
+.badge.warn{background:rgba(210,153,34,.15);color:var(--yellow);border:1px solid rgba(210,153,34,.3)}
+.badge.risk{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+.m-body{padding:0 16px 14px 45px;display:none}
+.m-body.open{display:block}
+.m-desc{font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6}
+.opt-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin:10px 0 5px}
+.incl-item{font-size:12px;color:var(--text-secondary);padding:3px 0;display:flex;justify-content:space-between;gap:10px}
+.incl-item .inc-tag{color:var(--green);font-size:10px;font-weight:700;margin-right:6px}
+.opt-row{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-top:1px solid var(--border)}
+.opt-row:first-of-type{border-top:none}
+.opt-row input[type=checkbox], .opt-row input[type=radio]{width:15px;height:15px;margin-top:2px;accent-color:var(--urban);flex-shrink:0}
+.opt-row label{flex:1;font-size:12.5px;cursor:pointer}
+.opt-row .opt-price{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-primary);white-space:nowrap}
+.opt-note{font-size:11px;color:var(--text-dim);margin-top:2px;line-height:1.5}
+.warn-box{background:rgba(210,153,34,.07);border:1px solid rgba(210,153,34,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--yellow);margin-top:8px;line-height:1.5}
+.risk-note{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--red);margin-top:8px;line-height:1.5}
+.radio-choice{border:1px solid var(--border);border-radius:6px;padding:9px 11px;margin-bottom:6px;cursor:pointer;transition:border-color .12s}
+.radio-choice:hover{border-color:var(--urban)}
+.radio-choice.active{border-color:var(--urban);background:rgba(46,196,182,.06)}
+.radio-choice .rc-head{display:flex;align-items:center;gap:9px}
+.radio-choice .rc-head input{width:15px;height:15px;accent-color:var(--urban)}
+.radio-choice .rc-title{font-weight:700;font-size:13px}
+.radio-choice .rc-price{margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700}
+.radio-choice .rc-spec{font-size:11.5px;color:var(--text-dim);margin:4px 0 0 24px}
+.my-note{margin-top:10px}
+.my-note-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin-bottom:5px}
+.my-note textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text-primary);font-family:inherit;font-size:12px;padding:7px 10px;resize:vertical;min-height:38px}
+.my-note textarea:focus{outline:none;border-color:var(--urban)}
+.my-note textarea::placeholder{color:var(--text-dim)}
+
+/* Sidebar totals */
+.total-card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:16px}
+.total-card h3{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin-bottom:12px}
+.trow{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0;color:var(--text-secondary)}
+.trow.bold{color:var(--text-primary);font-weight:600}
+.trow .tval{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.tdiv{border-top:1px solid var(--border);margin:9px 0}
+.grand{background:rgba(46,196,182,.08);border:1px solid var(--urban);border-radius:7px;padding:12px 14px;margin-top:12px}
+.grand .glabel{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.grand .gval{font-size:22px;font-weight:800;color:var(--urban);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:2px}
+.preset-row{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.preset-btn{flex:1;min-width:96px;font-size:10.5px;font-weight:700;padding:7px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-secondary);cursor:pointer;text-align:center}
+.preset-btn:hover{border-color:var(--urban);color:var(--urban)}
+.gmp-count{font-size:11px;color:var(--yellow);margin-top:8px;line-height:1.5}
+.foot-note{font-size:11px;color:var(--text-dim);margin-top:14px;padding-top:14px;border-top:1px solid var(--border);line-height:1.6}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-left:none;border-top:1px solid var(--border)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Urban Pricing Configurator</h1>
+    <div class="subtitle">Click machines and add-ons in/out to build the actual purchase price across Urban's granulation + packaging lines</div>
+  </div>
+  <a class="back-link" href="index.html">← Back to vendor comparison</a>
+</div>
+
+<div class="layout">
+<div class="main">
+
+  <div class="intro">
+    <strong>Why this exists:</strong> Urban quotes two separate lines from two separate dates — a granulation line (Jun 2026, no options, no confirmed Part 11) and a repriced packaging line (17 Jul 2026, Part 11 confirmed but several accessories priced separately). The two don't summarize into one clean number anywhere else in this comparison. Toggle machines and add-ons below; the total on the right updates live. Items badged <span class="badge gmp" style="vertical-align:1px">GMP required</span> are pre-checked for the same reason as the Canaan tool — leaving them out isn't a real option if the goal is FDA/HSA-inspectable production. The blister is badged <span class="badge risk" style="vertical-align:1px">disqualified</span> because Urban's own 17 Jul quote confirms an ALU/PVC-only mould — it's included here for pricing completeness only, not as something to actually buy for this project.
+    <div class="src">Sources: UBM-CN-20260622001 (granulation line, 22 Jun 2026, no stated validity) · UBM-CN060717002-VER1 (packaging line, 17 Jul 2026, valid until 17 Aug 2026) · UBM-CN-20260329002 (standalone NJP-2500C, 29 Mar 2026) · UBM-CN-20260626002 (standalone NJP-1200C, 26 Jun 2026)</div>
+  </div>
+
+  <div class="preset-row">
+    <button class="preset-btn" onclick="applyPreset('asquoted')">As-quoted baseline</button>
+    <button class="preset-btn" onclick="applyPreset('gmp')">Full GMP compliance</button>
+    <button class="preset-btn" onclick="applyPreset('everything')">Every option checked</button>
+    <button class="preset-btn" onclick="applyPreset('bare')">Bare minimum</button>
+  </div>
+
+  <div class="section-label">Granulation line — 22 Jun 2026</div>
+  <div class="line-note">This quote has no separately-priced options anywhere — every line item is billed as part of the $175,125 total. Toggling a machine off here means genuinely not ordering it, not skipping an add-on.</div>
+  <div id="granList"></div>
+
+  <div class="section-label">Capsule filler — choose one (packaging line)</div>
+  <div id="capsuleChoices"></div>
+
+  <div class="section-label">Packaging line — 17 Jul 2026 repricing (Part 11 confirmed)</div>
+  <div id="pkgList"></div>
+
+</div>
+
+<div class="sidebar">
+  <div class="total-card">
+    <h3>Live total</h3>
+    <div id="totalsBody"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── Data model ──────────────────────────────────────────────
+// Granulation line (UBM-CN-20260622001, 22 Jun 2026). No options exist in this quote --
+// every item is a fixed line in the $175,125 total. Sub-items shown as included/non-removable.
+const GRAN_MACHINES = [
+  { id:'g1', title:'Centrifugal Vibrating Sieve', model:'ZS-800', base:3360, default:true,
+    desc:'180–1000 kg/h, 12–80 mesh, Siemens 1.1kW motor, 316L sifter device.', included:[], options:[] },
+  { id:'g2', title:'High Speed Grinding Granulator', model:'GZL-180', base:6550, default:true,
+    desc:'60–100 kg/batch, 1.5kW, 316-contact bowl, Siemens electricals. Dry/damp granule finishing.', included:[], options:[] },
+  { id:'g3', title:'Jacketed Solution Tank', model:'100L', base:1865, default:true,
+    desc:'316L contact parts, 3 wheels.', included:[], options:[] },
+  { id:'g4', title:'High-Speed Mixer Granulator (core train)', model:'GHL-250 + ZKS-2 + GZL-200', base:35200, default:true,
+    desc:'Bundled as one line item in the quote — cannot be separated. Includes: ZKS-2 vacuum feeding machine, GHL-250 high-speed mixer granulator, GZL-200 high-speed grinding granulator (with 1 sieve).',
+    included:[
+      {label:'ZKS-2 vacuum feeding machine', price:0},
+      {label:'GZL-200 high-speed grinding granulator (1 sieve incl.)', price:0},
+    ], options:[] },
+  { id:'g5', title:'Fluid-Bed Dryer', model:'FG-80', base:29800, default:true,
+    desc:'80 kg/batch, matched to GHL-250.', included:[], options:[] },
+  { id:'g6', title:'Fixed Lifting Vacuum Feeding Milling Machine', model:'NTZS-200', base:21500, default:true,
+    desc:'Includes 1 sieve. Feeds dried granules onward to the bin blender.', included:[], options:[] },
+  { id:'g7', title:'Post Bin Blender', model:'HTD-250', base:26600, default:true,
+    desc:'Hydraulic lifting, 3-level password.',
+    included:[{label:'250L IBC bin', price:3750}], options:[] },
+  { id:'g8', title:'Roller Compactor', model:'GK-50', base:46500, default:true,
+    desc:'30–60 kg/h, water chiller included.', included:[], options:[] },
+];
+
+// Packaging line (UBM-CN060717002-VER1, 17 Jul 2026) -- Part 11 confirmed included on every
+// numbered item; the sub-items below (deduster, camera, weight checker, etc.) are each their
+// own priced line in the quote, itemized but not marked OPTION/INCLUDED the way Canaan's are --
+// treated here as togglable add-ons for pricing flexibility.
+const PKG_MACHINES = [
+  { id:'p1', title:'Rotary Tablet Press', model:'GZPK-40', base:71600, default:true,
+    desc:'40 stations, 30,000–260,000 tablets/h, main pressure 80KN, pre-pressure 20KN, max tablet Ø13mm. 21CFR Part 11 electronic records included.',
+    included:[{label:'21CFR Part 11 electronic records', price:0}], options:[
+      {id:'p1-dedust', label:'Tablet deduster + metal detector', price:8000, gmp:'Foreign-body and dust control at the highest-throughput step in the line — treated as required, same logic as the coater WIP system elsewhere in this comparison.'},
+    ] },
+  { id:'p2', title:'Film Coating Machine', model:'BG-80E', base:42000, default:true,
+    desc:'80L drum, Siemens PLC/7" touchscreen, hot air + exhaust cabinets (G4 filtration), 2 spray guns, 316-contact parts, electric/steam heating. 21CFR Part 11 included.',
+    included:[{label:'21CFR Part 11 electronic records', price:0}], options:[
+      {id:'p2-colloid', label:'Colloid mill', price:4200},
+    ],
+    warn:'No WIP (Wash-In-Place) system is mentioned anywhere in this machine\'s spec — the same GMP gap as every other coater in this comparison except Rich Packing\'s. This machine cannot be recommended for coating regardless of how it\'s configured here.' },
+  { id:'p4', title:'Blister Packing Machine', model:'DPP-260H', base:28600, default:true,
+    desc:'PLC + touchscreen, organic glass safety covers. Quote explicitly specs an "ALU/PVC" mould.',
+    included:[{label:'21CFR Part 11 (industrial computer)', price:0}], options:[
+      {id:'p4-camera', label:'Camera Inspection and Rejection System', price:11000},
+      {id:'p4-chiller', label:'Water chiller', price:980},
+      {id:'p4-link', label:'Connect system (blister ↔ cartoner)', price:9500, note:'Only relevant if also buying Urban\'s ZH120 cartoner below — this is the physical/software link between Urban\'s own two machines.'},
+    ],
+    risk:'DISQUALIFIED for this project: the quote explicitly specs an "ALU/PVC" mould, not ALU-ALU. Zone IVb tropical markets (Singapore, Malaysia, Thailand) require ALU-ALU cold-form for moisture-sensitive product. Included here for pricing completeness only — do not order this machine for Truvet SG.' },
+  { id:'p5', title:'Auto Cartoning Machine', model:'ZH120', base:34500, default:true,
+    desc:'PLC + touchscreen, English technical panel, date/batch embossing, no-product/no-carton detection, leaflet folder. 21CFR Part 11 included.',
+    included:[{label:'21CFR Part 11 electronic records', price:0}], options:[
+      {id:'p5-weight', label:'Weight checker', price:5800},
+      {id:'p5-adjust', label:'Auto-adjust carton length/width/height', price:8500},
+    ] },
+];
+
+// Capsule filler -- three separate Urban quotes, mutually exclusive
+const CAPSULE_CHOICES = [
+  { id:'njp1200new', title:'NJP-1200C (17 Jul repricing)', spec:'72,000 caps/hr · 9-hole · Part 11 CONFIRMED · UBM-CN060717002', base:30500,
+    included:[{label:'21CFR Part 11 electronic records', price:0}],
+    options:[
+      {id:'c12n-polish', label:'Capsule Sorting Polisher + Metal Detector (combo)', price:7500},
+    ], note:'The only capsule filler quote in this comparison with Part 11 confirmed included, not an add-on.', default:true },
+  { id:'njp1200old', title:'NJP-1200C (older standalone quote)', spec:'72,000 caps/hr · 9-hole · Part 11 NOT stated · UBM-CN-20260626002, 26 Jun', base:19800,
+    included:[],
+    options:[
+      {id:'c12o-powder', label:'QVC-1 Powder Loader', price:1500},
+      {id:'c12o-capsule', label:'JQS-B Capsule Loader', price:2200},
+      {id:'c12o-polish', label:'Capsule Sorting Polisher (standalone)', price:1950},
+    ], note:'$10,700 cheaper than the 17 Jul repricing of the same model — but this older quote has no Part 11 statement at all. Confirm with Urban which one is actually still on offer before assuming this lower price applies.', default:false },
+  { id:'njp2500', title:'NJP-2500C', spec:'150,000 caps/hr · 18-hole · Part 11 NOT stated · UBM-CN-20260329002, 29 Mar', base:30800,
+    included:[],
+    options:[
+      {id:'c25-mold', label:'Extra mold', price:4200},
+      {id:'c25-powder', label:'QVC-2 Powder Loader', price:2000},
+      {id:'c25-capsule', label:'JQS-B Capsule Loader', price:2200},
+    ], note:'Higher throughput than either NJP-1200C option (150k/hr vs 72k/hr) but no Part 11 statement anywhere in this quote, and it\'s the oldest of the three (29 Mar) — quotation validity (30 days from quote date) has long since expired.', default:false },
+];
+
+let state = { gran:{}, pkg:{}, capsule:'njp1200new', options:{}, notes:{} };
+
+function initState() {
+  GRAN_MACHINES.forEach(m => { state.gran[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
+  PKG_MACHINES.forEach(m => { state.pkg[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
+  CAPSULE_CHOICES.forEach(c => c.options.forEach(o => state.options[o.id] = false));
+}
+initState();
+
+function loadNotes() {
+  try {
+    const raw = localStorage.getItem('urban_cfg_notes');
+    if (raw) state.notes = JSON.parse(raw) || {};
+  } catch(e) {}
+}
+function updateNote(key, val) {
+  if (val) state.notes[key] = val; else delete state.notes[key];
+  try { localStorage.setItem('urban_cfg_notes', JSON.stringify(state.notes)); } catch(e) {}
+}
+
+function loadSelectionState() {
+  try {
+    const raw = localStorage.getItem('urban_cfg_selection');
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.gran) state.gran = saved.gran;
+        if (saved.pkg) state.pkg = saved.pkg;
+        if (saved.options) state.options = saved.options;
+        if (saved.capsule) state.capsule = saved.capsule;
+      }
+    }
+  } catch(e) {}
+}
+function persistSelectionState() {
+  try {
+    localStorage.setItem('urban_cfg_selection', JSON.stringify({
+      gran: state.gran, pkg: state.pkg, options: state.options, capsule: state.capsule
+    }));
+  } catch(e) {}
+}
+function persistSummary(r) {
+  try {
+    localStorage.setItem('urban_cfg_summary', JSON.stringify({
+      grandTotal: r.grandTotal, capsuleTitle: r.cap.title, gmpOptTotal: r.gmpOptTotal,
+      blisterIncluded: state.pkg['p4'], updatedAt: Date.now()
+    }));
+  } catch(e) {}
+}
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+let bodyOpen = {};
+function toggleBody(id) { bodyOpen[id] = !bodyOpen[id]; render(); }
+function toggleGran(id) { state.gran[id] = !state.gran[id]; persistSelectionState(); render(); }
+function togglePkg(id) { state.pkg[id] = !state.pkg[id]; persistSelectionState(); render(); }
+function toggleOption(id) { state.options[id] = !state.options[id]; persistSelectionState(); render(); }
+function selectCapsule(id) { state.capsule = id; bodyOpen['capsule'] = true; persistSelectionState(); render(); }
+
+function applyPreset(kind) {
+  GRAN_MACHINES.forEach(m => state.gran[m.id] = true);
+  PKG_MACHINES.forEach(m => {
+    state.pkg[m.id] = true;
+    m.options.forEach(o => {
+      if (kind === 'everything') state.options[o.id] = true;
+      else if (kind === 'gmp') state.options[o.id] = !!o.gmp;
+      else state.options[o.id] = false;
+    });
+  });
+  CAPSULE_CHOICES.forEach(c => c.options.forEach(o => { state.options[o.id] = (kind === 'everything'); }));
+  if (kind === 'bare') { state.pkg['p4'] = false; } // drop the disqualified blister from a bare-minimum build
+  state.capsule = kind === 'bare' ? 'njp1200old' : 'njp1200new';
+  persistSelectionState();
+  render();
+}
+
+function machineBlockHtml(m, on, toggleFn) {
+  const optsHtml = m.options.map(o => `
+    <div class="opt-row">
+      <input type="checkbox" id="opt-${o.id}" ${state.options[o.id]?'checked':''} onclick="toggleOption('${o.id}')">
+      <label for="opt-${o.id}">${o.label}${o.gmp?` <span class="badge gmp">GMP required</span>`:''}</label>
+      <span class="opt-price">+${fmt(o.price)}</span>
+    </div>
+    ${(o.gmp && state.options[o.id]===false) ? `<div class="warn-box" style="margin-left:24px">${o.gmp}</div>` : ''}
+    ${(o.note) ? `<div class="opt-note" style="margin-left:24px">${o.note}</div>` : ''}
+  `).join('');
+  const inclHtml = m.included.map(i => `<div class="incl-item"><span><span class="inc-tag">INCL</span>${i.label}</span><span>${i.price ? fmt(i.price) : '—'}</span></div>`).join('');
+  const gmpBadgeCount = m.options.filter(o=>o.gmp).length;
+  return `
+    <div class="machine">
+      <div class="m-head" onclick="toggleBody('${m.id}')">
+        <input type="checkbox" ${on?'checked':''} onclick="event.stopPropagation();${toggleFn}('${m.id}')">
+        <div>
+          <div class="m-title">${m.title} <span class="m-model">${m.model}</span></div>
+          ${(m.warn || m.risk || gmpBadgeCount) ? `<div class="m-badges">${m.risk?'<span class="badge risk">Disqualified</span>':''}${m.warn?'<span class="badge warn">No WIP</span>':''}${gmpBadgeCount?`<span class="badge gmp">${gmpBadgeCount} GMP option${gmpBadgeCount>1?'s':''}</span>`:''}</div>` : ''}
+        </div>
+        <span class="m-price">${fmt(m.base)}</span>
+      </div>
+      <div class="m-body ${bodyOpen[m.id]?'open':''}" id="body-${m.id}">
+        <div class="m-desc">${m.desc}</div>
+        ${m.included.length ? `<div class="opt-group-label">Included standard</div>${inclHtml}` : ''}
+        ${m.options.length ? `<div class="opt-group-label">Options</div>${optsHtml}` : ''}
+        ${m.warn ? `<div class="warn-box">${m.warn}</div>` : ''}
+        ${m.risk ? `<div class="risk-note">${m.risk}</div>` : ''}
+        <div class="my-note">
+          <div class="my-note-label">Your notes</div>
+          <textarea placeholder="e.g. negotiation notes, factory-visit findings…" onchange="updateNote('machine-${m.id}',this.value)">${state.notes['machine-'+m.id] || ''}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderGran() {
+  document.getElementById('granList').innerHTML = GRAN_MACHINES.map(m => machineBlockHtml(m, state.gran[m.id], 'toggleGran')).join('');
+}
+function renderPkg() {
+  document.getElementById('pkgList').innerHTML = PKG_MACHINES.map(m => machineBlockHtml(m, state.pkg[m.id], 'togglePkg')).join('');
+}
+
+function renderCapsuleChoices() {
+  const el = document.getElementById('capsuleChoices');
+  el.innerHTML = CAPSULE_CHOICES.map(c => {
+    const active = state.capsule === c.id;
+    const optsHtml = c.options.map(o => `
+      <div class="opt-row">
+        <input type="checkbox" id="opt-${o.id}" ${state.options[o.id]?'checked':''} onclick="event.stopPropagation();toggleOption('${o.id}')">
+        <label for="opt-${o.id}" onclick="event.stopPropagation()">${o.label}</label>
+        <span class="opt-price">+${fmt(o.price)}</span>
+      </div>
+    `).join('');
+    const inclHtml = c.included.map(i => `<div class="incl-item"><span><span class="inc-tag">INCL</span>${i.label}</span><span>—</span></div>`).join('');
+    return `
+      <div class="radio-choice ${active?'active':''}" onclick="selectCapsule('${c.id}')">
+        <div class="rc-head">
+          <input type="radio" name="capsule" ${active?'checked':''} onclick="event.stopPropagation();selectCapsule('${c.id}')">
+          <span class="rc-title">${c.title}</span>
+          <span class="rc-price">${fmt(c.base)} base</span>
+        </div>
+        <div class="rc-spec">${c.spec}</div>
+        ${active ? `<div style="margin-top:10px;margin-left:24px">
+          ${c.included.length ? `<div class="opt-group-label">Included standard</div>${inclHtml}` : ''}
+          <div class="opt-group-label">Options</div>
+          ${optsHtml || '<div class="incl-item">None quoted</div>'}
+          ${c.note ? `<div class="warn-box">${c.note}</div>` : ''}
+          <div class="my-note">
+            <div class="my-note-label">Your notes</div>
+            <textarea placeholder="e.g. negotiation notes, factory-visit findings…" onchange="updateNote('capsule-${c.id}',this.value)">${state.notes['capsule-'+c.id] || ''}</textarea>
+          </div>
+        </div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function compute() {
+  let granTotal = 0;
+  GRAN_MACHINES.forEach(m => {
+    if (!state.gran[m.id]) return;
+    granTotal += m.base;
+    m.included.forEach(i => granTotal += i.price);
+  });
+
+  let pkgBase = 0, pkgOpt = 0, gmpOptTotal = 0;
+  PKG_MACHINES.forEach(m => {
+    if (!state.pkg[m.id]) return;
+    pkgBase += m.base;
+    m.included.forEach(i => pkgBase += i.price);
+    m.options.forEach(o => { if (state.options[o.id]) { pkgOpt += o.price; if (o.gmp) gmpOptTotal += o.price; } });
+  });
+
+  const cap = CAPSULE_CHOICES.find(c => c.id === state.capsule);
+  let capBase = cap.base, capOpt = 0;
+  cap.included.forEach(i => capBase += i.price);
+  cap.options.forEach(o => { if (state.options[o.id]) capOpt += o.price; });
+
+  const grandTotal = granTotal + pkgBase + pkgOpt + capBase + capOpt;
+  return { granTotal, pkgBase, pkgOpt, capBase, capOpt, grandTotal, gmpOptTotal, cap };
+}
+
+function renderTotals() {
+  const r = compute();
+  persistSummary(r);
+  document.getElementById('totalsBody').innerHTML = `
+    <div class="trow"><span>Granulation line</span><span class="tval">${fmt(r.granTotal)}</span></div>
+    <div class="tdiv"></div>
+    <div class="trow"><span>Packaging machines (base + incl.)</span><span class="tval">${fmt(r.pkgBase)}</span></div>
+    <div class="trow"><span>Packaging options selected</span><span class="tval">+${fmt(r.pkgOpt)}</span></div>
+    <div class="tdiv"></div>
+    <div class="trow"><span>${r.cap.title}</span><span class="tval">${fmt(r.capBase)}</span></div>
+    <div class="trow"><span>Capsule filler options selected</span><span class="tval">+${fmt(r.capOpt)}</span></div>
+    <div class="grand">
+      <div class="glabel">Grand total (FOB, ex-freight)</div>
+      <div class="gval">${fmt(r.grandTotal)}</div>
+    </div>
+    ${r.gmpOptTotal > 0 ? `<div class="gmp-count">${fmt(r.gmpOptTotal)} of this total is GMP-required options you've checked.</div>` : `<div class="gmp-count" style="color:var(--red)">⚠ No GMP-required options are checked yet.</div>`}
+    ${state.pkg['p4'] ? `<div class="gmp-count" style="color:var(--red)">⚠ DPP-260H blister is included in this total but is DISQUALIFIED (ALU/PVC only) — remove it before treating this as a real purchase plan.</div>` : ''}
+    <div class="foot-note">No FAT is quoted on either Urban line (buyer arranges). SAT/installation is a variable cost, not fixed: buyer pays round airfare + hotel (3★) + $150/day + translator for a 7–10 day site visit — not included in this total. Both quotes are FOB (Shanghai for granulation); freight beyond that port is not quoted either.</div>
+  `;
+}
+
+function render() { renderGran(); renderPkg(); renderCapsuleChoices(); renderTotals(); }
+loadNotes();
+loadSelectionState();
+render();
+</script>
+</body>
+</html>

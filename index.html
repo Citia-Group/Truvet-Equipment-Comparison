@@ -290,6 +290,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
     </div>
     <div style="display:flex;gap:14px;margin-top:8px;justify-content:flex-end;font-size:12px">
       <a href="canaan-configurator.html" style="color:var(--canaan);text-decoration:none;font-weight:600">⚙ Canaan Pricing Configurator</a>
+      <a href="urban-configurator.html" style="color:var(--urban);text-decoration:none;font-weight:600">⚙ Urban Pricing Configurator</a>
       <a href="gmp-requirements.html" style="color:var(--text-secondary);text-decoration:none;font-weight:600">☑ GMP Requirements by Machine</a>
     </div>
   </div>
@@ -333,7 +334,8 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
       <h2>Urban Machinery Co., Ltd</h2>
       <div class="loc">Ruian, Zhejiang · UBM-CN-20260622001 (gran.) + UBM-CN060717002-VER1 (pkg.) · Jun–Jul 2026</div>
       <div class="price-big urban">USD $437,805</div>
-      <div class="plabel">Two lines FOB — packaging line repriced 17 Jul with higher-spec machines + confirmed Part 11</div>
+      <div class="plabel">Two lines FOB — packaging line repriced 17 Jul with higher-spec machines + confirmed Part 11. <a href="urban-configurator.html" style="color:var(--urban);font-weight:700">Build the real price →</a></div>
+      <div id="urban-configured-banner" style="display:none;margin-top:8px;padding:9px 12px;background:rgba(46,196,182,.1);border:1px solid var(--urban);border-radius:6px;font-size:12px"></div>
       <div class="divider"></div>
       <div class="kv">
         <span class="kk">Granulation line</span><span class="kv-val">$175,125 · Part 11 still pending (TSG questionnaire)</span>
@@ -1125,6 +1127,26 @@ function showTab(id, btn) {
       ` (${s.capsuleTitle}${s.discountOn ? '' : ', no discount applied'})` +
       (s.gmpOptTotal > 0 ? ` — includes ${fmt(s.gmpOptTotal)} of GMP-required options` : ' — no GMP-required options selected yet') +
       (when ? `<br><span style="color:var(--text-dim);font-size:11px">Last updated ${when} in the </span><a href="canaan-configurator.html" style="color:var(--canaan)">Configurator →</a>` : ` <a href="canaan-configurator.html" style="color:var(--canaan)">Configurator →</a>`);
+    banner.style.display = 'block';
+  } catch(e) {}
+})();
+
+/* Same sync, for the Urban Pricing Configurator. */
+(function showConfiguredUrbanTotal() {
+  try {
+    const raw = localStorage.getItem('urban_cfg_summary');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (!s || typeof s.grandTotal !== 'number') return;
+    const banner = document.getElementById('urban-configured-banner');
+    if (!banner) return;
+    const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+    const when = s.updatedAt ? new Date(s.updatedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '';
+    banner.innerHTML = `<strong style="color:var(--urban)">Your configured total: ${fmt(s.grandTotal)}</strong>` +
+      ` (${s.capsuleTitle})` +
+      (s.gmpOptTotal > 0 ? ` — includes ${fmt(s.gmpOptTotal)} of GMP-required options` : ' — no GMP-required options selected yet') +
+      (s.blisterIncluded ? `<br><span style="color:var(--red);font-size:11px">⚠ Includes the disqualified DPP-260H blister (ALU/PVC only)</span>` : '') +
+      (when ? `<br><span style="color:var(--text-dim);font-size:11px">Last updated ${when} in the </span><a href="urban-configurator.html" style="color:var(--urban)">Configurator →</a>` : ` <a href="urban-configurator.html" style="color:var(--urban)">Configurator →</a>`);
     banner.style.display = 'block';
   } catch(e) {}
 })();

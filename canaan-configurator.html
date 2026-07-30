@@ -256,6 +256,7 @@ const CAPSULE_CHOICES = [
     ], options:[
       {id:'c25-polish', label:'Capsule polisher with sorter (horizontal)', price:5300},
       {id:'c25-part11', label:'15" IPC — data export + 21 CFR Part 11 e-signature', price:9500, gmp:'Not included standard on this machine, unlike most of the rest of the line — needed for Part 11 parity.'},
+      {id:'c25-metal', label:'Metal detector (LOMA LOCK)', price:23077, note:'Priced against the NJP-400C in the same quote (QE26061219138-VER2, item A9) — Canaan confirmed this is the same shared metal detector unit, compatible across the NJP capsule filler range.'},
     ], fatSat:3000, shipping:2000, default:true },
   { id:'njp1200', title:'NJP-1200C', spec:'72,000 caps/hr · 10 bores · 316L · QE26070819157', base:32800,
     included:[
@@ -265,6 +266,7 @@ const CAPSULE_CHOICES = [
     ], options:[
       {id:'c12-polish', label:'Capsule polisher with sorter (horizontal)', price:5300},
       {id:'c12-part11', label:'15" IPC — data export + 21 CFR Part 11 e-signature', price:9500, gmp:'Not included standard on this machine — needed for Part 11 parity.'},
+      {id:'c12-metal', label:'Metal detector (LOMA LOCK)', price:23077, note:'Priced against the NJP-400C in the same quote (QE26061219138-VER2, item A9) — Canaan confirmed this is the same shared metal detector unit, compatible across the NJP capsule filler range.'},
     ], fatSat:3600, shipping:750, default:false },
   { id:'njp400', title:'NJP-400C', spec:'24,000 caps/hr · 3 bores · 316L · in the main line quote (A9)', base:26500,
     included:[
@@ -318,6 +320,7 @@ function renderCapsuleChoices() {
         <span class="opt-price">+${fmt(o.price)}</span>
       </div>
       ${o.gmp && active ? `<div class="warn-box" style="margin-left:24px">${o.gmp}</div>` : ''}
+      ${o.note && active ? `<div class="opt-note" style="margin-left:24px">${o.note}</div>` : ''}
     `).join('');
     const inclHtml = c.included.map(i => `<div class="incl-item"><span><span class="inc-tag">INCL</span>${i.label}</span><span>${fmt(i.price)}</span></div>`).join('');
     return `

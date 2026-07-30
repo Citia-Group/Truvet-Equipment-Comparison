@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canaan Pricing Configurator — Truvet SG</title>
+<style>
+:root {
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;
+  --accent:#00b4d8;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-dim:#484f58;
+  --green:#3fb950;--yellow:#d29922;--red:#f85149;--tag-bg:#21262d;--canaan:#00b4d8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55}
+a{color:var(--accent)}
+.header{border-bottom:1px solid var(--border);padding:20px 40px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);z-index:5}
+.header h1{font-size:19px;font-weight:700;letter-spacing:-.4px;color:var(--canaan)}
+.header .subtitle{color:var(--text-secondary);font-size:12px;margin-top:3px}
+.back-link{font-size:12px;color:var(--text-secondary);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:6px;white-space:nowrap}
+.back-link:hover{border-color:var(--canaan);color:var(--canaan)}
+.layout{display:grid;grid-template-columns:1fr 340px;gap:0;align-items:start}
+.main{padding:20px 32px 60px;max-width:900px}
+.sidebar{position:sticky;top:78px;padding:20px 24px;border-left:1px solid var(--border);height:calc(100vh - 78px);overflow-y:auto}
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:16px 18px;margin-bottom:20px;font-size:13px;color:var(--text-secondary);line-height:1.7}
+.intro strong{color:var(--text-primary)}
+.intro .src{font-size:11px;color:var(--text-dim);margin-top:8px}
+.global-toggle{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px}
+.global-toggle input{width:16px;height:16px;accent-color:var(--canaan)}
+.global-toggle .gt-label{font-weight:600}
+.global-toggle .gt-note{color:var(--text-dim);font-size:11px;margin-left:auto;text-align:right;max-width:340px}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin:22px 0 10px}
+.machine{background:var(--surface);border:1px solid var(--border);border-radius:9px;margin-bottom:12px;overflow:hidden}
+.m-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+.m-head input[type=checkbox]{width:17px;height:17px;accent-color:var(--canaan);flex-shrink:0}
+.m-title{font-weight:700;font-size:14px}
+.m-model{font-size:11px;color:var(--text-dim);font-weight:400}
+.m-price{margin-left:auto;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--canaan);white-space:nowrap}
+.m-badges{display:flex;gap:6px;margin-top:3px}
+.badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.badge.gmp{background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3)}
+.badge.warn{background:rgba(210,153,34,.15);color:var(--yellow);border:1px solid rgba(210,153,34,.3)}
+.badge.risk{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+.m-body{padding:0 16px 14px 45px;display:none}
+.m-body.open{display:block}
+.m-desc{font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6}
+.opt-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin:10px 0 5px}
+.incl-item{font-size:12px;color:var(--text-secondary);padding:3px 0;display:flex;justify-content:space-between;gap:10px}
+.incl-item .inc-tag{color:var(--green);font-size:10px;font-weight:700;margin-right:6px}
+.opt-row{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-top:1px solid var(--border)}
+.opt-row:first-of-type{border-top:none}
+.opt-row input[type=checkbox], .opt-row input[type=radio]{width:15px;height:15px;margin-top:2px;accent-color:var(--canaan);flex-shrink:0}
+.opt-row label{flex:1;font-size:12.5px;cursor:pointer}
+.opt-row .opt-price{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-primary);white-space:nowrap}
+.opt-note{font-size:11px;color:var(--text-dim);margin-top:2px;line-height:1.5}
+.warn-box{background:rgba(210,153,34,.07);border:1px solid rgba(210,153,34,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--yellow);margin-top:8px;line-height:1.5}
+.risk-note{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--red);margin-top:8px;line-height:1.5}
+.radio-choice{border:1px solid var(--border);border-radius:6px;padding:9px 11px;margin-bottom:6px;cursor:pointer;transition:border-color .12s}
+.radio-choice:hover{border-color:var(--canaan)}
+.radio-choice.active{border-color:var(--canaan);background:rgba(0,180,216,.06)}
+.radio-choice .rc-head{display:flex;align-items:center;gap:9px}
+.radio-choice .rc-head input{width:15px;height:15px;accent-color:var(--canaan)}
+.radio-choice .rc-title{font-weight:700;font-size:13px}
+.radio-choice .rc-price{margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700}
+.radio-choice .rc-spec{font-size:11.5px;color:var(--text-dim);margin:4px 0 0 24px}
+
+/* Sidebar totals */
+.total-card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:16px}
+.total-card h3{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin-bottom:12px}
+.trow{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0;color:var(--text-secondary)}
+.trow.bold{color:var(--text-primary);font-weight:600}
+.trow .tval{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.tdiv{border-top:1px solid var(--border);margin:9px 0}
+.grand{background:rgba(0,180,216,.08);border:1px solid var(--canaan);border-radius:7px;padding:12px 14px;margin-top:12px}
+.grand .glabel{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.grand .gval{font-size:22px;font-weight:800;color:var(--canaan);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:2px}
+.discount-toggle{display:flex;align-items:flex-start;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-secondary)}
+.discount-toggle input{width:15px;height:15px;accent-color:var(--canaan);margin-top:2px;flex-shrink:0}
+.preset-row{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.preset-btn{flex:1;min-width:96px;font-size:10.5px;font-weight:700;padding:7px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-secondary);cursor:pointer;text-align:center}
+.preset-btn:hover{border-color:var(--canaan);color:var(--canaan)}
+.gmp-count{font-size:11px;color:var(--yellow);margin-top:8px;line-height:1.5}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-left:none;border-top:1px solid var(--border)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Canaan Pricing Configurator</h1>
+    <div class="subtitle">Click options in/out to build the actual purchase price — every Canaan quote is base + a long option list, not one number</div>
+  </div>
+  <a class="back-link" href="index.html">← Back to vendor comparison</a>
+</div>
+
+<div class="layout">
+<div class="main">
+
+  <div class="intro">
+    <strong>Why this exists:</strong> Canaan's quotes price nearly every machine as a cheap base configuration plus a stack of options — some of them (WIP systems, pinhole detection, Part&nbsp;11 modules) aren't cosmetic, they're required to match the GMP-compliance bar the rest of this comparison assumes. Toggle machines and options below; the total on the right updates live. Items badged <span class="badge gmp" style="vertical-align:1px">GMP required</span> are pre-checked because leaving them out isn't really a live option if the goal is FDA/HSA-inspectable production.
+    <div class="src">Sources: QE26061219138-VER2 (60kg granulation line, 14 Jul 2026, valid until 30 Aug 2026) · QE26070619157-VER1 (vibro + NJP-2500C capsule filler, 6 Jul 2026) · QE26070819157-Ver2 (vibro + NJP-1200C capsule filler, 8 Jul 2026)</div>
+  </div>
+
+  <div class="global-toggle">
+    <input type="checkbox" id="discountToggle" checked onchange="render()">
+    <span class="gt-label">Apply Canaan's whole-line package discount (~10%)</span>
+    <span class="gt-note">Canaan discounted the base 14-item line from $1,017,506 → $915,755 as a bundle. That discount is <strong>not confirmed</strong> to carry over once you add options or swap the capsule filler — this toggle is an estimate, not a quoted number.</span>
+  </div>
+
+  <div class="preset-row">
+    <button class="preset-btn" onclick="applyPreset('asquoted')">As-quoted baseline</button>
+    <button class="preset-btn" onclick="applyPreset('gmp')">Full GMP compliance</button>
+    <button class="preset-btn" onclick="applyPreset('everything')">Every option checked</button>
+    <button class="preset-btn" onclick="applyPreset('bare')">Bare minimum</button>
+  </div>
+
+  <div class="section-label">Capsule filler — choose one</div>
+  <div id="capsuleChoices"></div>
+
+  <div class="section-label">Granulation &amp; processing line</div>
+  <div id="machineList"></div>
+
+</div>
+
+<div class="sidebar">
+  <div class="total-card">
+    <h3>Live total</h3>
+    <div id="totalsBody"></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── Data model ──────────────────────────────────────────────
+// Every machine from QE26061219138-VER2 (60kg line) except the capsule filler,
+// which is handled as a separate mutually-exclusive choice below.
+const MACHINES = [
+  { id:'a1', title:'Vibro Sifter', model:'S49-800-L-2S', base:6160, default:true,
+    desc:'316L contact parts, non-explosion-proof, double-layer mesh, 200–500 kg/hr. Part 11-exempt (no CPPs, run-status only).',
+    included:[], options:[
+      {id:'a1-mesh', label:'Extra set of screen mesh', price:600},
+      {id:'a1-exp', label:'Explosion-proof type', price:900},
+    ] },
+  { id:'a2', title:'High Shear Mixer', model:'LHS150', base:98000, default:true,
+    desc:'30–60 kg/batch, vacuum charging, PLC + touchscreen, SEW motor, SKF bearings. 21 CFR Part 11 (e-signature, audit trail, batch tracing) is built into this base price — not an add-on.',
+    included:[
+      {label:'Online wet cone mill + Beider motor (45–450 kg/h)', price:12960},
+      {label:'Vortex fan for vacuum feeding', price:4650},
+      {label:'Binder production tank 30L + peristaltic pump', price:18390},
+      {label:'Electronic weighing scale', price:3500},
+      {label:'QW5 WIP system (Grundfos pump + heat exchanger + detergent tank)', price:29810},
+    ], options:[
+      {id:'a2-water', label:'Purified water tank 300L (S/S 316L)', price:8160},
+      {id:'a2-exp', label:'Explosion-proof type', price:10560},
+      {id:'a2-schlick', label:'Two-flow Schlick spray gun', price:7410},
+    ] },
+  { id:'a3', title:'Fluid-Bed Dryer', model:'FZ60', base:85880, default:true,
+    desc:'20–60 kg/batch drying, G4+F8+H13 inlet AHU, Siemens 15" HMI. 21 CFR Part 11 built into base price.',
+    included:[
+      {label:'WIP system (shares pump with LHS75/150)', price:3000},
+      {label:'Electrical heating for AHU', price:5330},
+      {label:'Dehumidification unit (surface cooling)', price:5720},
+      {label:'F9 dust collector system', price:5390},
+    ], options:[
+      {id:'a3-topspray', label:'Top spray for granulating function', price:14850},
+      {id:'a3-wm', label:'Upgrade peristaltic pump head to Watson Marlow', price:5550},
+      {id:'a3-alarm', label:'Dust alarm & air-flow detection', price:3600},
+      {id:'a3-exp', label:'Explosion-proof configuration (2 bar)', price:18840},
+    ] },
+  { id:'a4', title:'Vacuum Mill (Dry Granulator)', model:'NTD400', base:39500, default:true,
+    desc:'Dry milling 45–450 kg/h, 316L contact parts, SKF bearing, Φ1.2mm screen mesh.',
+    included:[], options:[
+      {id:'a4-exp', label:'Explosion-proof type', price:3600},
+    ],
+    warn:'No 21 CFR Part 11 / CFR compliance clause appears anywhere in this machine\'s spec — every other computerized machine in the quote explicitly states it, this one doesn\'t. Confirm directly with Canaan whether/how this machine meets Part 11 and what it costs.' },
+  { id:'a5', title:'Bin Blender', model:'HTD200', base:59280, default:true,
+    desc:'200L max bin, PLC + 7" touchscreen, 3–20 rpm, SEW gear motor, SKF bearing. Bin itself sold separately (see Pharma Bin below).',
+    included:[
+      {label:'15" IPC data export + 21 CFR Part 11 module', price:5000},
+    ], options:[
+      {id:'a5-exp', label:'Explosion-proof configuration', price:14040},
+    ] },
+  { id:'a6', title:'Pharma Bin ×3', model:'LDT200', base:12900, default:true,
+    desc:'316L, 50–80 kg/batch (0.5 density basis), butterfly valve incl., surface roughness report incl. Qty 3 × $4,300.',
+    included:[], options:[] },
+  { id:'a7', title:'Film Coater', model:'BGX75', base:99000, default:true,
+    desc:'20–60 kg (BD 0.8), 316L, G4+F8+H13 inlet AHU, Danfoss inverter, Watson Marlow pump, four-flow Schlick gun, S7-1200 PLC. 21 CFR Part 11 built into base price.',
+    included:[
+      {label:'Electrical heating for AHU', price:5100},
+    ], options:[
+      {id:'a7-wip', label:'QW10 WIP system (Grundfos pump + pressure detection)', price:31790, gmp:'WIP is what disqualified Hualian\'s coater elsewhere in this comparison — the same rule applies to Canaan\'s coater. Without this, cleaning validation has a real gap, not a paperwork one.'},
+      {id:'a7-water', label:'Purified water tank 300L (S/S 316L)', price:8160},
+      {id:'a7-sugar', label:'Sugar coating capability', price:3840},
+      {id:'a7-exp', label:'Explosion-proof structure', price:5640},
+      {id:'a7-cool', label:'Surface cooling dehumidification + heated steam/cooling valve unit', price:5460},
+    ] },
+  { id:'a8', title:'Tablet Press', model:'GZPK-40', base:89000, default:true,
+    desc:'40 stations, 260,000 tablets/hr, main pressure measurement/control circuit, one round mould set incl.',
+    included:[
+      {label:'Touchscreen upgrade + 21 CFR Part 11 module', price:9500},
+      {label:'QVC vacuum transfer system', price:4500},
+    ], options:[
+      {id:'a8-round', label:'Extra punch & die set (round)', price:1500},
+      {id:'a8-oblong', label:'Punch & die set (oblong)', price:3000},
+      {id:'a8-dedust', label:'Uphill tablet de-duster', price:5769},
+      {id:'a8-metal', label:'Metal detector (LOMA LOCK)', price:23077},
+    ] },
+  { id:'a10', title:'Roller Compactor', model:'LGP150/50II', base:89000, default:true,
+    desc:'20–80 kg/h (lactose basis), 316L, Siemens PLC, double milling system, two sieves.',
+    included:[
+      {label:'Water chiller (cooling system)', price:3720},
+      {label:'QVC vacuum transfer system ×2', price:9000},
+    ], options:[
+      {id:'a10-mesh', label:'Extra screen mesh', price:240},
+    ],
+    warn:'Like the dry granulator (A4), no 21 CFR Part 11 clause is stated for this machine anywhere in the quote, despite it having a Siemens PLC. Confirm with Canaan.' },
+  { id:'a11', title:'Blister Packing Machine', model:'DPP-180', base:55000, default:true,
+    desc:'20–25 cuts/min, Alu-PVC 170×120mm / Alu-Alu 160×120mm forming area, Siemens inverter/servo/PLC. Base spec explicitly states "without camera detection" — the camera below is what adds it.',
+    included:[
+      {label:'Touchscreen upgrade + 21 CFR Part 11 module', price:9500},
+      {label:'Water chiller', price:3000},
+      {label:'Germany Basler camera inspection + rejection (Alu-PVC & Alu-Alu)', price:29538},
+    ], options:[
+      {id:'a11-pinhole', label:'Pinhole detection system (IC)', price:34615, gmp:'Pinhole detection for alu-alu is GMP-critical — this exact requirement is why Hualian was the original pick before their DPP-180-equivalent became available with this option. Same $34,615 figure also appears against the cartoner (A12) below — confirm with Canaan whether that\'s the same physical system or a genuinely separate one before paying twice.'},
+    ] },
+  { id:'a12', title:'Cartoning Machine', model:'ZH-120', base:113080, default:true,
+    desc:'60 cartons/min (product-dependent), Siemens touchscreen + PLC, safety door protection.',
+    included:[
+      {label:'Touchscreen upgrade + 21 CFR Part 11 module', price:9500},
+      {label:'Germany Basler camera inspection + rejection (Alu-PVC & Alu-Alu)', price:29538},
+      {label:'Chiller system', price:3000},
+    ], options:[
+      {id:'a12-pinhole', label:'Pinhole detection system (IC)', price:34615, risk:'Identical $34,615 line item to the blister machine\'s (A11) pinhole option. Left OFF by default — verify with Canaan whether a cartoner genuinely needs its own independent pinhole detector or whether this is a duplicated quote line before paying for both.'},
+    ] },
+  { id:'a13', title:'Pharma Lifter', model:'NTG150', base:19560, default:true,
+    desc:'100kg net load, button/relay control, for lifting drum to blister line. Drum not included (see below).',
+    included:[], options:[] },
+  { id:'a14', title:'Drum ×2', model:'LT150', base:1000, default:true,
+    desc:'316L, 150L volume, lid + clamp incl., roughness report incl. Qty 2 × $500.',
+    included:[], options:[
+      {id:'a14-trolley', label:'ATC trolley (SS304) ×2', price:600},
+    ] },
+];
+
+// Capsule filler — mutually exclusive across 3 quotes
+const CAPSULE_CHOICES = [
+  { id:'njp2500', title:'NJP-2500C', spec:'150,000 caps/hr · 18 holes · 316L · QE26070619157', base:42000,
+    included:[
+      {label:'Vacuum conveyor for powder loading', price:3000},
+      {label:'Empty capsule loading system', price:4000},
+      {label:'Becker vacuum pump (replaces water-ring)', price:2500},
+    ], options:[
+      {id:'c25-polish', label:'Capsule polisher with sorter (horizontal)', price:5300},
+      {id:'c25-part11', label:'15" IPC — data export + 21 CFR Part 11 e-signature', price:9500, gmp:'Not included standard on this machine, unlike most of the rest of the line — needed for Part 11 parity.'},
+    ], fatSat:3000, shipping:2000, default:true },
+  { id:'njp1200', title:'NJP-1200C', spec:'72,000 caps/hr · 10 bores · 316L · QE26070819157', base:32800,
+    included:[
+      {label:'Vacuum conveyor for powder loading', price:2500},
+      {label:'Empty capsule loading system', price:3200},
+      {label:'Becker vacuum pump (replaces water-ring)', price:2100},
+    ], options:[
+      {id:'c12-polish', label:'Capsule polisher with sorter (horizontal)', price:5300},
+      {id:'c12-part11', label:'15" IPC — data export + 21 CFR Part 11 e-signature', price:9500, gmp:'Not included standard on this machine — needed for Part 11 parity.'},
+    ], fatSat:3600, shipping:750, default:false },
+  { id:'njp400', title:'NJP-400C', spec:'24,000 caps/hr · 3 bores · 316L · in the main line quote (A9)', base:26500,
+    included:[
+      {label:'QVC vacuum transfer system', price:4500},
+      {label:'Touchscreen upgrade + 21 CFR Part 11 module', price:9500},
+    ], options:[
+      {id:'c400-pellet', label:'Pellet filling device', price:2750},
+      {id:'c400-polish', label:'Capsule polisher with sorter (horizontal)', price:5300},
+      {id:'c400-metal', label:'Metal detector (LOMA LOCK)', price:23077},
+      {id:'c400-becker', label:'Becker vacuum pump', price:2100},
+    ], fatSat:0, shipping:0, default:false,
+    note:'Already inside the main line quote\'s $915,755 discounted total and its $10,500 FAT/SAT + $4,500 shipping — no separate fees. The only vendor-quoted capsule filler that already includes Part 11 in its base line items.' },
+];
+
+const LINE_FAT_SAT = 10500;
+const LINE_SHIPPING = 4500;
+const LINE_BASE_TOTAL = 1017506; // sum of every machine's base+included subtotal, incl. NJP-400C, per the printed quote
+const LINE_DISCOUNTED_TOTAL = 915755; // Canaan's stated "best discount for whole line" figure
+const DISCOUNT_RATE = 1 - (LINE_DISCOUNTED_TOTAL / LINE_BASE_TOTAL);
+
+let state = { machines:{}, capsule:'njp2500', options:{} };
+
+function initState() {
+  MACHINES.forEach(m => { state.machines[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
+  CAPSULE_CHOICES.forEach(c => c.options.forEach(o => state.options[o.id] = false));
+}
+initState();
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+function renderCapsuleChoices() {
+  const el = document.getElementById('capsuleChoices');
+  el.innerHTML = CAPSULE_CHOICES.map(c => {
+    const active = state.capsule === c.id;
+    const optsHtml = c.options.map(o => `
+      <div class="opt-row">
+        <input type="checkbox" id="opt-${o.id}" ${state.options[o.id]?'checked':''} onclick="event.stopPropagation();toggleOption('${o.id}')">
+        <label for="opt-${o.id}" onclick="event.stopPropagation()">${o.label}${o.gmp?` <span class="badge gmp">GMP required</span>`:''}</label>
+        <span class="opt-price">+${fmt(o.price)}</span>
+      </div>
+      ${o.gmp && active ? `<div class="warn-box" style="margin-left:24px">${o.gmp}</div>` : ''}
+    `).join('');
+    const inclHtml = c.included.map(i => `<div class="incl-item"><span><span class="inc-tag">INCL</span>${i.label}</span><span>${fmt(i.price)}</span></div>`).join('');
+    return `
+      <div class="radio-choice ${active?'active':''}" onclick="selectCapsule('${c.id}')">
+        <div class="rc-head">
+          <input type="radio" name="capsule" ${active?'checked':''} onclick="event.stopPropagation();selectCapsule('${c.id}')">
+          <span class="rc-title">${c.title}</span>
+          <span class="rc-price">${fmt(c.base)} base</span>
+        </div>
+        <div class="rc-spec">${c.spec}</div>
+        ${active ? `<div style="margin-top:10px;margin-left:24px">
+          <div class="opt-group-label">Included standard</div>
+          ${inclHtml || '<div class="incl-item">None beyond base config</div>'}
+          <div class="opt-group-label">Options</div>
+          ${optsHtml}
+          ${c.note ? `<div class="warn-box">${c.note}</div>` : `<div class="opt-note" style="margin-top:6px">Separate quote — own FAT/SAT (${fmt(c.fatSat)}) + shipping (${fmt(c.shipping)}), additive to the main line's fees unless Canaan agrees to combine the shipment.</div>`}
+        </div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function renderMachines() {
+  const el = document.getElementById('machineList');
+  el.innerHTML = MACHINES.map(m => {
+    const on = state.machines[m.id];
+    const optsHtml = m.options.map(o => `
+      <div class="opt-row">
+        <input type="checkbox" id="opt-${o.id}" ${state.options[o.id]?'checked':''} onclick="toggleOption('${o.id}')">
+        <label for="opt-${o.id}">${o.label}${o.gmp?` <span class="badge gmp">GMP required</span>`:''}</label>
+        <span class="opt-price">+${fmt(o.price)}</span>
+      </div>
+      ${(o.gmp && state.options[o.id]===false) ? `<div class="warn-box" style="margin-left:24px">${o.gmp}</div>` : ''}
+      ${(o.risk) ? `<div class="risk-note" style="margin-left:24px">${o.risk}</div>` : ''}
+    `).join('');
+    const inclHtml = m.included.map(i => `<div class="incl-item"><span><span class="inc-tag">INCL</span>${i.label}</span><span>${fmt(i.price)}</span></div>`).join('');
+    const gmpBadgeCount = m.options.filter(o=>o.gmp).length;
+    return `
+      <div class="machine">
+        <div class="m-head" onclick="toggleBody('${m.id}')">
+          <input type="checkbox" ${on?'checked':''} onclick="event.stopPropagation();toggleMachine('${m.id}')">
+          <div>
+            <div class="m-title">${m.title} <span class="m-model">${m.model}</span></div>
+            ${(m.warn || gmpBadgeCount) ? `<div class="m-badges">${m.warn?'<span class="badge warn">Part 11 unconfirmed</span>':''}${gmpBadgeCount?`<span class="badge gmp">${gmpBadgeCount} GMP option${gmpBadgeCount>1?'s':''}</span>`:''}</div>` : ''}
+          </div>
+          <span class="m-price">${fmt(m.base)}</span>
+        </div>
+        <div class="m-body ${bodyOpen[m.id]?'open':''}" id="body-${m.id}">
+          <div class="m-desc">${m.desc}</div>
+          ${m.included.length ? `<div class="opt-group-label">Included standard</div>${inclHtml}` : ''}
+          ${m.options.length ? `<div class="opt-group-label">Options</div>${optsHtml}` : ''}
+          ${m.warn ? `<div class="warn-box">${m.warn}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+let bodyOpen = {};
+function toggleBody(id) { bodyOpen[id] = !bodyOpen[id]; render(); }
+function toggleMachine(id) { state.machines[id] = !state.machines[id]; render(); }
+function toggleOption(id) { state.options[id] = !state.options[id]; render(); }
+function selectCapsule(id) { state.capsule = id; bodyOpen['capsule'] = true; render(); }
+
+function applyPreset(kind) {
+  MACHINES.forEach(m => {
+    state.machines[m.id] = true;
+    m.options.forEach(o => {
+      if (kind === 'everything') state.options[o.id] = true;
+      else if (kind === 'gmp') state.options[o.id] = !!o.gmp && !o.risk;
+      else state.options[o.id] = false; // asquoted, bare
+    });
+  });
+  CAPSULE_CHOICES.forEach(c => c.options.forEach(o => {
+    if (kind === 'everything') state.options[o.id] = true;
+    else if (kind === 'gmp') state.options[o.id] = !!o.gmp;
+    else state.options[o.id] = false;
+  }));
+  if (kind === 'bare') {
+    // bare minimum: keep only machines that are structurally load-bearing to the line
+    // (leave all included, since "included" items aren't separable in Canaan's quote structure)
+  }
+  state.capsule = kind === 'bare' ? 'njp400' : 'njp2500';
+  document.getElementById('discountToggle').checked = (kind !== 'everything');
+  render();
+}
+
+function compute() {
+  let equipBase = 0, equipIncl = 0, equipOpt = 0, gmpOptTotal = 0;
+  MACHINES.forEach(m => {
+    if (!state.machines[m.id]) return;
+    equipBase += m.base;
+    m.included.forEach(i => equipIncl += i.price);
+    m.options.forEach(o => { if (state.options[o.id]) { equipOpt += o.price; if (o.gmp) gmpOptTotal += o.price; } });
+  });
+  const cap = CAPSULE_CHOICES.find(c => c.id === state.capsule);
+  let capBase = cap.base, capIncl = 0, capOpt = 0;
+  cap.included.forEach(i => capIncl += i.price);
+  cap.options.forEach(o => { if (state.options[o.id]) { capOpt += o.price; if (o.gmp) gmpOptTotal += o.price; } });
+
+  const equipSubtotal = equipBase + equipIncl; // discountable "as-quoted" portion (line machines only, base+included)
+  const discountOn = document.getElementById('discountToggle') ? document.getElementById('discountToggle').checked : true;
+  const discount = discountOn ? equipSubtotal * DISCOUNT_RATE : 0;
+  const equipAfterDiscount = equipSubtotal - discount;
+
+  const equipmentTotal = equipAfterDiscount + equipOpt + capBase + capIncl + capOpt;
+  const fatSat = LINE_FAT_SAT + cap.fatSat;
+  const shipping = LINE_SHIPPING + cap.shipping;
+  const grandTotal = equipmentTotal + fatSat + shipping;
+
+  return { equipBase, equipIncl, equipOpt, discount, capBase, capIncl, capOpt, equipmentTotal, fatSat, shipping, grandTotal, gmpOptTotal, cap };
+}
+
+function renderTotals() {
+  const r = compute();
+  document.getElementById('totalsBody').innerHTML = `
+    <div class="trow"><span>Line equipment (base + included)</span><span class="tval">${fmt(r.equipBase + r.equipIncl)}</span></div>
+    <div class="trow" style="color:var(--red)"><span>Package discount</span><span class="tval">−${fmt(r.discount)}</span></div>
+    <div class="trow"><span>Line options selected</span><span class="tval">+${fmt(r.equipOpt)}</span></div>
+    <div class="tdiv"></div>
+    <div class="trow"><span>${r.cap.title} (base + included)</span><span class="tval">${fmt(r.capBase + r.capIncl)}</span></div>
+    <div class="trow"><span>Capsule filler options selected</span><span class="tval">+${fmt(r.capOpt)}</span></div>
+    <div class="tdiv"></div>
+    <div class="trow bold"><span>Equipment total</span><span class="tval">${fmt(r.equipmentTotal)}</span></div>
+    <div class="trow"><span>FAT/SAT</span><span class="tval">${fmt(r.fatSat)}</span></div>
+    <div class="trow"><span>Freight</span><span class="tval">${fmt(r.shipping)}</span></div>
+    <div class="grand">
+      <div class="glabel">Grand total</div>
+      <div class="gval">${fmt(r.grandTotal)}</div>
+    </div>
+    ${r.gmpOptTotal > 0 ? `<div class="gmp-count">${fmt(r.gmpOptTotal)} of this total is GMP-required options you've checked. Uncheck a GMP-badged item and its warning box explains what breaks.</div>` : `<div class="gmp-count" style="color:var(--red)">⚠ No GMP-required options are checked — this total will not clear Part 11 / cleaning-validation expectations elsewhere in this comparison.</div>`}
+    <div class="discount-toggle">
+      <span>Discount only applies to the discountable line total (base+included machines), not to options or the capsule filler quote — Canaan hasn't confirmed the ~10% carries over to a modified configuration. Treat the grand total as an estimate to take back to Canaan, not a locked price.</span>
+    </div>
+  `;
+}
+
+function render() { renderCapsuleChoices(); renderMachines(); renderTotals(); }
+render();
+</script>
+</body>
+</html>

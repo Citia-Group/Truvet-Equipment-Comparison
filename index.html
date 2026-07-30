@@ -318,6 +318,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
       <div class="loc">Wenzhou, Zhejiang · QE26061219138-VER2 + QE26070619157-VER1 · Jun–Jul 2026</div>
       <div class="price-big canaan">USD $794,720</div>
       <div class="plabel">Base + included items only — excludes WIP/pinhole/Part-11 options required for full GMP compliance. <a href="canaan-configurator.html" style="color:var(--canaan);font-weight:700">Build the real price →</a></div>
+      <div id="canaan-configured-banner" style="display:none;margin-top:8px;padding:9px 12px;background:rgba(0,180,216,.1);border:1px solid var(--canaan);border-radius:6px;font-size:12px"></div>
       <div class="divider"></div>
       <div class="kv">
         <span class="kk">Equipment</span><span class="kv-val">$781,220</span>
@@ -1107,6 +1108,26 @@ function showTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('active');
   if (btn) btn.classList.add('active');
 }
+
+/* Pull the live total from the Canaan Pricing Configurator (localStorage is shared across
+   pages on this origin) so the Overview card doesn't go stale the moment someone configures it. */
+(function showConfiguredCanaanTotal() {
+  try {
+    const raw = localStorage.getItem('canaan_cfg_summary');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (!s || typeof s.grandTotal !== 'number') return;
+    const banner = document.getElementById('canaan-configured-banner');
+    if (!banner) return;
+    const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+    const when = s.updatedAt ? new Date(s.updatedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '';
+    banner.innerHTML = `<strong style="color:var(--canaan)">Your configured total: ${fmt(s.grandTotal)}</strong>` +
+      ` (${s.capsuleTitle}${s.discountOn ? '' : ', no discount applied'})` +
+      (s.gmpOptTotal > 0 ? ` — includes ${fmt(s.gmpOptTotal)} of GMP-required options` : ' — no GMP-required options selected yet') +
+      (when ? `<br><span style="color:var(--text-dim);font-size:11px">Last updated ${when} in the </span><a href="canaan-configurator.html" style="color:var(--canaan)">Configurator →</a>` : ` <a href="canaan-configurator.html" style="color:var(--canaan)">Configurator →</a>`);
+    banner.style.display = 'block';
+  } catch(e) {}
+})();
 
 /* ─────────── CHECKLIST ENGINE ─────────── */
 const VENDORS = ['canaan','urban','hanyoo','rich'];

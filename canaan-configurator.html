@@ -106,7 +106,7 @@ a{color:var(--accent)}
   </div>
 
   <div class="global-toggle">
-    <input type="checkbox" id="discountToggle" checked onchange="render()">
+    <input type="checkbox" id="discountToggle" checked onchange="discountState=this.checked;persistSelectionState();render()">
     <span class="gt-label">Apply Canaan's whole-line package discount (~10%)</span>
     <span class="gt-note">Canaan discounted the base 14-item line from $1,017,506 → $915,755 as a bundle. That discount is <strong>not confirmed</strong> to carry over once you add options or swap the capsule filler — this toggle is an estimate, not a quoted number.</span>
   </div>
@@ -300,6 +300,40 @@ function updateNote(key, val) {
   try { localStorage.setItem('canaan_cfg_notes', JSON.stringify(state.notes)); } catch(e) {}
 }
 
+// Persist the selection state itself (which machines/options are checked, capsule choice,
+// discount toggle) so it survives a reload, and so the Overview page can show a live total.
+function loadSelectionState() {
+  try {
+    const raw = localStorage.getItem('canaan_cfg_selection');
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.machines) state.machines = saved.machines;
+        if (saved.options) state.options = saved.options;
+        if (saved.capsule) state.capsule = saved.capsule;
+        if (typeof saved.discount === 'boolean') discountState = saved.discount;
+      }
+    }
+  } catch(e) {}
+}
+let discountState = true;
+function persistSelectionState() {
+  try {
+    localStorage.setItem('canaan_cfg_selection', JSON.stringify({
+      machines: state.machines, options: state.options, capsule: state.capsule, discount: discountState
+    }));
+  } catch(e) {}
+}
+// Push a compact summary the Overview page can read without duplicating the full pricing model.
+function persistSummary(r) {
+  try {
+    localStorage.setItem('canaan_cfg_summary', JSON.stringify({
+      grandTotal: r.grandTotal, equipmentTotal: r.equipmentTotal, capsuleTitle: r.cap.title,
+      gmpOptTotal: r.gmpOptTotal, discountOn: discountState, updatedAt: Date.now()
+    }));
+  } catch(e) {}
+}
+
 function initState() {
   MACHINES.forEach(m => { state.machines[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
   CAPSULE_CHOICES.forEach(c => c.options.forEach(o => state.options[o.id] = false));
@@ -387,9 +421,9 @@ function renderMachines() {
 
 let bodyOpen = {};
 function toggleBody(id) { bodyOpen[id] = !bodyOpen[id]; render(); }
-function toggleMachine(id) { state.machines[id] = !state.machines[id]; render(); }
-function toggleOption(id) { state.options[id] = !state.options[id]; render(); }
-function selectCapsule(id) { state.capsule = id; bodyOpen['capsule'] = true; render(); }
+function toggleMachine(id) { state.machines[id] = !state.machines[id]; persistSelectionState(); render(); }
+function toggleOption(id) { state.options[id] = !state.options[id]; persistSelectionState(); render(); }
+function selectCapsule(id) { state.capsule = id; bodyOpen['capsule'] = true; persistSelectionState(); render(); }
 
 function applyPreset(kind) {
   MACHINES.forEach(m => {
@@ -410,7 +444,9 @@ function applyPreset(kind) {
     // (leave all included, since "included" items aren't separable in Canaan's quote structure)
   }
   state.capsule = kind === 'bare' ? 'njp400' : 'njp2500';
-  document.getElementById('discountToggle').checked = (kind !== 'everything');
+  discountState = (kind !== 'everything');
+  document.getElementById('discountToggle').checked = discountState;
+  persistSelectionState();
   render();
 }
 
@@ -428,8 +464,7 @@ function compute() {
   cap.options.forEach(o => { if (state.options[o.id]) { capOpt += o.price; if (o.gmp) gmpOptTotal += o.price; } });
 
   const equipSubtotal = equipBase + equipIncl; // discountable "as-quoted" portion (line machines only, base+included)
-  const discountOn = document.getElementById('discountToggle') ? document.getElementById('discountToggle').checked : true;
-  const discount = discountOn ? equipSubtotal * DISCOUNT_RATE : 0;
+  const discount = discountState ? equipSubtotal * DISCOUNT_RATE : 0;
   const equipAfterDiscount = equipSubtotal - discount;
 
   const equipmentTotal = equipAfterDiscount + equipOpt + capBase + capIncl + capOpt;
@@ -442,6 +477,7 @@ function compute() {
 
 function renderTotals() {
   const r = compute();
+  persistSummary(r);
   document.getElementById('totalsBody').innerHTML = `
     <div class="trow"><span>Line equipment (base + included)</span><span class="tval">${fmt(r.equipBase + r.equipIncl)}</span></div>
     <div class="trow" style="color:var(--red)"><span>Package discount</span><span class="tval">−${fmt(r.discount)}</span></div>
@@ -465,6 +501,8 @@ function renderTotals() {
 }
 
 function render() { renderCapsuleChoices(); renderMachines(); renderTotals(); }
+loadSelectionState();
+document.getElementById('discountToggle').checked = discountState;
 render();
 </script>
 </body>

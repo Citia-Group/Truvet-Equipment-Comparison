@@ -52,6 +52,11 @@ a{color:var(--accent)}
 .opt-row label{flex:1;font-size:12.5px;cursor:pointer}
 .opt-row .opt-price{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text-primary);white-space:nowrap}
 .opt-note{font-size:11px;color:var(--text-dim);margin-top:2px;line-height:1.5}
+.my-note{margin-top:10px}
+.my-note-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-dim);margin-bottom:5px}
+.my-note textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text-primary);font-family:inherit;font-size:12px;padding:7px 10px;resize:vertical;min-height:38px}
+.my-note textarea:focus{outline:none;border-color:var(--canaan)}
+.my-note textarea::placeholder{color:var(--text-dim)}
 .warn-box{background:rgba(210,153,34,.07);border:1px solid rgba(210,153,34,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--yellow);margin-top:8px;line-height:1.5}
 .risk-note{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:6px;padding:8px 11px;font-size:11.5px;color:var(--red);margin-top:8px;line-height:1.5}
 .radio-choice{border:1px solid var(--border);border-radius:6px;padding:9px 11px;margin-bottom:6px;cursor:pointer;transition:border-color .12s}
@@ -280,13 +285,25 @@ const LINE_BASE_TOTAL = 1017506; // sum of every machine's base+included subtota
 const LINE_DISCOUNTED_TOTAL = 915755; // Canaan's stated "best discount for whole line" figure
 const DISCOUNT_RATE = 1 - (LINE_DISCOUNTED_TOTAL / LINE_BASE_TOTAL);
 
-let state = { machines:{}, capsule:'njp2500', options:{} };
+let state = { machines:{}, capsule:'njp2500', options:{}, notes:{} };
+
+function loadNotes() {
+  try {
+    const raw = localStorage.getItem('canaan_cfg_notes');
+    if (raw) state.notes = JSON.parse(raw) || {};
+  } catch(e) {}
+}
+function updateNote(key, val) {
+  if (val) state.notes[key] = val; else delete state.notes[key];
+  try { localStorage.setItem('canaan_cfg_notes', JSON.stringify(state.notes)); } catch(e) {}
+}
 
 function initState() {
   MACHINES.forEach(m => { state.machines[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
   CAPSULE_CHOICES.forEach(c => c.options.forEach(o => state.options[o.id] = false));
 }
 initState();
+loadNotes();
 
 function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
@@ -317,6 +334,10 @@ function renderCapsuleChoices() {
           <div class="opt-group-label">Options</div>
           ${optsHtml}
           ${c.note ? `<div class="warn-box">${c.note}</div>` : `<div class="opt-note" style="margin-top:6px">Separate quote — own FAT/SAT (${fmt(c.fatSat)}) + shipping (${fmt(c.shipping)}), additive to the main line's fees unless Canaan agrees to combine the shipment.</div>`}
+          <div class="my-note" onclick="event.stopPropagation()">
+            <div class="my-note-label">Your notes</div>
+            <textarea placeholder="e.g. negotiation notes, factory-visit findings…" onchange="updateNote('capsule-${c.id}',this.value)">${state.notes['capsule-'+c.id] || ''}</textarea>
+          </div>
         </div>` : ''}
       </div>`;
   }).join('');
@@ -352,6 +373,10 @@ function renderMachines() {
           ${m.included.length ? `<div class="opt-group-label">Included standard</div>${inclHtml}` : ''}
           ${m.options.length ? `<div class="opt-group-label">Options</div>${optsHtml}` : ''}
           ${m.warn ? `<div class="warn-box">${m.warn}</div>` : ''}
+          <div class="my-note">
+            <div class="my-note-label">Your notes</div>
+            <textarea placeholder="e.g. negotiation notes, factory-visit findings…" onchange="updateNote('machine-${m.id}',this.value)">${state.notes['machine-'+m.id] || ''}</textarea>
+          </div>
         </div>
       </div>`;
   }).join('');

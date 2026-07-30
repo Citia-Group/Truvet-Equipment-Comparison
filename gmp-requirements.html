@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMP Requirements by Machine — Truvet SG</title>
+<style>
+:root {
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;
+  --accent:#00b4d8;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-dim:#484f58;
+  --green:#3fb950;--yellow:#d29922;--red:#f85149;--tag-bg:#21262d;
+  --canaan:#00b4d8;--urban:#2ec4b6;--hanyoo:#9d4edd;--rich:#f4a261;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55}
+a{color:var(--accent)}
+.header{border-bottom:1px solid var(--border);padding:20px 40px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);z-index:5}
+.header h1{font-size:19px;font-weight:700;letter-spacing:-.4px}
+.header .subtitle{color:var(--text-secondary);font-size:12px;margin-top:3px}
+.back-link{font-size:12px;color:var(--text-secondary);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:6px;white-space:nowrap}
+.back-link:hover{border-color:var(--accent);color:var(--accent)}
+.main{max-width:1180px;margin:0 auto;padding:20px 32px 70px}
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:16px 18px;margin-bottom:18px;font-size:13px;color:var(--text-secondary);line-height:1.7}
+.intro strong{color:var(--text-primary)}
+
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.btn{font-size:12px;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-secondary);cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:rgba(0,180,216,.12);border-color:var(--accent);color:var(--accent)}
+.save-status{font-size:11px;color:var(--green);opacity:0;transition:opacity .3s}
+.save-status.show{opacity:1}
+.summary-pill{margin-left:auto;font-size:12px;color:var(--text-secondary);display:flex;gap:14px;flex-wrap:wrap}
+.summary-pill b{color:var(--text-primary)}
+
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--text-dim);margin-bottom:20px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.legend .lg-item{display:flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block;flex-shrink:0}
+.dot.unknown{background:var(--tag-bg);border:1px solid var(--border)}
+.dot.included{background:rgba(63,185,80,.25);border:1px solid var(--green)}
+.dot.option{background:rgba(210,153,34,.25);border:1px solid var(--yellow)}
+.dot.missing{background:rgba(248,81,73,.25);border:1px solid var(--red)}
+
+.machine-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.machine-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer}
+.machine-head h2{font-size:15px;font-weight:700}
+.machine-head .m-sub{font-size:11.5px;color:var(--text-dim);font-weight:400;margin-top:2px}
+.machine-head .chev{margin-left:auto;color:var(--text-dim);font-size:12px;transition:transform .15s}
+.machine-head .chev.open{transform:rotate(180deg)}
+.machine-body{display:none}
+.machine-body.open{display:block}
+
+.req-table{width:100%;border-collapse:collapse}
+.req-table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.req-table th.vend{text-align:center;width:76px}
+.req-row td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+.req-row:last-child td{border-bottom:none}
+.req-label{font-weight:600;font-size:13px}
+.req-tier{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;margin-left:6px;vertical-align:1px}
+.req-tier.mandatory{background:rgba(248,81,73,.13);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+.req-tier.recommended{background:var(--tag-bg);color:var(--text-dim);border:1px solid var(--border)}
+.req-why{font-size:11.5px;color:var(--text-secondary);margin-top:4px;line-height:1.55;max-width:360px}
+.req-verify{font-size:11px;color:var(--text-dim);margin-top:5px;line-height:1.5;max-width:360px}
+.req-verify b{color:var(--text-secondary)}
+.vend-cell{text-align:center}
+.status-btn{width:52px;height:34px;border-radius:6px;border:1px solid var(--border);background:var(--tag-bg);cursor:pointer;font-size:15px;color:var(--text-dim);display:inline-flex;align-items:center;justify-content:center;transition:all .12s}
+.status-btn:hover{border-color:var(--text-secondary)}
+.status-btn.included{background:rgba(63,185,80,.15);border-color:var(--green);color:var(--green)}
+.status-btn.option{background:rgba(210,153,34,.15);border-color:var(--yellow);color:var(--yellow)}
+.status-btn.missing{background:rgba(248,81,73,.15);border-color:var(--red);color:var(--red)}
+.notes-cell{padding-top:6px}
+.notes-cell textarea{width:100%;min-width:220px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text-primary);font-family:inherit;font-size:11.5px;padding:6px 9px;resize:vertical;min-height:34px}
+.notes-cell textarea:focus{outline:none;border-color:var(--accent)}
+
+@media(max-width:1000px){
+  .req-table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>GMP Requirements by Machine</h1>
+    <div class="subtitle">Vendor-agnostic function checklist — check any vendor's quote against what GMP/FDA actually requires per machine, not just what they chose to price in</div>
+  </div>
+  <a class="back-link" href="index.html">← Back to vendor comparison</a>
+</div>
+
+<div class="main">
+
+  <div class="intro">
+    <strong>Why this exists:</strong> across every vendor quote in this comparison, the required GMP function isn't always the base price — it's often a separately-priced option, or missing entirely (WIP on Canaan's coater, pinhole detection on every blister line, Part-11 e-signature on some capsule fillers). This page separates "what GMP actually requires" from "what a vendor happened to quote," organized by machine, so a new vendor's quote — or a revised one — can be checked function-by-function instead of re-deriving the requirement list each time.
+    <br><br>Click a vendor cell to cycle: <strong>unconfirmed → included standard → option/extra cost → not offered</strong>. Add notes per requirement. Everything auto-saves to this browser; use Save/Load to File to back up or move between machines.
+  </div>
+
+  <div class="toolbar">
+    <button class="btn primary" onclick="saveToFile()">⬇ Save to File</button>
+    <button class="btn" onclick="triggerLoad()">⬆ Load from File</button>
+    <input type="file" id="loadInput" accept="application/json,.json" style="display:none" onchange="loadFromFile(event)">
+    <span class="save-status" id="saveStatus">✓ Saved</span>
+    <span class="summary-pill" id="summaryPill"></span>
+  </div>
+
+  <div class="legend">
+    <div class="lg-item"><span class="dot unknown"></span> Unconfirmed — haven't checked this vendor's quote yet</div>
+    <div class="lg-item"><span class="dot included"></span> Included standard in base/quoted price</div>
+    <div class="lg-item"><span class="dot option"></span> Available only as a priced option — add its cost before comparing totals</div>
+    <div class="lg-item"><span class="dot missing"></span> Not offered / not stated anywhere in the quote</div>
+  </div>
+
+  <div id="machineList"></div>
+
+</div>
+
+<script>
+const VENDORS = [
+  {id:'canaan', name:'Canaan', color:'canaan'},
+  {id:'urban', name:'Urban', color:'urban'},
+  {id:'rich', name:'Rich Pkg', color:'rich'},
+  {id:'hanyoo', name:'Hanyoo', color:'hanyoo'},
+];
+
+// Every requirement here is a FUNCTION, not a vendor's line item — check it against
+// whatever quote you're holding, regardless of which vendor issued it.
+const MACHINES = [
+  { id:'general', name:'General — every computerized machine', sub:'Applies across the whole line, not one machine',
+    reqs:[
+      {id:'iqoqdq', label:'IQ/OQ/DQ/FAT/SOP documentation', tier:'mandatory',
+        why:'Baseline qualification package — without it there is nothing to validate against at commissioning.',
+        verify:'Ask for a sample/redacted IQ/OQ package from a prior customer, not just a promise it exists.'},
+      {id:'part11', label:'21 CFR Part 11 — audit trail, e-signature, user tiers', tier:'mandatory',
+        why:'Electronic records/signatures rule. HSA/FDA both expect this on any machine generating or determining a CPP.',
+        verify:'Written compliance statement on vendor letterhead. Live demo: change a parameter, confirm timestamp/user/old-new value logged; attempt to delete a record — must fail.'},
+      {id:'protocol', label:'Open communication protocol (OPC-UA or Modbus), documented tag list', tier:'mandatory',
+        why:'Without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge — this is the make-or-break integration dependency for every discrete-machine vendor.',
+        verify:'Written protocol documentation naming the exact tags exposed, not just "the PLC can be networked."'},
+      {id:'fatdemo', label:'FAT includes a live demonstration of data output in the required protocol', tier:'mandatory',
+        why:'Discrete-machine vendors (everyone except a fully-integrated single-vendor line) will not natively test the machine→Ignition→MES chain in their standard FAT — it has to be written in as a PO condition.',
+        verify:'Confirm this is an explicit FAT protocol line item before shipment, not something assumed to work on arrival.'},
+    ]},
+  { id:'vibro', name:'Vibro Sifter', sub:'Mechanical sizing aid, upstream of the granulator',
+    reqs:[
+      {id:'exempt', label:'Part 11-exempt — run-status logging only', tier:'recommended',
+        why:'No CPPs, no electronic records generated by this machine — simple mechanical aid. Confirm it really is exempt rather than assume it.',
+        verify:'Confirm no product-quality attribute is set or measured here; if it is, it stops being exempt.'},
+    ]},
+  { id:'granulator', name:'High Shear Granulator / Mixer', sub:'Primary CPP-generating step',
+    reqs:[
+      {id:'batch', label:'Batch size matched to downstream equipment (FBD, coater, press)', tier:'mandatory',
+        why:'A granulator sized far below the coater/press cannot define a meaningful GMP batch — this is an automatic disqualifier, not a negotiable spec, and it recurs across vendors (Canaan\'s earlier 15–30kg quote, Rich Packing\'s 3–8kg unit).',
+        verify:'Compare nominal AND maximum batch kg against the FBD and coater/press batch size in the same quote — not just the headline number.'},
+      {id:'cpp', label:'CPP sensors + audit trail: impeller/chopper speed, product temp, binder addition, motor power/torque', tier:'mandatory',
+        why:'Motor power/torque is the real granulation end-point signal — without it, end-point determination is subjective.',
+        verify:'Confirm each sensor is both physically present AND exposed as a named, calibratable tag — not just visible on the local HMI.'},
+    ]},
+  { id:'fbd', name:'Fluid Bed Dryer', sub:'Drying end-point is a CPP',
+    reqs:[
+      {id:'cpp', label:'CPP sensors: inlet/outlet air temp, product bed temp, humidity, airflow, differential pressure', tier:'mandatory',
+        why:'Outlet air temperature is the practical drying end-point signal most vendors log; without it, end-point is judged by time alone.',
+        verify:'Ask specifically whether outlet temperature (not just inlet) is logged — inlet-only monitoring is a common gap.'},
+      {id:'nir', label:'In-line NIR moisture probe', tier:'recommended',
+        why:'True LOD end-point control rather than time/temperature proxy — worth pricing even if deferred to launch.',
+        verify:'Ask if this is available as a retrofit option later if not bought now.'},
+    ]},
+  { id:'drygran', name:'Dry Granulator / Roller Compactor', sub:'Recurring gap: this machine class is the one most often missing an explicit Part 11 clause',
+    reqs:[
+      {id:'part11check', label:'Explicit Part 11 statement for THIS specific machine', tier:'mandatory',
+        why:'Every other machine class in Canaan\'s quote states Part 11 compliance explicitly in its base description — the dry granulator and roller compactor notably do not, despite having a PLC. Don\'t assume it carries over from the rest of the line.',
+        verify:'Look for the machine\'s OWN Part 11 line in the quote, not the vendor\'s general marketing claim about the whole line.'},
+      {id:'cpp', label:'CPP sensors: roll force/pressure, roll gap, roll speed, mill speed', tier:'mandatory',
+        why:'These define the compaction ribbon quality — the actual CPPs for this unit operation.',
+        verify:'Confirm roll gap is a measured LVDT/position sensor, not a mechanical dial only.'},
+    ]},
+  { id:'blender', name:'Bin Blender', sub:'Blend uniformity end-point',
+    reqs:[
+      {id:'revcounter', label:'Total revolution counter (not just a timer)', tier:'mandatory',
+        why:'Revolutions, not elapsed time, is the actual blend-uniformity parameter — a timer-only machine cannot prove a consistent blend end-point across batches at different fill levels.',
+        verify:'Confirm the counter is a logged, exposed tag — not just a display the operator has to read and transcribe.'},
+    ]},
+  { id:'coater', name:'Film Coating Machine', sub:'The single most consequential GMP gap across every vendor in this comparison',
+    reqs:[
+      {id:'wip', label:'WIP (Wash-In-Place) system — fully integrated, covers ALL internal product-contact surfaces', tier:'mandatory',
+        why:'This is a cleaning-validation ARCHITECTURE issue, not a paperwork one — it disqualified Hualian\'s coater earlier in this project, and it is a separately-priced OPTION on Canaan\'s BGX75 too ($31,790, not in the base price). Never assume it\'s included just because the machine is otherwise GMP-specced.',
+        verify:'Physical demo: run a WIP cycle with water and visually confirm spray coverage reaches every internal surface, not just the drum interior.'},
+      {id:'sprayctrl', label:'CPP sensors: product bed temp, spray rate (load-cell mass balance), atomizing/pattern air pressure, exhaust humidity', tier:'mandatory',
+        why:'Weight gain via mass balance is the defensible spray-rate CPP measurement, not pump-speed alone.',
+        verify:'Confirm the binder/coating solution vessel sits on a load cell, not just a sight-glass level indicator.'},
+    ]},
+  { id:'press', name:'Rotary Tablet Press', sub:'',
+    reqs:[
+      {id:'closedloop', label:'Closed-loop force-to-fill control (auto-corrects fill depth on force drift, not reject-only)', tier:'mandatory',
+        why:'A reject-only system catches bad tablets after the fact; closed-loop control prevents them — meaningfully stronger in-process control.',
+        verify:'Ask directly: does the press auto-adjust fill on force drift, or only reject? Is force logged per-tablet to the audit trail?'},
+      {id:'metaldet', label:'Metal detector in-line', tier:'recommended',
+        why:'Foreign-body control at the highest-throughput step in the line.',
+        verify:'Confirm brand/sensitivity spec and whether it\'s bundled or a separate line item.'},
+    ]},
+  { id:'capsule', name:'Capsule Filling Machine', sub:'',
+    reqs:[
+      {id:'part11mod', label:'21 CFR Part 11 e-signature module', tier:'mandatory',
+        why:'Recurring pattern: this is frequently a SEPARATE priced option even on machines otherwise sold as GMP-ready — Canaan\'s NJP-2500C and NJP-1200C both quote it as a $9,500 add-on, not included.',
+        verify:'Check whether Part 11 appears in the base machine description or only in a separate options table — the base description not mentioning it is the tell.'},
+      {id:'dustext', label:'Dust extraction / vacuum system', tier:'mandatory',
+        why:'Operator exposure and cross-contamination control at a powder-handling step.',
+        verify:'Confirm brand and whether it\'s a domestic or name-brand (Becker etc.) pump — affects both quality and price.'},
+      {id:'reject', label:'Reject system for capsules failing fill-weight check', tier:'mandatory',
+        why:'In-process quality gate for the capsule\'s single most important CQA (fill weight).',
+        verify:'Physical demonstration of the rejection mechanism, and confirm reject counts are logged.'},
+    ]},
+  { id:'blister', name:'Blister Packing Machine (ALU-ALU)', sub:'ALU-ALU is a hard requirement for Zone IVb tropical markets (SG/MY/TH) — moisture-sensitive product',
+    reqs:[
+      {id:'aluform', label:'Confirmed ALU-ALU cold-form capability (not ALU-PVC thermoform)', tier:'mandatory',
+        why:'AUTOMATIC DISQUALIFIER if thermoform-only — this alone eliminated Rich Packing\'s blister line from consideration.',
+        verify:'Physical mold inspection required — cold-form needs a forming station + water-cooled cold mold. A spec sheet claiming "ALU-ALU capable" is not sufficient if only an ALU-PVC mold is confirmed included (this is exactly the gap on Hanyoo\'s DPP-270 offer).'},
+      {id:'pinhole', label:'Pinhole detection system for alu foil', tier:'mandatory',
+        why:'GMP-critical for alu-alu package integrity — this was the single deciding factor when Hualian was the primary blister pick, and it is a $34,615 UNPRICED OPTION on Canaan\'s current quote, not included in the base blister price.',
+        verify:'Physical demo with a known pinholed foil sample. If quoted as a separate line item, get the exact price before comparing blister-line totals across vendors — a vendor that "wins" on base blister price may lose once this is added.'},
+      {id:'camera', label:'Vision/camera inspection system', tier:'mandatory',
+        why:'Pocket-fill and print verification — distinct from pinhole detection, both are needed.',
+        verify:'Ask brand and false-reject-rate spec; a domestic/no-name camera vs. a documented brand (e.g. Basler) is a real quality delta worth negotiating on.'},
+      {id:'chiller', label:'Water chiller for cold mold (alu-alu forming)', tier:'mandatory',
+        why:'Cold-form alu-alu physically requires a chilled forming station — without it, the "ALU-ALU capable" claim above cannot actually run.',
+        verify:'Confirm chiller is included in the blister-line price, not a separate utility the buyer has to source.'},
+    ]},
+  { id:'cartoner', name:'Cartoning Machine', sub:'Not a CPP machine, but the natural serialisation hook',
+    reqs:[
+      {id:'serialhook', label:'Serialisation-ready data hook (DSCSA / EU FMD)', tier:'recommended',
+        why:'Retrofitting a cartoner for serialisation later is far costlier than specifying the hook now, even if the serialisation module itself is deferred.',
+        verify:'Ask whether a serialisation module (e.g. Antares, Laetus, Optel) can integrate on this specific cartoner model, and what data interface it exposes.'},
+      {id:'reconcounts', label:'Reconciliation counts (in/out/reject) logged', tier:'recommended',
+        why:'Batch-record evidence for packaging reconciliation.',
+        verify:'Confirm counts are captured as locked electronic records, not just a mechanical counter the operator reads.'},
+    ]},
+];
+
+let state = { status:{}, notes:{} };
+function statusKey(mid, rid, vid) { return `${mid}__${rid}__${vid}`; }
+function noteKey(mid, rid) { return `${mid}__${rid}`; }
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('gmp_req_state');
+    if (raw) state = JSON.parse(raw);
+  } catch(e) {}
+  if (!state.status) state.status = {};
+  if (!state.notes) state.notes = {};
+}
+function persistState() {
+  try { localStorage.setItem('gmp_req_state', JSON.stringify(state)); } catch(e) {}
+  flashSaved();
+}
+let saveTimer;
+function flashSaved() {
+  const el = document.getElementById('saveStatus');
+  el.classList.add('show');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => el.classList.remove('show'), 1200);
+}
+
+const CYCLE = [null, 'included', 'option', 'missing'];
+const STATUS_ICON = { null:'?', included:'✓', option:'⚠', missing:'✗' };
+
+function cycleStatus(mid, rid, vid) {
+  const k = statusKey(mid, rid, vid);
+  const cur = state.status[k] || null;
+  const idx = CYCLE.indexOf(cur);
+  const next = CYCLE[(idx + 1) % CYCLE.length];
+  if (next === null) delete state.status[k]; else state.status[k] = next;
+  persistState();
+  render();
+}
+
+let bodyOpen = {};
+MACHINES.forEach(m => bodyOpen[m.id] = true);
+function toggleMachine(mid) { bodyOpen[mid] = !bodyOpen[mid]; render(); }
+
+function updateNote(mid, rid, val) {
+  const k = noteKey(mid, rid);
+  if (val) state.notes[k] = val; else delete state.notes[k];
+  persistState();
+}
+
+function renderMachines() {
+  const el = document.getElementById('machineList');
+  el.innerHTML = MACHINES.map(m => {
+    const open = bodyOpen[m.id];
+    const rows = m.reqs.map(r => {
+      const vendCells = VENDORS.map(v => {
+        const k = statusKey(m.id, r.id, v.id);
+        const s = state.status[k] || null;
+        const cls = s ? s : '';
+        return `<td class="vend-cell"><button class="status-btn ${cls}" onclick="cycleStatus('${m.id}','${r.id}','${v.id}')" title="${v.name}">${STATUS_ICON[s]}</button></td>`;
+      }).join('');
+      const noteVal = state.notes[noteKey(m.id, r.id)] || '';
+      return `
+        <tr class="req-row">
+          <td style="min-width:230px">
+            <span class="req-label">${r.label}</span><span class="req-tier ${r.tier}">${r.tier}</span>
+            <div class="req-why">${r.why}</div>
+            <div class="req-verify"><b>Verify:</b> ${r.verify}</div>
+          </td>
+          ${vendCells}
+          <td class="notes-cell"><textarea placeholder="Notes…" onchange="updateNote('${m.id}','${r.id}',this.value)">${noteVal}</textarea></td>
+        </tr>`;
+    }).join('');
+    return `
+      <div class="machine-block">
+        <div class="machine-head" onclick="toggleMachine('${m.id}')">
+          <div>
+            <h2>${m.name}</h2>
+            ${m.sub ? `<div class="m-sub">${m.sub}</div>` : ''}
+          </div>
+          <span class="chev ${open?'open':''}">▼</span>
+        </div>
+        <div class="machine-body ${open?'open':''}">
+          <table class="req-table">
+            <thead><tr>
+              <th>Requirement</th>
+              ${VENDORS.map(v => `<th class="vend">${v.name}</th>`).join('')}
+              <th>Notes</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderSummary() {
+  let total = 0, confirmed = 0, missing = 0, optionOnly = 0;
+  MACHINES.forEach(m => m.reqs.forEach(r => {
+    VENDORS.forEach(v => {
+      total++;
+      const s = state.status[statusKey(m.id, r.id, v.id)];
+      if (s === 'included') confirmed++;
+      else if (s === 'missing') missing++;
+      else if (s === 'option') optionOnly++;
+    });
+  }));
+  document.getElementById('summaryPill').innerHTML =
+    `<span><b>${confirmed}</b> confirmed included</span><span><b>${optionOnly}</b> option-only</span><span><b>${missing}</b> not offered</span><span><b>${total - confirmed - missing - optionOnly}</b> unconfirmed / ${total} total</span>`;
+}
+
+function render() { renderMachines(); renderSummary(); }
+
+function saveToFile() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `TruVet_GMP_Requirements_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+function triggerLoad() { document.getElementById('loadInput').click(); }
+function loadFromFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data && typeof data === 'object') {
+        state = { status: data.status || {}, notes: data.notes || {} };
+        persistState();
+        render();
+      }
+    } catch(err) { alert('Could not read that file — is it a GMP Requirements export?'); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+loadState();
+render();
+</script>
+</body>
+</html>

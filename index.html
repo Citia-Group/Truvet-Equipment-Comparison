@@ -9,7 +9,7 @@
   --bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;
   --accent:#00b4d8;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-dim:#484f58;
   --green:#3fb950;--yellow:#d29922;--red:#f85149;--tag-bg:#21262d;
-  --canaan:#00b4d8;--urban:#2ec4b6;--hualian:#9d4edd;--rich:#f4a261;
+  --canaan:#00b4d8;--urban:#2ec4b6;--hanyoo:#9d4edd;--rich:#f4a261;
   --winner:#3fb950;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -21,7 +21,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .vp{padding:6px 14px;border-radius:5px;font-weight:700;font-size:12px;letter-spacing:.3px}
 .vp.canaan{background:rgba(0,180,216,.12);border:1px solid var(--canaan);color:var(--canaan)}
 .vp.urban{background:rgba(46,196,182,.12);border:1px solid var(--urban);color:var(--urban)}
-.vp.hualian{background:rgba(157,78,221,.12);border:1px solid var(--hualian);color:var(--hualian)}
+.vp.hanyoo{background:rgba(157,78,221,.12);border:1px solid var(--hanyoo);color:var(--hanyoo)}
 .vp.rich{background:rgba(244,162,97,.12);border:1px solid var(--rich);color:var(--rich)}
 .tab-bar{display:flex;border-bottom:1px solid var(--border);padding:0 40px;overflow-x:auto}
 .tab-btn{background:none;border:none;border-bottom:2px solid transparent;color:var(--text-secondary);cursor:pointer;font-size:13px;font-weight:500;padding:11px 16px;white-space:nowrap;transition:color .15s,border-color .15s}
@@ -36,12 +36,12 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .vc{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:20px}
 .vc.canaan{border-top:3px solid var(--canaan)}
 .vc.urban{border-top:3px solid var(--urban)}
-.vc.hualian{border-top:3px solid var(--hualian)}
+.vc.hanyoo{border-top:3px solid var(--hanyoo)}
 .vc.rich{border-top:3px solid var(--rich)}
 .vc h2{font-size:15px;font-weight:700;margin-bottom:2px}
 .vc .loc{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px}
 .price-big{font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:2px}
-.price-big.canaan{color:var(--canaan)}.price-big.urban{color:var(--urban)}.price-big.hualian{color:var(--hualian)}.price-big.rich{color:var(--rich)}
+.price-big.canaan{color:var(--canaan)}.price-big.urban{color:var(--urban)}.price-big.hanyoo{color:var(--hanyoo)}.price-big.rich{color:var(--rich)}
 .plabel{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
 .kk{font-size:12px;color:var(--text-secondary)}
@@ -55,7 +55,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .split-label{font-size:12px;color:var(--text-secondary);width:200px;flex-shrink:0}
 .split-vendor{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px}
 .split-vendor.urban{background:rgba(46,196,182,.15);color:var(--urban)}
-.split-vendor.hualian{background:rgba(157,78,221,.15);color:var(--hualian)}
+.split-vendor.hanyoo{background:rgba(157,78,221,.15);color:var(--hanyoo)}
 .split-vendor.rich{background:rgba(244,162,97,.15);color:var(--rich)}
 .split-reason{font-size:12px;color:var(--text-secondary)}
 
@@ -67,14 +67,14 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .comp-table thead th{background:var(--surface);border:1px solid var(--border);padding:9px 12px;font-weight:700;text-align:left;font-size:11px;letter-spacing:.3px;color:var(--text-secondary);white-space:nowrap}
 .comp-table thead th.cc{color:var(--canaan)}
 .comp-table thead th.uc{color:var(--urban)}
-.comp-table thead th.hc{color:var(--hualian)}
+.comp-table thead th.hc{color:var(--hanyoo)}
 .comp-table thead th.rc{color:var(--rich)}
 .comp-table thead th.wc{color:var(--green)}
 .comp-table tbody tr:hover{background:rgba(255,255,255,.02)}
 .comp-table tbody td{border:1px solid var(--border);padding:9px 12px;vertical-align:top}
 .cat{font-weight:600;min-width:150px}
 .price{font-weight:700;white-space:nowrap;text-align:right;font-size:12px}
-.price.canaan{color:var(--canaan)}.price.urban{color:var(--urban)}.price.hualian{color:var(--hualian)}.price.rich{color:var(--rich)}.price.na{color:var(--text-dim)}
+.price.canaan{color:var(--canaan)}.price.urban{color:var(--urban)}.price.hanyoo{color:var(--hanyoo)}.price.rich{color:var(--rich)}.price.na{color:var(--text-dim)}
 .spec{font-size:11px;color:var(--text-secondary);display:block;margin-top:2px}
 .spec.good{color:var(--green)}.spec.warn{color:var(--yellow)}.spec.bad{color:var(--red)}
 .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
@@ -83,7 +83,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .badge.red{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}
 .badge.blue{background:rgba(0,180,216,.15);color:var(--canaan);border:1px solid rgba(0,180,216,.3)}
 .badge.teal{background:rgba(46,196,182,.15);color:var(--urban);border:1px solid rgba(46,196,182,.3)}
-.badge.purple{background:rgba(157,78,221,.15);color:var(--hualian);border:1px solid rgba(157,78,221,.3)}
+.badge.purple{background:rgba(157,78,221,.15);color:var(--hanyoo);border:1px solid rgba(157,78,221,.3)}
 .badge.orange{background:rgba(244,162,97,.15);color:var(--rich);border:1px solid rgba(244,162,97,.3)}
 .total-row td{background:var(--surface2)!important;font-weight:800!important;font-size:13px!important;border-top:2px solid var(--border)!important}
 .win-cell{text-align:center;font-weight:700;font-size:12px}
@@ -118,7 +118,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .cl-vendor-btn:last-child{border-right:none}
 .cl-vendor-btn.active.canaan{background:rgba(0,180,216,.15);color:var(--canaan)}
 .cl-vendor-btn.active.urban{background:rgba(46,196,182,.15);color:var(--urban)}
-.cl-vendor-btn.active.hualian{background:rgba(157,78,221,.15);color:var(--hualian)}
+.cl-vendor-btn.active.hanyoo{background:rgba(157,78,221,.15);color:var(--hanyoo)}
 .cl-vendor-btn.active.rich{background:rgba(244,162,97,.15);color:var(--rich)}
 .score-summary{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:10px 18px;flex-wrap:wrap}
 .score-pill{text-align:center}
@@ -249,7 +249,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 .vbadge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
 .vb-canaan{background:rgba(88,166,255,.15);color:var(--canaan);border:1px solid rgba(88,166,255,.35)}
 .vb-urban{background:rgba(0,180,216,.15);color:var(--accent);border:1px solid rgba(0,180,216,.35)}
-.vb-hualian{background:rgba(188,140,255,.15);color:var(--hualian);border:1px solid rgba(188,140,255,.35)}
+.vb-hanyoo{background:rgba(188,140,255,.15);color:var(--hanyoo);border:1px solid rgba(188,140,255,.35)}
 .vb-rich{background:rgba(255,159,67,.15);color:var(--rich);border:1px solid rgba(255,159,67,.35)}
 .vb-all{background:var(--tag-bg);color:var(--text-dim);border:1px solid var(--border)}
 .instr-prog{font-size:11px;font-weight:700;color:var(--text-secondary);white-space:nowrap}
@@ -284,7 +284,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="vendor-pills">
     <div class="vp canaan">Canaan Technology · Wenzhou</div>
     <div class="vp urban">Urban Machinery · Ruian</div>
-    <div class="vp hualian">Hualian Pharma Mach. · Ruian</div>
+    <div class="vp hanyoo">Jiangsu Hanyoo Pharmatech · Nanjing</div>
     <div class="vp rich">Rich Packing · Guangzhou</div>
   </div>
 </div>
@@ -296,7 +296,8 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <button class="tab-btn" onclick="showTab('terms',this)">Commercial Terms</button>
   <button class="tab-btn" onclick="showTab('checklist',this)">GMP Checklist</button>
   <button class="tab-btn" onclick="showTab('gaps',this)">Regulatory Gaps</button>
-  <button class="tab-btn" onclick="showTab('mes',this)">MES/SCADA</button>
+  <button class="tab-btn" onclick="showTab('scada',this)">SCADA</button>
+  <button class="tab-btn" onclick="showTab('mes',this)">MES</button>
   <button class="tab-btn" onclick="showTab('instr',this)">Instrumentation</button>
   <button class="tab-btn" onclick="showTab('verdict',this)">Recommendation</button>
 </div>
@@ -308,12 +309,12 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="summary-grid">
     <div class="vc canaan">
       <h2>Canaan Technology Limited</h2>
-      <div class="loc">Wenzhou, Zhejiang · QE26061219138-VER1 · Jun 2026</div>
-      <div class="price-big canaan">USD $761,720</div>
-      <div class="plabel">Full line FOB Ningbo incl. FAT/SAT + freight</div>
+      <div class="loc">Wenzhou, Zhejiang · QE26061219138-VER2 + QE26070619157-VER1 · Jun–Jul 2026</div>
+      <div class="price-big canaan">USD $794,720</div>
+      <div class="plabel">Full line FOB Ningbo incl. FAT/SAT + freight — capsule filler upgraded to NJP-2500C 6 Jul</div>
       <div class="divider"></div>
       <div class="kv">
-        <span class="kk">Equipment</span><span class="kv-val">$748,220</span>
+        <span class="kk">Equipment</span><span class="kv-val">$781,220</span>
         <span class="kk">FAT/SAT</span><span class="kv-val">$10,500</span>
         <span class="kk">Lead time</span><span class="kv-val">120 working days</span>
         <span class="kk">Payment</span><span class="kv-val">50% / 50%</span>
@@ -336,20 +337,20 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <span class="kk">IQ/OQ/DQ</span><span class="kv-val" style="color:var(--yellow)">Not stated in quotes</span>
       </div>
     </div>
-    <div class="vc hualian">
-      <h2>Hualian Pharma Machinery Co., Ltd</h2>
-      <div class="loc">Ruian, Zhejiang · Diana Pan · Jun 2026</div>
-      <div class="price-big hualian">USD $208,150</div>
-      <div class="plabel">Coating + capsule + blister/cartoner only — no granulator or press</div>
+    <div class="vc hanyoo">
+      <h2>Jiangsu Hanyoo Pharmatech Co., Ltd</h2>
+      <div class="loc">Nanjing, Jiangsu · No price ref (specs only) · Jul 2026</div>
+      <div class="price-big hanyoo">Quote pending</div>
+      <div class="plabel">Near-complete 14-item line (mixer → ALU-ALU blister) — every price cell blank in offer</div>
       <div class="divider"></div>
       <div class="kv">
-        <span class="kk">Film coater (BG-80)</span><span class="kv-val">$43,000</span>
-        <span class="kk">Capsule filler (NJP-2500)</span><span class="kv-val">$43,550</span>
-        <span class="kk">Blister+cartoner line</span><span class="kv-val">$121,600</span>
-        <span class="kk">Lead time</span><span class="kv-val">45–80 days per machine</span>
-        <span class="kk">Payment</span><span class="kv-val">30% / 70%</span>
-        <span class="kk">Installation</span><span class="kv-val" style="color:var(--green)">✓ Free — vendor pays all costs</span>
-        <span class="kk">WIP (coating)</span><span class="kv-val" style="color:var(--red)">✗ NOT included — negotiate in</span>
+        <span class="kk">Granulator (GHL-200B)</span><span class="kv-val">TBC · 30–60 kg/batch</span>
+        <span class="kk">Tablet press (ZPT-560)</span><span class="kv-val">TBC · up to 239,400 pcs/h</span>
+        <span class="kk">Capsule filler (GL-27)</span><span class="kv-val">TBC · 120,000/hr · 18 holes</span>
+        <span class="kk">Blister (DPP-270)</span><span class="kv-val">TBC · ALU-ALU capable, no cartoner</span>
+        <span class="kk">Lead time</span><span class="kv-val">90 working days (quoted)</span>
+        <span class="kk">Payment</span><span class="kv-val">50% / 50% T/T, EXW</span>
+        <span class="kk">Part 11 / IQ-OQ-DQ</span><span class="kv-val" style="color:var(--red)">✗ Not stated anywhere in offer</span>
       </div>
     </div>
     <div class="vc rich">
@@ -370,12 +371,12 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
 
   <div class="split-callout">
-    <h3>✓ Recommended Optimal Split — Estimated Total ~$582,000</h3>
+    <h3>✓ Recommended Optimal Split — Estimated Total ~$559,200 <span style="font-size:12px;font-weight:400;color:var(--yellow)">(excl. pinhole detection + blister camera — now unpriced, see below)</span></h3>
     <div class="split-row"><span class="split-label">High Shear Granulator + FBD</span><span class="split-vendor urban">Urban</span><span class="split-reason">GHL-250 at 80 kg/batch — only production-scale option. Non-negotiable.</span></div>
     <div class="split-row"><span class="split-label">Rotary Tablet Press</span><span class="split-vendor rich">Rich Packing</span><span class="split-reason">HGZ-26D: 26 stations, 165,000/hr, $65,800. Competitive. Validate Part 11 on-site.</span></div>
-    <div class="split-row"><span class="split-label">Film Coating Machine</span><span class="split-vendor rich">Rich Packing</span><span class="split-reason">BGB-80: WIP system included at $39,500 — GMP-mandatory. $3,500 cheaper than Hualian with more scope.</span></div>
-    <div class="split-row"><span class="split-label">Capsule Filling Machine</span><span class="split-vendor urban">Urban</span><span class="split-reason">NJP-2500C: same 150,000/hr · 18-hole · Siemens+SEW spec as Hualian for $30,800 — $12,750 cheaper, and consolidates with Urban granulation line. Caveat: confirm Part 11 + negotiate installation (Hualian's is free) at factory visit.</span></div>
-    <div class="split-row"><span class="split-label">Blister Line (Alu-Alu)</span><span class="split-vendor hualian">Hualian</span><span class="split-reason">DPB-270J: ONLY alu-alu cold-form option. Includes pinhole detection + camera + cartoner bundled at $121,600.</span></div>
+    <div class="split-row"><span class="split-label">Film Coating Machine</span><span class="split-vendor rich">Rich Packing</span><span class="split-reason">BGB-80: WIP system included at $39,500 — GMP-mandatory, and Rich's own WIP-equipped price. Confirm no vendor still offers WIP cheaper.</span></div>
+    <div class="split-row"><span class="split-label">Capsule Filling Machine</span><span class="split-vendor urban">Urban</span><span class="split-reason">NJP-2500C: 150,000/hr · 18-hole · Siemens+SEW, $30,800 base (~$35K equipped) — cheapest confirmed option at this spec class, and consolidates with Urban granulation line. Canaan now quotes the same class equipped for $51,500 (QE26070619157) as a Part-11-capable fallback if Urban's Part 11 questionnaire fails.</span></div>
+    <div class="split-row"><span class="split-label">Blister Line (Alu-Alu)</span><span class="split-vendor canaan">Canaan</span><span class="split-reason">DPP-180: $64,500, confirmed ALU-ALU + Part 11 — safest confirmed option now that Hualian is out. Does NOT include a cartoner (add Urban's ZH120, $34,300) or a confirmed camera/pinhole detector — both now open cost items, previously bundled free in Hualian's price. Hanyoo's DPP-270 (ALU-ALU capable, unpriced) and Urban's DPP-260H ("ALU-ALU TBC") are unconfirmed alternatives worth chasing.</span></div>
   </div>
 
   <div class="section-label">Full equipment scope — all 4 vendors</div>
@@ -386,7 +387,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <th>Category</th>
         <th class="cc">Canaan</th>
         <th class="uc">Urban</th>
-        <th class="hc">Hualian</th>
+        <th class="hc">Hanyoo</th>
         <th class="rc">Rich Packing</th>
         <th class="wc">Recommended</th>
       </tr>
@@ -395,9 +396,9 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
       <tr><td colspan="6" style="background:var(--surface2);font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.8px;padding:6px 12px">GRANULATION LINE</td></tr>
       <tr>
         <td class="cat">Vibro Sifter</td>
-        <td><span class="price canaan">$6,160</span><span class="spec">S49-800-L-2S · SEW motor · double-layer</span></td>
+        <td><span class="price canaan">$6,160</span><span class="spec">S49-800-L-2S · 316L · double-layer · 200–500 kg/hr (QE26070619157)</span></td>
         <td><span class="price urban">$3,360</span><span class="spec good">ZS-800 · 180–1000 kg/h · Siemens</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec">XZS-1000 · 20–100 mesh · 1–3 layers</span></td>
         <td><span class="price na">—</span></td>
         <td class="win-cell"><span class="badge teal">Urban</span></td>
       </tr>
@@ -405,7 +406,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">High Shear Granulator</td>
         <td><span class="price canaan">$113,490</span><span class="spec warn">LHS75 · 15–30 kg/batch ⚠ BOTTLENECK</span></td>
         <td><span class="price urban">$35,200</span><span class="spec good">GHL-250 · 80 kg/batch ✓ CORRECT SCALE</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec warn">GHL-200B · 30–60 kg/batch</span></td>
         <td><span class="price rich">$10,800</span><span class="spec bad">HLSG-20 · 3–8 kg ⛔ LAB SCALE ONLY</span></td>
         <td class="win-cell"><span class="badge teal">Urban</span><br><span style="font-size:10px;color:var(--red)">Rich: DISQUALIFY</span></td>
       </tr>
@@ -413,7 +414,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">Fluid Bed Dryer</td>
         <td><span class="price canaan">$93,030</span><span class="spec warn">FZ30 · 10–30 kg/batch</span></td>
         <td><span class="price urban">$29,800</span><span class="spec good">FG-80 · 80 kg/batch · matched to GHL-250</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec good">FL-60B · 60 kg/batch</span></td>
         <td><span class="price na">—</span></td>
         <td class="win-cell"><span class="badge teal">Urban</span></td>
       </tr>
@@ -421,7 +422,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">Dry Granulator / Roller Compactor</td>
         <td><span class="price canaan">$101,720</span><span class="spec">LGP150/50II · 20–80 kg/h · IQ/OQ/DQ incl.</span></td>
         <td><span class="price urban">$46,500</span><span class="spec">GK-50 · 30–60 kg/h · chiller incl.</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec">DG-80 · 15–80 kg/h</span></td>
         <td><span class="price rich">$28,000</span><span class="spec warn">ZKG-10 · 5–10 kg/h · very low throughput</span></td>
         <td class="win-cell"><span class="badge blue">Canaan</span><br><span style="font-size:10px;color:var(--text-dim)">if high vol needed</span></td>
       </tr>
@@ -446,7 +447,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">Rotary Tablet Press</td>
         <td><span class="price canaan">$103,000</span><span class="spec good">GZPK-40 · 40 stations · 260,000/hr · Part 11</span></td>
         <td><span class="price urban">$29,200</span><span class="spec warn">ZPTX340-24D · 24 stations · ~50,000/hr + deduster + metal det.</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec good">ZPT-560 · 39/47/57 stations · up to 239,400/hr</span></td>
         <td><span class="price rich">$65,800</span><span class="spec">HGZ-26D · 26 stations · 165,000/hr · reject system</span></td>
         <td class="win-cell"><span class="badge orange">Rich Packing</span><br><span style="font-size:10px;color:var(--text-dim)">price/performance</span></td>
       </tr>
@@ -454,7 +455,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">Tablet Deduster + Metal Detector</td>
         <td><span class="price na">—</span></td>
         <td><span class="price na">incl. above</span></td>
-        <td><span class="price na">—</span></td>
+        <td><span class="price na">TBC</span><span class="spec">SZS-230 dedustor + T60-30 metal detector (2 separate units)</span></td>
         <td><span class="price rich">$22,300</span><span class="spec">RQ273-M combo · matched to HGZ-26D</span></td>
         <td class="win-cell"><span class="badge orange">Rich Packing</span></td>
       </tr>
@@ -462,58 +463,58 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">Film Coating Machine</td>
         <td><span class="price canaan">$104,100</span><span class="spec">BGX75 · 20–60 kg · Watson Marlow · Schlick · SKF · SEW · Part 11</span></td>
         <td><span class="price urban">$26,000</span><span class="spec">BG-40E · 40L · Siemens PLC · German spray gun</span></td>
-        <td><span class="price hualian">$43,000</span><span class="spec bad">BG-80 · 40–80 kg · NO WIP ⚠ negotiate in</span></td>
+        <td><span class="price na">TBC</span><span class="spec bad">BG-80B · 80 kg · NO WIP mentioned ⚠</span></td>
         <td><span class="price rich">$39,500</span><span class="spec good">BGB-80 · 60–80 kg · WIP incl. ✓ + hot air + exhaust</span></td>
         <td class="win-cell"><span class="badge orange">Rich Packing</span><br><span style="font-size:10px;color:var(--yellow)">WIP is critical</span></td>
       </tr>
       <tr>
         <td class="cat">Capsule Filling Machine</td>
-        <td><span class="price canaan">$18,500</span><span class="spec">NJP-400C · 24,000/hr · 3 bores</span></td>
+        <td><span class="price canaan">$51,500</span><span class="spec good">NJP-2500C · 150,000/hr · 18 holes · Siemens PLC · 316L · powder+capsule loader+Becker pump incl. (QE26070619157) · options: polisher $5,300, Part-11 e-sig IPC $9,500</span></td>
         <td><span class="price urban">$30,800</span><span class="spec good">NJP-2500C · 150,000/hr · 18 holes · Siemens PLC + SEW · alt: NJP-1200C 72k/hr · 9 holes · $19,800</span></td>
-        <td><span class="price hualian">$43,550</span><span class="spec">NJP-2500 · 150,000/hr · 18 holes · Siemens PLC + SEW · feeders + polisher + free install</span></td>
+        <td><span class="price na">TBC</span><span class="spec">GL-27 · 120,000/hr · 18 holes · #00–#4 · one mold incl.</span></td>
         <td><span class="price rich">$37,700</span><span class="spec">NJP-1500D · 72,000/hr · 9 holes · Becker pump (DE)</span></td>
-        <td class="win-cell"><span class="badge teal">Urban</span><br><span style="font-size:10px;color:var(--text-dim)">same spec, −$12.75K vs Hualian</span></td>
+        <td class="win-cell"><span class="badge teal">Urban</span><br><span style="font-size:10px;color:var(--text-dim)">cheapest at this spec class; Canaan now same-class Part-11 fallback</span></td>
       </tr>
       <tr><td colspan="6" style="background:var(--surface2);font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.8px;padding:6px 12px">PACKAGING LINE</td></tr>
       <tr>
         <td class="cat">Blister Packing Machine</td>
         <td><span class="price canaan">$64,500</span><span class="spec good">DPP-180 · 100–200/min · ALU-ALU ✓ · Part 11 · 14mm depth</span></td>
         <td><span class="price urban">$48,780</span><span class="spec">DPP-260H · 20–60/min · ALU-ALU TBC ⚠ · 22mm depth</span></td>
-        <td><span class="price hualian">$35,000</span><span class="spec good">DPB-270J · 25–30/min · ALU-ALU ✓ cold-form · Mitsubishi servo</span></td>
+        <td><span class="price na">TBC</span><span class="spec">DPP-270 · 10–20/min ALU-ALU (2000–4000/hr) · alu-alu mold not confirmed incl.</span></td>
         <td><span class="price rich">$25,500</span><span class="spec bad">DPP-270Max · 70–120/min · ALU-PVC ONLY ⛔ no cold-form</span></td>
-        <td class="win-cell"><span class="badge purple">Hualian</span><br><span style="font-size:10px;color:var(--yellow)">only alu-alu option</span></td>
+        <td class="win-cell"><span class="badge blue">Canaan</span><br><span style="font-size:10px;color:var(--yellow)">only confirmed alu-alu; no cartoner incl.</span></td>
       </tr>
       <tr>
         <td class="cat">Vision Camera System</td>
-        <td><span class="price na">TBC</span></td>
+        <td><span class="price na">TBC — not confirmed</span></td>
         <td><span class="price na">incl. in blister</span></td>
-        <td><span class="price hualian">$15,000</span><span class="spec warn">HPM brand (domestic) — negotiate Basler upgrade</span></td>
+        <td><span class="price na">Not quoted</span></td>
         <td><span class="price rich">$14,000</span><span class="spec good">Germany Basler ✓ — superior quality</span></td>
-        <td class="win-cell"><span class="badge orange">Rich Packing</span><br><span style="font-size:10px;color:var(--text-dim)">if standalone</span></td>
+        <td class="win-cell"><span class="badge orange">Rich Packing</span><br><span style="font-size:10px;color:var(--yellow)">open item on Canaan blister</span></td>
       </tr>
       <tr>
         <td class="cat">Pinhole Detection (Alu foil)</td>
+        <td><span class="price na">TBC — not confirmed</span></td>
         <td><span class="price na">TBC</span></td>
-        <td><span class="price na">TBC</span></td>
-        <td><span class="price hualian">$20,000</span><span class="spec good">Included in blister line ✓ — GMP-critical for alu-alu</span></td>
+        <td><span class="price na">Not quoted</span></td>
         <td><span class="price na">Not quoted</span><span class="spec bad">⚠ ask on-site</span></td>
-        <td class="win-cell"><span class="badge purple">Hualian</span></td>
+        <td class="win-cell"><span class="badge red">Open item</span><br><span style="font-size:10px;color:var(--yellow)">was free-bundled in Hualian; now unpriced everywhere</span></td>
       </tr>
       <tr>
         <td class="cat">Blister → Cartoner Link</td>
         <td><span class="price na">—</span></td>
         <td><span class="price urban">$9,500</span></td>
-        <td><span class="price na">incl. ($6,600)</span></td>
+        <td><span class="price na">—</span></td>
         <td><span class="price na">incl.</span></td>
-        <td class="win-cell"><span class="badge purple">Hualian</span></td>
+        <td class="win-cell"><span class="badge orange">Rich (incl.)</span><br><span style="font-size:10px;color:var(--text-dim)">Urban if pairing with Canaan blister</span></td>
       </tr>
       <tr>
         <td class="cat">Fully Auto Cartoner</td>
         <td><span class="price na">NOT included</span></td>
-        <td><span class="price urban">$34,300</span><span class="spec">ZH120 · 30–100 boxes/min · weight checker</span></td>
-        <td><span class="price hualian">$38,000</span><span class="spec">ZHJ-150K · 30–60 boxes/min · bundled in blister pkg</span></td>
+        <td><span class="price urban">$34,300</span><span class="spec good">ZH120 · 30–100 boxes/min · weight checker</span></td>
+        <td><span class="price na">Not offered</span></td>
         <td><span class="price rich">$43,000</span><span class="spec good">ZH-130W · 30–125 boxes/min · fastest speed</span></td>
-        <td class="win-cell"><span class="badge purple">Hualian</span><br><span style="font-size:10px;color:var(--text-dim)">already bundled</span></td>
+        <td class="win-cell"><span class="badge teal">Urban</span><br><span style="font-size:10px;color:var(--text-dim)">pairs with Canaan blister — no longer bundled free</span></td>
       </tr>
       <tr>
         <td class="cat">Pharma Lifter</td>
@@ -533,11 +534,11 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
       </tr>
       <tr class="total-row">
         <td class="cat">TOTAL (full line)</td>
-        <td><span class="price canaan" style="font-size:15px">$761,720</span></td>
+        <td><span class="price canaan" style="font-size:15px">$794,720</span></td>
         <td><span class="price urban" style="font-size:15px">$343,605</span></td>
-        <td><span class="price hualian" style="font-size:15px">$208,150</span><span class="spec">coating+capsule+blister only</span></td>
+        <td><span class="price na" style="font-size:15px">Quote pending</span><span class="spec">near-complete line, no cartoner/pinhole/camera — 8+ items unpriced</span></td>
         <td><span class="price rich" style="font-size:15px">$318,500</span><span class="spec bad">granulator unusable</span></td>
-        <td class="win-cell" style="font-size:11px;color:var(--green)">Split ~$582K</td>
+        <td class="win-cell" style="font-size:11px;color:var(--green)">Split ~$559K</td>
       </tr>
     </tbody>
   </table>
@@ -549,13 +550,13 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="section-label">Granulation Line — Head-to-Head</div>
   <div class="tbl-wrap">
   <table class="comp-table">
-    <thead><tr><th>Machine</th><th class="cc">Canaan Spec</th><th class="uc">Urban Spec</th><th class="hc">Hualian</th><th class="rc">Rich Packing</th><th class="wc">Assessment</th></tr></thead>
+    <thead><tr><th>Machine</th><th class="cc">Canaan Spec</th><th class="uc">Urban Spec</th><th class="hc">Hanyoo Spec</th><th class="rc">Rich Packing</th><th class="wc">Assessment</th></tr></thead>
     <tbody>
       <tr>
         <td class="cat">Vibro Sifter<br><span style="font-size:11px;color:var(--text-dim)">C $6,160 · U $3,360</span></td>
         <td><span class="spec">S49-800-L-2S · 316L · double layer · 0.55 kW · SEW motor</span></td>
         <td><span class="spec good">ZS-800 · 316L mesh · 1.1 kW · Siemens motor · 180–1000 kg/h</span></td>
-        <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
+        <td><span class="spec warn">XZS-1000 · Φ1000mm · 20–100 mesh · 1–3 layers · 0.75 kW · price TBC</span></td>
         <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
         <td><span class="badge teal">Urban wins</span><br><span class="spec">Higher capacity; Canaan double-layer design</span></td>
       </tr>
@@ -563,25 +564,25 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
         <td class="cat">High Shear Granulator<br><span style="font-size:11px;color:var(--text-dim)">C $113,490 · U $35,200 · R $10,800</span></td>
         <td><span class="spec warn">LHS75 · 15–30 kg/batch · 5.5 kW · SEW · Part 11 ✓ · inline wet cone mill · binder tank</span></td>
         <td><span class="spec good">GHL-250 · 80 kg/batch · 11 kW · Siemens PLC · 10" touchscreen + GZL-200 wet mill + ZKS-2 vacuum feed</span></td>
-        <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
+        <td><span class="spec warn">GHL-200B · 30–60 kg/batch · 11 kW mixing + 5.5 kW cutting · price TBC</span></td>
         <td><span class="spec bad">HLSG-20 · 3–8 kg BATCH (3–8L) · Lab/pilot scale only. Cannot feed 60–80 kg coater. AUTOMATIC DISQUALIFIER.</span></td>
-        <td><span class="badge teal">Urban — only option</span><br><span class="spec bad">Rich Packing: DISQUALIFY</span></td>
+        <td><span class="badge teal">Urban — only confirmed option</span><br><span class="spec bad">Rich Packing: DISQUALIFY · Hanyoo: same rough scale as Urban, price TBC</span></td>
       </tr>
       <tr>
         <td class="cat">Fluid Bed Dryer<br><span style="font-size:11px;color:var(--text-dim)">C $93,030 · U $29,800</span></td>
         <td><span class="spec warn">FZ30 · 10–30 kg/batch · manual filter bag lift · G4+F8+H13 AHU · Siemens HMI · Part 11 ✓</span></td>
         <td><span class="spec good">FG-80 · 80 kg/batch · shared Siemens touchscreen with GHL-250 · online discharging · 15 kW fan · G4+F8+H13 AHU</span></td>
+        <td><span class="spec good">FL-60B · 60 kg/batch · 15 kW fan · steam heated · price TBC</span></td>
         <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
-        <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
-        <td><span class="badge teal">Urban wins on capacity</span><br><span class="spec">Urban 2.7× batch. Canaan FBD matched to Canaan HSM but both undersized.</span></td>
+        <td><span class="badge teal">Urban wins on capacity</span><br><span class="spec">Urban 2.7× batch. Canaan FBD matched to Canaan HSM but both undersized. Hanyoo FL-60B is closest to Urban's scale, price TBC.</span></td>
       </tr>
       <tr>
         <td class="cat">Dry Granulator / Roller Compactor<br><span style="font-size:11px;color:var(--text-dim)">C $101,720 · U $46,500 · R $28,000</span></td>
         <td><span class="spec good">LGP150/50II · 20–80 kg/h · double milling · 2 sieves · IQ/OQ/DQ/SOP/FAT · water chiller + 2× QVC</span></td>
         <td><span class="spec">GK-50 · 30–60 kg/h · water chiller incl. · 0.3–3.5 mm granule size · SUS316L rollers</span></td>
-        <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
+        <td><span class="spec">DG-80 · 15–80 kg/h · 12 kW · price TBC</span></td>
         <td><span class="spec warn">ZKG-10 · 5–10 kg/h throughput · very low · pilot scale only</span></td>
-        <td><span class="badge blue">Canaan wins on output</span><br><span class="spec">Canaan 80 vs Urban 60 kg/h; both viable. Rich Packing too slow.</span></td>
+        <td><span class="badge blue">Canaan wins on output</span><br><span class="spec">Canaan 80 vs Urban 60 kg/h; both viable. Rich Packing too slow. Hanyoo DG-80 matches Canaan's top-end range, price TBC.</span></td>
       </tr>
       <tr>
         <td class="cat">Bin Blender + IBC<br><span style="font-size:11px;color:var(--text-dim)">C $77,180 · U $30,350</span></td>
@@ -605,71 +606,71 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="section-label">Packaging / Finishing Line — Head-to-Head</div>
   <div class="tbl-wrap">
   <table class="comp-table">
-    <thead><tr><th>Machine</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="hc">Hualian</th><th class="rc">Rich Packing</th><th class="wc">Assessment</th></tr></thead>
+    <thead><tr><th>Machine</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="hc">Hanyoo</th><th class="rc">Rich Packing</th><th class="wc">Assessment</th></tr></thead>
     <tbody>
       <tr>
-        <td class="cat">Film Coater<br><span style="font-size:11px;color:var(--text-dim)">C $104K · U $26K · H $43K · R $39.5K</span></td>
+        <td class="cat">Film Coater<br><span style="font-size:11px;color:var(--text-dim)">C $104K · U $26K · R $39.5K · H TBC</span></td>
         <td><span class="spec">BGX75 · 20–60 kg · 4-flow Schlick gun · Watson Marlow · SKF · SEW · Danfoss · Part 11 ✓ · IQ/OQ/DQ</span></td>
         <td><span class="spec">BG-40E · 40L · Siemens PLC · German spray gun · G4+F8+H13 filtration · Danfoss · 50L mixing drum</span></td>
-        <td><span class="spec warn">BG-80 · 40–80 kg · Siemens PLC · clean gun only · NO WIP system ⚠ · Free installation</span></td>
+        <td><span class="spec bad">BG-80B · 80 kg · NO WIP mentioned ⚠ · price TBC</span></td>
         <td><span class="spec good">BGB-80 · 60–80 kg · Full WIP system ✓ · Hot air cabinet + exhaust cabinet · Iwata spray gun · $39,500</span></td>
-        <td><span class="badge orange">Rich Packing wins</span><br><span class="spec good">WIP included — GMP-mandatory. $3.5K cheaper than Hualian.</span></td>
+        <td><span class="badge orange">Rich Packing wins</span><br><span class="spec good">WIP included — GMP-mandatory, and cheapest confirmed price at this spec.</span></td>
       </tr>
       <tr>
         <td class="cat">Tablet Press<br><span style="font-size:11px;color:var(--text-dim)">C $103K · U $29.2K · R $65.8K</span></td>
         <td><span class="spec good">GZPK-40 · 40 stations · 260,000/hr · Part 11 ✓ · QVC vacuum feed</span></td>
         <td><span class="spec warn">ZPTX340-24D · 24 stations · 50,400/hr · deduster + metal detector incl.</span></td>
-        <td><span class="spec" style="color:var(--text-dim)">Not offered</span></td>
+        <td><span class="spec good">ZPT-560 · 39/47/57 stations · up to 239,400/hr · price TBC</span></td>
         <td><span class="spec">HGZ-26D · 26 stations · 165,000/hr · 7.5 kW · pre-compression control · reject system · $65,800</span></td>
-        <td><span class="badge orange">Rich Packing wins</span><br><span class="spec">5× Urban throughput, 1.57× price. Canaan highest spec but overpriced for initial volumes.</span></td>
+        <td><span class="badge orange">Rich Packing wins</span><br><span class="spec">5× Urban throughput, 1.57× price. Canaan highest spec but overpriced. Hanyoo highest quoted throughput of all — chase pricing.</span></td>
       </tr>
       <tr>
-        <td class="cat">Capsule Filler<br><span style="font-size:11px;color:var(--text-dim)">C $18.5K · U $30.8K · H $43.5K · R $37.7K</span></td>
-        <td><span class="spec">NJP-400C · 24,000/hr · 3 bores · domestic vacuum pump</span></td>
+        <td class="cat">Capsule Filler<br><span style="font-size:11px;color:var(--text-dim)">C $51.5K · U $30.8K · R $37.7K · H TBC</span></td>
+        <td><span class="spec good">NJP-2500C · 150,000/hr · 18 holes · Siemens PLC · 316L · powder+capsule loader+Becker pump incl. · IQ/DQ/OQ/FAT/SOP standard (QE26070619157)</span></td>
         <td><span class="spec good">NJP-2500C · 150,000/hr · 18 holes · Siemens PLC + SEW · water-ring vac pump · dust collector · 00–5# · ±3%/±4% · powder + capsule loader avail. (alt: NJP-1200C · 72k/hr · 9 holes · 316L · cGMP · $19,800)</span></td>
-        <td><span class="spec good">NJP-2500 · 150,000/hr · 18 holes · Siemens PLC + SEW · capsule feeder + powder feeder + polisher · Free installation</span></td>
+        <td><span class="spec">GL-27 · 120,000/hr · 18 holes · #00–#4 · one mold incl. · price TBC</span></td>
         <td><span class="spec">NJP-1500D · 72,000/hr · 9 holes · Becker vacuum pump (DE) · SEW motor · polisher + metal det.</span></td>
-        <td><span class="badge teal">Urban wins</span><br><span class="spec">Same 150k/hr · 18-hole · Siemens+SEW class as Hualian for $12,750 less, + consolidates with Urban granulation line. Confirm Part 11 + installation on-site.</span></td>
+        <td><span class="badge teal">Urban wins</span><br><span class="spec">Cheapest at 150k/hr · 18-hole class, consolidates with Urban granulation line. Canaan now matches the same class equipped ($51,500) with stronger IQ/OQ/DQ + Part-11 e-sig option — credible fallback if Urban's Part 11 fails.</span></td>
       </tr>
       <tr>
-        <td class="cat">Blister Packer<br><span style="font-size:11px;color:var(--text-dim)">C $64.5K · U $48.8K · H $35K · R $25.5K</span></td>
+        <td class="cat">Blister Packer<br><span style="font-size:11px;color:var(--text-dim)">C $64.5K · U $48.8K · R $25.5K · H TBC</span></td>
         <td><span class="spec good">DPP-180 · 100–200/min · ALU-ALU ✓ · Siemens servo · Part 11 · 14mm depth</span></td>
         <td><span class="spec warn">DPP-260H · 20–60/min · ALU-ALU status TBC ⚠ · Panasonic servo · Omron PLC · 22mm depth · camera + chiller + laser + cartoner link</span></td>
-        <td><span class="spec good">DPB-270J · 25–30/min · ALU-ALU ✓ cold-form · Mitsubishi servo · Siemens PLC · 90×50mm mould incl.</span></td>
+        <td><span class="spec warn">DPP-270 · 10–20/min ALU-ALU · alu-alu mold not confirmed incl. (only ALU-PVC mold stated) · price TBC</span></td>
         <td><span class="spec bad">DPP-270Max · 70–120/min · ALU-PVC thermoform ONLY ⛔ · Cannot do cold-form alu-alu. FAIL for alu-alu requirement.</span></td>
-        <td><span class="badge purple">Hualian wins</span><br><span class="spec bad">Rich Packing: DISQUALIFY for alu-alu</span></td>
+        <td><span class="badge blue">Canaan wins</span><br><span class="spec bad">Only CONFIRMED alu-alu vendor now that Hualian is out. Rich Packing: DISQUALIFY. Hanyoo/Urban both unconfirmed — chase.</span></td>
       </tr>
       <tr>
         <td class="cat">Camera Inspection</td>
-        <td><span class="spec">TBC (in Canaan line)</span></td>
+        <td><span class="spec">TBC — not confirmed in Canaan blister line</span></td>
         <td><span class="spec">incl. in blister</span></td>
-        <td><span class="spec warn">HPM brand · $15,000 · domestic · negotiate Basler upgrade</span></td>
+        <td><span class="spec">Not mentioned in offer</span></td>
         <td><span class="spec good">Germany Basler · $14,000 · superior quality ✓</span></td>
-        <td><span class="badge orange">Rich Packing camera</span><br><span class="spec">Use as lever to upgrade Hualian to Basler</span></td>
+        <td><span class="badge orange">Rich Packing camera</span><br><span class="spec">Standalone option; Canaan blister needs a camera sourced/confirmed.</span></td>
       </tr>
       <tr>
         <td class="cat">Pinhole Detection</td>
+        <td><span class="spec bad">TBC — not confirmed, previously free-bundled in Hualian's price</span></td>
         <td><span class="spec">TBC</span></td>
-        <td><span class="spec">TBC</span></td>
-        <td><span class="spec good">$20,000 incl. in blister pkg ✓ — GMP-critical for alu-alu integrity</span></td>
+        <td><span class="spec">Not mentioned in offer</span></td>
         <td><span class="spec bad">Not quoted ⚠ — ask on-site</span></td>
-        <td><span class="badge purple">Hualian only</span></td>
+        <td><span class="badge red">Open item</span><br><span class="spec">No vendor confirms this now — get a standalone quote before committing to alu-alu.</span></td>
       </tr>
       <tr>
         <td class="cat">Cartoner</td>
         <td><span class="spec bad">NOT included</span></td>
-        <td><span class="spec">ZH120 · 30–100 boxes/min · leaflet folder · weight checker · $34,300</span></td>
-        <td><span class="spec good">ZHJ-150K · 30–60 boxes/min · bundled in blister pkg total $121,600</span></td>
+        <td><span class="spec good">ZH120 · 30–100 boxes/min · leaflet folder · weight checker · $34,300</span></td>
+        <td><span class="spec bad">Not offered</span></td>
         <td><span class="spec">ZH-130W · 30–125 boxes/min · fastest · $43,000 stand-alone</span></td>
-        <td><span class="badge purple">Hualian</span><br><span class="spec">Already bundled — no extra cost</span></td>
+        <td><span class="badge teal">Urban</span><br><span class="spec">Pairs with Canaan's blister — no longer bundled free as it was with Hualian.</span></td>
       </tr>
       <tr>
         <td class="cat">Blister Line Total<br><span style="font-size:11px;color:var(--text-dim)">(blister+camera+pinhole+cartoner)</span></td>
-        <td><span class="price canaan">~$64,500+</span><span class="spec">No cartoner, no pinhole</span></td>
+        <td><span class="price canaan">$64,500 + $34,300 (Urban cartoner) = $98,800+</span><span class="spec bad">Camera + pinhole still unpriced</span></td>
         <td><span class="price urban">~$92,580</span><span class="spec warn">ALU-ALU TBC — confirm on-site</span></td>
-        <td><span class="price hualian">$121,600</span><span class="spec good">ALU-ALU ✓ · pinhole ✓ · camera · cartoner — all bundled</span></td>
+        <td><span class="price na">TBC</span><span class="spec bad">No cartoner offered; alu-alu mold unconfirmed</span></td>
         <td><span class="price rich">~$90,100</span><span class="spec bad">ALU-PVC ONLY · no pinhole detection</span></td>
-        <td><span class="badge purple">Hualian wins</span><br><span class="spec">Only complete alu-alu solution with pinhole</span></td>
+        <td><span class="badge blue">Canaan + Urban cartoner</span><br><span class="spec">Best confirmed alu-alu combo; camera + pinhole are new open cost risk since Hualian bundled both free.</span></td>
       </tr>
     </tbody>
   </table>
@@ -681,21 +682,21 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="section-label">Commercial Terms — All 4 Vendors</div>
   <div class="tbl-wrap">
   <table class="terms-table">
-    <thead><tr><th style="width:130px">Term</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="hc">Hualian</th><th class="rc">Rich Packing</th></tr></thead>
+    <thead><tr><th style="width:130px">Term</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="hc">Hanyoo</th><th class="rc">Rich Packing</th></tr></thead>
     <tbody>
-      <tr><td>Total Price</td><td><strong>$761,720 FOB Ningbo</strong><br>Equip $748,220 + FAT/SAT $10,500 + freight $3,000</td><td><strong>$343,605 FOB Shanghai</strong><br>Line 1: $175,125 + Line 2: $168,480</td><td><strong>$208,150 FOB Shanghai</strong><br>Coating + capsule filler + blister/cartoner only</td><td><strong>$318,500 FOB Guangzhou</strong><br>Near-complete — granulator unsuitable</td></tr>
-      <tr><td>Payment Terms</td><td>50% down within 1 week<br>50% before shipment</td><td><span style="color:var(--green)">30% down ✓<br>70% before delivery</span></td><td><span style="color:var(--green)">30% down ✓<br>70% before shipment</span></td><td>50% down<br>50% before shipment</td></tr>
-      <tr><td>Down Payment Exposure</td><td><span style="color:var(--red)">$380,860</span></td><td><span style="color:var(--green)">$103,082 ✓</span></td><td><span style="color:var(--green)">$62,445 ✓</span></td><td>$159,250</td></tr>
-      <tr><td>Lead Time</td><td><span style="color:var(--yellow)">120 working days (~6 months)</span></td><td><span style="color:var(--green)">40–60 working days ✓</span></td><td>45–80 days per machine</td><td>45–60 working days</td></tr>
-      <tr><td>Port / Incoterms</td><td>EXW/FOB Ningbo (Incoterms 2000 — outdated)</td><td>FOB Shanghai</td><td>FOB Shanghai/Ningbo</td><td>FOB Guangzhou</td></tr>
-      <tr><td>FAT (Factory Acceptance)</td><td><span style="color:var(--green)">Included: $1,500 · 5-day at Canaan factory ✓</span></td><td>Not offered — buyer arranges</td><td>Not stated — negotiate in</td><td>Not stated — negotiate in</td></tr>
-      <tr><td>SAT / Installation</td><td>Included: $9,000 · 1 engineer 30 working days · Canaan pays airfare</td><td>7–10 days · buyer pays airfare + hotel (3-star) + $150/day + translator</td><td><span style="color:var(--green)">FREE ✓ — Hualian pays all technician costs</span></td><td>$150/day after 7 free days · buyer pays all travel</td></tr>
-      <tr><td>Part 11 / CSV</td><td><span style="color:var(--green)">✓ Confirmed on 9 machines — written statement</span></td><td><span style="color:var(--yellow)">⚠ Pending TSG-PROC-2026-URB-001 — deadline 2 Jul</span></td><td>Not confirmed — request on-site</td><td>Not confirmed — request on-site</td></tr>
+      <tr><td>Total Price</td><td><strong>$794,720 FOB Ningbo</strong><br>Equip $781,220 + FAT/SAT $10,500 + freight $3,000</td><td><strong>$343,605 FOB Shanghai</strong><br>Line 1: $175,125 + Line 2: $168,480</td><td><strong>Quote pending</strong><br>14-item near-complete line — every price cell blank</td><td><strong>$318,500 FOB Guangzhou</strong><br>Near-complete — granulator unsuitable</td></tr>
+      <tr><td>Payment Terms</td><td>50% down within 1 week<br>50% before shipment</td><td><span style="color:var(--green)">30% down ✓<br>70% before delivery</span></td><td>50% T/T down<br>50% before shipment</td><td>50% down<br>50% before shipment</td></tr>
+      <tr><td>Down Payment Exposure</td><td><span style="color:var(--red)">$397,360</span></td><td><span style="color:var(--green)">$103,082 ✓</span></td><td>TBC — 50% of unpriced total</td><td>$159,250</td></tr>
+      <tr><td>Lead Time</td><td><span style="color:var(--yellow)">120 working days (~6 months)</span></td><td><span style="color:var(--green)">40–60 working days ✓</span></td><td>90 working days upon deposit</td><td>45–60 working days</td></tr>
+      <tr><td>Port / Incoterms</td><td>EXW/FOB Ningbo (Incoterms 2000 — outdated)</td><td>FOB Shanghai</td><td>EXW factory</td><td>FOB Guangzhou</td></tr>
+      <tr><td>FAT (Factory Acceptance)</td><td><span style="color:var(--green)">Included: $600–1,500 · up to 5-day at Canaan factory ✓</span></td><td>Not offered — buyer arranges</td><td>Not stated — negotiate in</td><td>Not stated — negotiate in</td></tr>
+      <tr><td>SAT / Installation</td><td>Included: $3,000–9,000 · engineer on-site · Canaan pays airfare</td><td>7–10 days · buyer pays airfare + hotel (3-star) + $150/day + translator</td><td>Not offered standard — buyer pays airfare/visa/accommodation + $150/person/day</td><td>$150/day after 7 free days · buyer pays all travel</td></tr>
+      <tr><td>Part 11 / CSV</td><td><span style="color:var(--green)">✓ Confirmed on 9 machines — written statement</span></td><td><span style="color:var(--yellow)">⚠ Pending TSG-PROC-2026-URB-001 — deadline 2 Jul</span></td><td><span style="color:var(--red)">✗ Not mentioned anywhere in offer</span></td><td>Not confirmed — request on-site</td></tr>
       <tr><td>IQ/OQ/DQ Docs</td><td><span style="color:var(--green)">✓ IQ, OQ, DQ, SOP, FAT — Canaan standard</span></td><td>Not stated in quotation</td><td>Not quoted — negotiate as PO condition</td><td>Not quoted — negotiate as PO condition</td></tr>
-      <tr><td>Warranty</td><td>Not explicitly stated in quote</td><td><span style="color:var(--green)">12 months spare parts from BL date ✓</span></td><td><span style="color:var(--green)">13 months free spare parts ✓</span></td><td>1 year guarantee after installation</td></tr>
-      <tr><td>After-Sales</td><td>SAT engineer 30 days; FAT protocol + report</td><td>24hr online guidance; USB videos + manuals; lifetime maintenance</td><td>Lifetime technical support; supply parts constantly</td><td>$150/day site visits; lifetime technical support</td></tr>
-      <tr><td>Key Sub-components</td><td>Watson Marlow, Schlick, SKF, SEW, Grundfos, Danfoss — premium European throughout</td><td>Siemens PLC/HMI, Panasonic servo, Omron PLC (blister), Danfoss, Air TAC</td><td>Siemens PLC/HMI, Mitsubishi servo (blister), SEW (capsule filler)</td><td>Siemens PLC, Becker vacuum pump (DE), Germany Basler camera, SEW motor</td></tr>
-      <tr><td>Quote Validity</td><td><span style="color:var(--yellow)">30 July 2026 — price lock required</span></td><td>Not stated</td><td>3 months from quotation date</td><td>30 days from 10 June — EXPIRED ⚠</td></tr>
+      <tr><td>Warranty</td><td>Not explicitly stated in quote</td><td><span style="color:var(--green)">12 months spare parts from BL date ✓</span></td><td>Not stated</td><td>1 year guarantee after installation</td></tr>
+      <tr><td>After-Sales</td><td>SAT engineer on-site; FAT protocol + report</td><td>24hr online guidance; USB videos + manuals; lifetime maintenance</td><td>Not stated</td><td>$150/day site visits; lifetime technical support</td></tr>
+      <tr><td>Key Sub-components</td><td>Watson Marlow, Schlick, SKF, SEW, Grundfos, Danfoss — premium European throughout</td><td>Siemens PLC/HMI, Panasonic servo, Omron PLC (blister), Danfoss, Air TAC</td><td>Not stated (Chinese domestic components implied, unconfirmed)</td><td>Siemens PLC, Becker vacuum pump (DE), Germany Basler camera, SEW motor</td></tr>
+      <tr><td>Quote Validity</td><td><span style="color:var(--red)">6/7 Jul 2026 (two quotes) — BOTH EXPIRED, today is 30 Jul ⚠</span></td><td>Not stated</td><td>90 days from 9 Jul 2026</td><td>30 days from 10 June — EXPIRED ⚠</td></tr>
     </tbody>
   </table>
   </div>
@@ -709,7 +710,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
       <div class="cl-vendor-tabs">
         <button class="cl-vendor-btn active canaan" onclick="selectVendor('canaan',this)">Canaan</button>
         <button class="cl-vendor-btn urban" onclick="selectVendor('urban',this)">Urban</button>
-        <button class="cl-vendor-btn hualian" onclick="selectVendor('hualian',this)">Hualian</button>
+        <button class="cl-vendor-btn hanyoo" onclick="selectVendor('hanyoo',this)">Hanyoo</button>
         <button class="cl-vendor-btn rich" onclick="selectVendor('rich',this)">Rich Packing</button>
       </div>
     </div>
@@ -772,7 +773,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
   <div class="gap-card" onclick="toggleGap(this)">
     <div class="gap-head"><span class="gap-num">A6</span><div class="gap-title-wrap"><div class="gap-title">Serialisation / aggregation (DSCSA, EU FMD)</div><div class="gap-sub">Needed for US/EU export — printing + vision + data</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
-    <div class="gap-body"><p>Exporting to the US (DSCSA) or EU (FMD) requires unit-level serialisation: print, verify, and aggregate codes to case/pallet with a data backbone reporting to authorities. This bolts onto the cartoning line and is easiest specified before the cartoner is built.</p><div class="ask-box"><strong>Ask Hualian (cartoner)</strong>Whether a serialisation module (Antares, Laetus, or Optel) can integrate on the ZHJ-150K cartoner, and what data interface it exposes.</div></div>
+    <div class="gap-body"><p>Exporting to the US (DSCSA) or EU (FMD) requires unit-level serialisation: print, verify, and aggregate codes to case/pallet with a data backbone reporting to authorities. This bolts onto the cartoning line and is easiest specified before the cartoner is built.</p><div class="ask-box"><strong>Ask Urban (cartoner)</strong>Whether a serialisation module (Antares, Laetus, or Optel) can integrate on the ZH120 cartoner, and what data interface it exposes.</div></div>
   </div>
   <div class="gap-card" onclick="toggleGap(this)">
     <div class="gap-head"><span class="gap-num">A7</span><div class="gap-title-wrap"><div class="gap-title">QC laboratory</div><div class="gap-sub">~$500K–1.5M · HPLC, dissolution, KF, etc. + LIMS · entirely separate</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
@@ -814,7 +815,7 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
   <div class="gap-card" onclick="toggleGap(this)">
     <div class="gap-head"><span class="gap-num">C3</span><div class="gap-title-wrap"><div class="gap-title">Computer System Validation Master Plan</div><div class="gap-sub">First document inspectors ask for on computerised systems</div></div><span class="sev sev-c">Critical</span><span class="gap-chev">▼</span></div>
-    <div class="gap-body"><p>Every PLC/HMI, the SCADA/MES layer, LIMS, and stability-chamber logger is a computerised system needing validation under a CSV Master Plan and a GAMP 5 risk-based approach. This is the document an inspector requests first when reviewing data integrity — see the MES/SCADA tab for the system architecture it governs.</p><div class="ask-box"><strong>Internal — links to MES/SCADA tab</strong>Author a CSV Master Plan covering all computerised systems and their Part 11 controls.</div></div>
+    <div class="gap-body"><p>Every PLC/HMI, the SCADA/MES layer, LIMS, and stability-chamber logger is a computerised system needing validation under a CSV Master Plan and a GAMP 5 risk-based approach. This is the document an inspector requests first when reviewing data integrity — see the SCADA and MES tabs for the system architecture it governs.</p><div class="ask-box"><strong>Internal — links to SCADA and MES tabs</strong>Author a CSV Master Plan covering all computerised systems and their Part 11 controls.</div></div>
   </div>
   <div class="gap-card" onclick="toggleGap(this)">
     <div class="gap-head"><span class="gap-num">C4</span><div class="gap-title-wrap"><div class="gap-title">Analytical method validation (ICH Q2(R2))</div><div class="gap-sub">Test methods must be validated, not just available</div></div><span class="sev sev-h">High</span><span class="gap-chev">▼</span></div>
@@ -822,19 +823,69 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
 </div>
 
-<!-- ════════ MES / SCADA ════════ -->
-<div class="tab-content" id="tab-mes">
+<!-- ════════ SCADA ════════ -->
+<div class="tab-content" id="tab-scada">
   <div class="strat-box">
-    <h3>Why build the data layer internally</h3>
-    <p>The four vendors deliver machine-level control (PLC + HMI). They do not deliver the layer that ties machines together into electronic batch records, a process historian, and inspection-ready data integrity. That layer — SCADA + MES — is the part HSA scrutinises most under Part 11, and it is the part that becomes a reusable asset across every future Citia site. Outsourcing it per-site rebuilds the same thing repeatedly; building it once internally turns it into transferable infrastructure.</p>
-    <p>The principle matches the rest of the business: <strong>own the system, not just the product.</strong> A validated SCADA/MES platform with internal capability is a moat — it is hard to replicate, it compounds across facilities, and it keeps data-integrity control in-house rather than renting it.</p>
+    <h3>SCADA readiness is a per-machine vendor requirement, not something we buy</h3>
+    <p>Citia stands up Ignition in-house as the SCADA/historian layer. What each vendor must supply is <strong>cooperation</strong> — every machine's PLC needs to expose an open protocol (OPC-UA or Modbus) with a documented tag list, so Ignition can pull its data without a proprietary bridge. This is checked machine-by-machine against IQ/OQ, exactly like any other qualification requirement — it is not a product Citia purchases from Canaan or anyone else.</p>
+    <p><strong>Canaan's edge here is real but narrow:</strong> their PLC/HMI sophistication and existing Part-11 e-signature module make them the vendor most likely to already meet this bar natively. That is what earns them a higher SCADA-readiness score in the Recommendation tab's weighted matrix — not that Canaan sells Citia a finished SCADA/MES system.</p>
   </div>
 
-  <div class="section-label">The 4-level data stack</div>
+  <div class="risk-box" style="border-left-color:var(--accent);background:rgba(0,180,216,.06);border-color:rgba(0,180,216,.25)">
+    <h4 style="color:var(--accent)">⚠ Discrete-machine SCADA risk — insist on 3 things from Urban, Rich, and Hanyoo</h4>
+    <ul style="list-style:none">
+      <li><strong>1. Standard IQ/OQ documentation for the machine itself.</strong> All vendors will have this — it's the easy ask.</li>
+      <li><strong>2. Open communication protocol documentation</strong> — OPC-UA, Modbus, or equivalent — so Ignition can pull data from their PLC without a proprietary bridge. None of the current quotes state this; it has not been asked yet.</li>
+      <li><strong>3. A FAT that includes a live demonstration of data output in the required protocol, before shipment.</strong> Because Urban/Rich/Hanyoo (and previously Hualian) supply discrete machines rather than an integrated line, none of them will natively test the machine→Ignition→MES chain in their standard FAT — that chain is Citia's system, not theirs. This has to be written into the PO as a condition, not assumed.</li>
+    </ul>
+  </div>
+
+  <div class="section-label">Field + SCADA layer (L0–L1)</div>
   <div class="mes-stack">
     <div class="mes-level vendor"><span class="mes-lvl-tag">L0</span><div><div class="mes-lvl-title">Field / Machine — PLC + HMI</div><div class="mes-lvl-desc">Siemens / Mitsubishi / Omron controllers on each machine. Audit trail, user tiers, alarms live here.</div></div><span class="mes-own vendor">Vendor-provided</span></div>
-    <div class="mes-level build"><span class="mes-lvl-tag">L1</span><div><div class="mes-lvl-title">SCADA + Process Historian (OPC-UA)</div><div class="mes-lvl-desc">Collects tags from every machine into one time-series historian. Built on Ignition. This is the linchpin layer.</div></div><span class="mes-own build">Build internally</span></div>
-    <div class="mes-level build"><span class="mes-lvl-tag">L2</span><div><div class="mes-lvl-title">MES / electronic Batch Records (eBR)</div><div class="mes-lvl-desc">Recipe management, electronic batch records, review-by-exception. Built on Sepasoft on top of Ignition.</div></div><span class="mes-own build">Build internally</span></div>
+    <div class="mes-level build"><span class="mes-lvl-tag">L1</span><div><div class="mes-lvl-title">SCADA + Process Historian (OPC-UA)</div><div class="mes-lvl-desc">Ignition, stood up in-house, collects tags from every machine into one time-series historian — conditional on each vendor's machine exposing an open protocol.</div></div><span class="mes-own build">Build internally</span></div>
+  </div>
+
+  <div class="section-label">Per-machine SCADA-readiness matrix</div>
+  <div class="tbl-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Machine</th><th>Vendor</th><th>IQ/OQ docs</th><th>Open protocol documented (OPC-UA/Modbus)</th><th>FAT live data-demo committed</th></tr></thead>
+    <tbody>
+      <tr><td class="cat">GHL-250 granulator, FG-80 FBD, GK-50 dry gran, HTD-250 blender</td><td><span class="badge teal">Urban</span></td><td><span class="spec warn">Not stated in quotation</span></td><td><span class="spec bad">TBC — not asked yet</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+      <tr><td class="cat">NJP-2500C capsule filler</td><td><span class="badge teal">Urban</span></td><td><span class="spec warn">Not stated in quotation</span></td><td><span class="spec bad">TBC — not asked yet</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+      <tr><td class="cat">NJP-2500C capsule filler</td><td><span class="badge blue">Canaan</span></td><td><span class="spec good">✓ IQ, DQ, OQ, FAT, SOP — standard</span></td><td><span class="spec warn">TBC — likely native given PLC sophistication, not yet documented</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+      <tr><td class="cat">BGB-80 film coater, HGZ-26D tablet press</td><td><span class="badge orange">Rich Packing</span></td><td><span class="spec bad">Not quoted — negotiate as PO condition</span></td><td><span class="spec bad">TBC — not asked yet</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+      <tr><td class="cat">DPP-180 blister</td><td><span class="badge blue">Canaan</span></td><td><span class="spec good">✓ IQ, DQ, OQ, FAT, SOP — standard</span></td><td><span class="spec warn">TBC</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+      <tr><td class="cat">Full 14-item line</td><td><span class="badge purple">Hanyoo</span></td><td><span class="spec bad">Not stated anywhere in offer</span></td><td><span class="spec bad">Not mentioned</span></td><td><span class="spec bad">Not offered — insist as PO condition</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-label">Part 11 coverage map — recommended split</div>
+  <div class="tbl-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Tier</th><th>Machines</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="cat"><span class="map-mand">Mandatory</span></td><td><span class="spec">GHL-250 granulator, FG-80 FBD, GK-50 dry gran, HTD-250 blender, NJP-2500C capsule (Urban); BGB-80 coater (Rich); DPP-180 blister (Canaan)</span></td><td><span class="spec">Generate or directly determine CPPs and batch data. Full audit trail + OPC-UA into the historian is non-negotiable.</span></td></tr>
+      <tr><td class="cat"><span class="map-req">Required</span></td><td><span class="spec">DPP-180 blister camera/pinhole (once sourced — currently unpriced/unconfirmed) + Urban ZH120 cartoner</span></td><td><span class="spec">Inspection results and reconciliation are batch-record evidence; must be captured and locked. This is now an open procurement item, not a bundled given.</span></td></tr>
+      <tr><td class="cat"><span class="map-rec">Recommended</span></td><td><span class="spec">ZH120 cartoner data, future serialisation module</span></td><td><span class="spec">Strengthens traceability and is the natural hook for DSCSA/FMD serialisation later.</span></td></tr>
+      <tr><td class="cat"><span class="map-exempt">Exempt</span></td><td><span class="spec">Vibro sifter, solution tank, vacuum feeder</span></td><td><span class="spec">No CPPs, no electronic records generated — simple mechanical aids, outside Part 11 scope.</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ════════ MES ════════ -->
+<div class="tab-content" id="tab-mes">
+  <div class="strat-box">
+    <h3>MES is always built internally — vendor choice doesn't change this</h3>
+    <p>Recipe management, electronic batch records, and review-by-exception are Citia's own system, built on Sepasoft on top of Ignition, regardless of which equipment vendor wins the order. Buying from Canaan does not remove this cost or replace this build — Canaan's contribution is machine-level SCADA-readiness (see the SCADA tab), not a finished MES.</p>
+    <p>The principle matches the rest of the business: <strong>own the system, not just the product.</strong> A validated MES platform with internal capability is a moat — it is hard to replicate, it compounds across facilities, and it keeps data-integrity control in-house rather than renting it.</p>
+  </div>
+
+  <div class="section-label">MES + ERP layer (L2–L3)</div>
+  <div class="mes-stack">
+    <div class="mes-level build"><span class="mes-lvl-tag">L2</span><div><div class="mes-lvl-title">MES / electronic Batch Records (eBR)</div><div class="mes-lvl-desc">Recipe management, electronic batch records, review-by-exception. Built on Sepasoft on top of Ignition. Always internal, independent of equipment vendor.</div></div><span class="mes-own build">Build internally</span></div>
     <div class="mes-level future"><span class="mes-lvl-tag">L3</span><div><div class="mes-lvl-title">ERP / QMS integration</div><div class="mes-lvl-desc">Links batch data to inventory, release, and the quality system. Deferred until L1/L2 are validated.</div></div><span class="mes-own future">Future phase</span></div>
   </div>
 
@@ -865,36 +916,17 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </table>
   </div>
 
-  <div class="section-label">Part 11 coverage map — recommended 3-vendor split</div>
-  <div class="tbl-wrap">
-  <table class="comp-table">
-    <thead><tr><th>Tier</th><th>Machines</th><th>Why</th></tr></thead>
-    <tbody>
-      <tr><td class="cat"><span class="map-mand">Mandatory</span></td><td><span class="spec">GHL-250 granulator, FG-80 FBD, GK-50 dry gran, HTD-250 blender, NJP-2500C capsule (Urban); BGB-80 coater (Rich); blister DPB-270J (Hualian)</span></td><td><span class="spec">Generate or directly determine CPPs and batch data. Full audit trail + OPC-UA into the historian is non-negotiable.</span></td></tr>
-      <tr><td class="cat"><span class="map-req">Required</span></td><td><span class="spec">DPB-270J blister line incl. camera, pinhole, cartoner (Hualian)</span></td><td><span class="spec">Inspection results and reconciliation are batch-record evidence; must be captured and locked.</span></td></tr>
-      <tr><td class="cat"><span class="map-rec">Recommended</span></td><td><span class="spec">ZHJ-150K cartoner data, future serialisation module</span></td><td><span class="spec">Strengthens traceability and is the natural hook for DSCSA/FMD serialisation later.</span></td></tr>
-      <tr><td class="cat"><span class="map-exempt">Exempt</span></td><td><span class="spec">ZS-800 vibro sifter, solution tank, vacuum feeder</span></td><td><span class="spec">No CPPs, no electronic records generated — simple mechanical aids, outside Part 11 scope.</span></td></tr>
-    </tbody>
-  </table>
-  </div>
-  <div class="risk-box" style="border-left-color:var(--accent);background:rgba(0,180,216,.06);border-color:rgba(0,180,216,.25)">
-    <h4 style="color:var(--accent)">⚠ The OPC-UA question is the linchpin — ask it at every machine</h4>
-    <ul style="list-style:none">
-      <li>For every "Mandatory" and "Required" machine, confirm the PLC/HMI exposes an <strong>OPC-UA server</strong> and can hand over a <strong>tag list</strong>. Without it, that machine's data cannot flow into the historian and integration becomes a costly custom job. This single answer determines whether the build is GAMP Category 4 (configured) or slides toward bespoke Category 5.</li>
-    </ul>
-  </div>
-
   <div class="section-label">People &amp; indicative cost (planning estimates)</div>
   <div class="tbl-wrap">
   <table class="comp-table">
     <thead><tr><th>Item</th><th>Indicative cost</th><th>Note</th></tr></thead>
     <tbody>
-      <tr><td class="cat">SCADA / Controls Engineer (hire)</td><td><span class="price">~SGD 90–130K / yr</span></td><td><span class="spec">Owns L1 historian + integration. Core internal capability.</span></td></tr>
+      <tr><td class="cat">SCADA / Controls Engineer (hire)</td><td><span class="price">~SGD 90–130K / yr</span></td><td><span class="spec">Owns L1 historian + machine integration. Core internal capability, independent of vendor choice.</span></td></tr>
       <tr><td class="cat">CSV Specialist (hire)</td><td><span class="price">~SGD 80–120K / yr</span></td><td><span class="spec">Owns validation of all computerised systems; authors the CSV Master Plan (Gaps C3).</span></td></tr>
       <tr><td class="cat">System integrator (initial)</td><td><span class="price">~USD 120–220K</span></td><td><span class="spec">Build + knowledge transfer for first site, so capability stays in-house.</span></td></tr>
       <tr><td class="cat">Ignition + Sepasoft licences</td><td><span class="price">~USD 40–70K</span></td><td><span class="spec">Server-based; one-time + maintenance. Unlimited tags.</span></td></tr>
       <tr><td class="cat">Infrastructure (servers, network)</td><td><span class="price">~USD 15–30K</span></td><td><span class="spec">On-prem or hybrid; redundancy for batch-critical data.</span></td></tr>
-      <tr class="total-row"><td class="cat">Year-1 total (indicative)</td><td><span class="price" style="font-size:14px">~USD 350–500K</span></td><td><span class="spec">Break-even vs per-site outsourcing ≈ 24–30 months.</span></td></tr>
+      <tr class="total-row"><td class="cat">Year-1 total (indicative)</td><td><span class="price" style="font-size:14px">~USD 350–500K</span></td><td><span class="spec">This is the MES build cost regardless of equipment vendor — Canaan does not reduce it.</span></td></tr>
     </tbody>
   </table>
   </div>
@@ -906,9 +938,9 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   </div>
 
   <div class="risk-box">
-    <h4>⚠ Key MES/SCADA risks</h4>
+    <h4>⚠ Key MES risks</h4>
     <ul style="list-style:none">
-      <li>OPC-UA availability per machine is the make-or-break technical dependency — confirm it on-site for every Mandatory/Required machine before committing to the in-house build path.</li>
+      <li>MES is built the same way no matter which equipment vendor wins — do not let a Canaan purchase decision be sold internally as "solving" the MES build. It doesn't; it only helps with SCADA-side integration risk (see SCADA tab).</li>
       <li>GAMP Category 4 (configured) vs Category 5 (bespoke) drives validation effort. Off-the-shelf Ignition/Sepasoft configuration keeps it at Cat 4; heavy custom code pushes toward Cat 5 and far more validation.</li>
       <li>Break-even depends on ≥2 further facilities materialising. Re-test this assumption against the actual roll-out plan.</li>
       <li>Validation adds 4–6 months before first commercial batch — sequence the CSV programme so it does not become the critical path after equipment arrives.</li>
@@ -942,47 +974,61 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
 <!-- ════════ VERDICT ════════ -->
 <div class="tab-content" id="tab-verdict">
   <div class="rec-box">
-    <h3>✓ Recommendation: 3-Vendor Optimal Split — Estimated ~$582,000</h3>
-    <p><strong>Urban for granulation (non-negotiable).</strong> The GHL-250 at 80 kg/batch is the only production-scale granulator in this vendor set. Canaan's LHS75 (15–30 kg) and Rich Packing's HLSG-20 (3–8 kg) are both structurally incompatible with downstream production-scale equipment. Urban's granulation line must anchor the order regardless of Part 11 outcome — if Urban fails Part 11, granulation equipment is bought without the computerized system dependency; validated manually with a separate MES layer.</p>
-    <p><strong>Rich Packing for tablet press and film coater.</strong> The HGZ-26D tablet press (26 stations, 165,000/hr, $65,800) offers competitive throughput at reasonable cost. More critically, the BGB-80 coater ($39,500) includes a full WIP system — a GMP-mandatory requirement that Hualian's BG-80 lacks. The WIP gap cannot be negotiated around: it is a cleaning validation architecture issue, not a paperwork issue.</p>
-    <p><strong>Urban for capsule filling.</strong> Urban's revised quote (NJP-2500C, UBM-CN-20260329002) delivers the same 150,000 capsules/hr · 18-hole · Siemens-PLC + SEW machine as Hualian's NJP-2500 for <strong>$30,800 vs $43,550 — a $12,750 saving</strong>, while consolidating the capsule filler with the Urban granulation line (one vendor, one set of commissioning logistics). An NJP-1200C (72,000/hr · 9 holes · 316L · cGMP) is also quoted at $19,800 as a lower-capacity alternative if 150k/hr is more headroom than needed. Two caveats to close at the factory visit: Urban's Part 11 is still pending, and installation is <em>not</em> free in the quote (Hualian's is) — fold both into the negotiation. Even fully equipped with powder + capsule loaders (~$35K), Urban stays well under Hualian.</p>
-    <p><strong>Hualian for blister/cartoning.</strong> The DPB-270J blister line ($121,600 complete) is the only cold-form alu-alu option in this vendor set, which is required for moisture-sensitive drugs in Zone IVb tropical markets (Singapore, Malaysia, Thailand). Rich Packing's DPP-270Max is ALU-PVC thermoform only and cannot be converted.</p>
-    <p><strong>Canaan: Not recommended unless Urban fails Part 11 comprehensively.</strong> Canaan's IQ/OQ/DQ documentation and Part 11 compliance are best in class, but the $761,720 price tag with a 6-month lead time and HSM bottleneck is difficult to justify when the 3-vendor split delivers comparable or superior individual equipment at ~$582K.</p>
+    <h3>✓ Recommendation: build-vs-buy fork on the software layer — two viable paths</h3>
+    <p><strong>The decision now hinges on one question: is the machine→Ignition→MES data chain worth paying Canaan a premium to de-risk, or is it worth building through discrete-vendor integration work?</strong> MES is built internally either way (see MES tab) — that cost doesn't move. What moves is SCADA integration risk, and Canaan's PLC/HMI sophistication + existing Part-11 e-signature module make them the vendor most likely to already meet the open-protocol bar the other three haven't been asked about yet.</p>
+    <p><strong>Path A — Multi-vendor split, ~$559,200 hardware + build SCADA/MES integration in-house (~$350–500K Year-1, see MES tab).</strong> Urban anchors granulation (GHL-250, 80 kg/batch — the only production-scale option; Canaan's LHS75 at 15–30 kg and Rich Packing's HLSG-20 at 3–8 kg are both structurally incompatible with downstream equipment) and capsule filling (NJP-2500C, $30,800 base — cheapest confirmed option at this spec class). Rich Packing takes tablet press ($65,800) and film coater ($39,500, WIP-mandatory and the cheapest confirmed WIP-equipped machine). Canaan takes the blister line (DPP-180, $64,500 — the only CONFIRMED alu-alu vendor now that Hualian is out), paired with Urban's cartoner ($34,300) since Canaan doesn't bundle one. Camera + pinhole detection are now open cost items — previously free-bundled in Hualian's price, now unpriced everywhere and need a standalone quote before committing to alu-alu.</p>
+    <p><strong>Path B — Canaan-anchored line, ~$794,720+ hardware, MES still built in-house, but SCADA integration risk is lower.</strong> Canaan's capsule filler is now the same 150,000/hr · 18-hole class as Urban's ($51,500 equipped vs Urban's ~$35K equipped — Urban stays cheaper), and their DPP-180 blister is the only confirmed alu-alu option regardless of which path is chosen. Canaan's IQ/OQ/DQ documentation is best-in-class across the board. The premium buys higher confidence that every Canaan machine will meet the OPC-UA/Modbus + live-FAT-demo bar (SCADA tab) without a costly custom integration — it does not buy a finished MES.</p>
+    <p><strong>Hanyoo — do not commit, chase pricing.</strong> A near-complete single-vendor line (mixer through ALU-ALU blister) with zero prices quoted and no Part 11/IQ-OQ statement anywhere in the offer. Worth pricing given how unusually complete the line-up is, but not actionable today.</p>
+    <p><em>Hualian was eliminated from consideration (Citia decision, Jul 2026) — no longer scored or compared.</em></p>
   </div>
 
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:18px;margin-bottom:20px">
-    <div class="section-label" style="margin-top:0">Weighted decision matrix — 4 vendors</div>
+    <div class="section-label" style="margin-top:0">Weighted decision matrix — software/SCADA capability now weighted explicitly</div>
     <div class="tbl-wrap">
     <table class="comp-table">
-      <thead><tr><th>Criterion</th><th>Weight</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="hc">Hualian</th><th class="rc">Rich Packing</th></tr></thead>
+      <thead><tr><th>Criterion</th><th>Weight</th><th class="cc">Canaan</th><th class="uc">Urban</th><th class="rc">Rich Packing</th><th class="hc">Hanyoo</th></tr></thead>
       <tbody>
-        <tr><td class="cat">GMP / Part 11 documentation</td><td><strong>25%</strong></td><td class="price canaan">9/10</td><td class="price urban">4/10</td><td class="price hualian">5/10</td><td class="price rich">5/10</td></tr>
-        <tr><td class="cat">Total cost of ownership</td><td><strong>20%</strong></td><td class="price canaan">4/10</td><td class="price urban">8/10</td><td class="price hualian">7/10</td><td class="price rich">7/10</td></tr>
-        <tr><td class="cat">Throughput / batch size coherence</td><td><strong>20%</strong></td><td class="price canaan">6/10</td><td class="price urban">9/10</td><td class="price hualian">7/10</td><td class="price rich">4/10</td></tr>
-        <tr><td class="cat">Component quality / brand</td><td><strong>15%</strong></td><td class="price canaan">9/10</td><td class="price urban">6/10</td><td class="price hualian">7/10</td><td class="price rich">7/10</td></tr>
-        <tr><td class="cat">Commissioning / support structure</td><td><strong>10%</strong></td><td class="price canaan">8/10</td><td class="price urban">5/10</td><td class="price hualian">8/10</td><td class="price rich">5/10</td></tr>
-        <tr><td class="cat">Line completeness (to secondary packaging)</td><td><strong>5%</strong></td><td class="price canaan">5/10</td><td class="price urban">9/10</td><td class="price hualian">9/10</td><td class="price rich">6/10</td></tr>
-        <tr><td class="cat">Lead time</td><td><strong>5%</strong></td><td class="price canaan">4/10</td><td class="price urban">9/10</td><td class="price hualian">8/10</td><td class="price rich">8/10</td></tr>
-        <tr class="total-row"><td class="cat">Weighted Total</td><td>100%</td><td class="price canaan" style="font-size:15px">7.0/10</td><td class="price urban" style="font-size:15px">7.1/10</td><td class="price hualian" style="font-size:15px">6.8/10</td><td class="price rich" style="font-size:15px">5.8/10</td></tr>
+        <tr><td class="cat">GMP / Part 11 documentation</td><td><strong>20%</strong></td><td class="price canaan">9/10</td><td class="price urban">4/10</td><td class="price rich">5/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">SCADA-readiness / software capability</td><td><strong>20%</strong></td><td class="price canaan">9/10</td><td class="price urban">2/10</td><td class="price rich">2/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Total cost of ownership</td><td><strong>15%</strong></td><td class="price canaan">3/10</td><td class="price urban">8/10</td><td class="price rich">7/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Throughput / batch size coherence</td><td><strong>15%</strong></td><td class="price canaan">6/10</td><td class="price urban">9/10</td><td class="price rich">4/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Component quality / brand</td><td><strong>10%</strong></td><td class="price canaan">9/10</td><td class="price urban">6/10</td><td class="price rich">7/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Commissioning / support structure</td><td><strong>10%</strong></td><td class="price canaan">8/10</td><td class="price urban">5/10</td><td class="price rich">5/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Line completeness (to secondary packaging)</td><td><strong>5%</strong></td><td class="price canaan">5/10</td><td class="price urban">9/10</td><td class="price rich">6/10</td><td class="price na">Pending</td></tr>
+        <tr><td class="cat">Lead time</td><td><strong>5%</strong></td><td class="price canaan">4/10</td><td class="price urban">9/10</td><td class="price rich">8/10</td><td class="price na">Pending</td></tr>
+        <tr class="total-row"><td class="cat">Weighted Total</td><td>100%</td><td class="price canaan" style="font-size:15px">7.25/10</td><td class="price urban" style="font-size:15px">5.75/10</td><td class="price rich" style="font-size:15px">4.95/10</td><td class="price na" style="font-size:15px">Excluded — unpriced</td></tr>
       </tbody>
     </table>
     </div>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px">Once software capability is weighted at 20% instead of implicitly at ~0%, Canaan moves decisively ahead on the weighted matrix (7.25 vs Urban's 5.75) — this is the "Canaan is way ahead, but the price is terrible" tension made explicit. It does not automatically make Canaan the right buy: the cost-based split (Path A, ~$559,200) still wins on total spend, and MES is built internally either way. Hanyoo is excluded from the weighted total entirely — scoring an unpriced, unconfirmed vendor would fabricate a false comparison.</p>
   </div>
 
   <div class="verdict-grid">
-    <div class="vbox pros"><h3 style="color:var(--hualian)">Hualian — Buy: Blister Line</h3><ul>
-      <li>DPB-270J: Only alu-alu cold-form blister in vendor set</li>
-      <li>Pinhole detection ($20K) bundled — mandatory for alu-alu GMP</li>
-      <li>Free installation — vendor pays all technician costs</li>
-      <li>13-month warranty on spare parts</li>
-      <li>30/70 payment terms — lowest down payment exposure</li>
+    <div class="vbox pros"><h3 style="color:var(--canaan)">Canaan — Buy If: Software Risk Reduction Matters More Than Price</h3><ul>
+      <li>Best-in-class IQ/OQ/DQ/FAT/SOP documentation, standard on every machine</li>
+      <li>Only vendor with a Part-11 e-signature module already on offer (NJP-2500C, +$9,500)</li>
+      <li>DPP-180: only confirmed ALU-ALU blister now that Hualian is out (100–200/min, fastest confirmed)</li>
+      <li>NJP-2500C now matches Urban's spec class (150k/hr, 18 holes) as a credible fallback</li>
+      <li>Most likely of the four to natively meet OPC-UA/Modbus SCADA-readiness — unconfirmed but plausible given PLC sophistication</li>
     </ul></div>
-    <div class="vbox cons"><h3 style="color:var(--red)">Hualian — Risks / Negotiate</h3><ul>
-      <li>BG-80 film coater has NO WIP — GMP disqualifier for coating; order coating from Rich Packing</li>
-      <li>HPM camera on blister — push for Basler upgrade as PO condition</li>
-      <li>Part 11 compliance not confirmed — verify live on-site</li>
-      <li>No tablet press offered — must buy from another vendor</li>
-      <li>No granulation equipment offered</li>
+    <div class="vbox cons"><h3 style="color:var(--red)">Canaan — Risks / Negotiate</h3><ul>
+      <li>$794,720 full-line price is ~42% above the multi-vendor split — the premium buys SCADA-readiness confidence, not a finished MES</li>
+      <li>Both Canaan quotes (granulation line + capsule/vibro) are past their stated validity as of today (30 Jul 2026) — chase revalidated pricing before any PO</li>
+      <li>DPP-180 blister does not include a cartoner, camera, or pinhole detector — all now open cost items</li>
+      <li>120 working day lead time (~6 months) and an HSM bottleneck flagged in prior sessions</li>
+      <li>Open-protocol documentation and live FAT data-demo are NOT yet confirmed — verify before assuming the SCADA-readiness score</li>
+    </ul></div>
+    <div class="vbox pros"><h3 style="color:var(--hanyoo)">Hanyoo — Chase Pricing, Do Not Commit</h3><ul>
+      <li>Only vendor offering a near-complete single-vendor line: mixer → granulator → FBD → tablet press → coater → capsule filler → ALU-ALU blister</li>
+      <li>GL-27 capsule filler (120,000/hr, 18 holes) and ZPT-560 tablet press (up to 239,400/hr) are competitive specs on paper</li>
+      <li>DPP-270 blister spec sheet claims ALU-ALU capability</li>
+    </ul></div>
+    <div class="vbox cons"><h3 style="color:var(--red)">Hanyoo — Do NOT Buy Yet</h3><ul>
+      <li>Every price cell in the 8-page offer is blank — zero cost basis for any comparison</li>
+      <li>No Part 11, IQ/OQ/DQ, or CSV statement anywhere in the offer</li>
+      <li>DPP-270's ALU-ALU mold is NOT confirmed included — only an ALU-PVC mold is stated</li>
+      <li>No cartoner, no camera, no pinhole detection anywhere in the 14-item line</li>
+      <li>No FAT, SAT, or warranty terms stated</li>
     </ul></div>
     <div class="vbox pros"><h3 style="color:var(--rich)">Rich Packing — Buy: Tablet Press + Film Coater</h3><ul>
       <li>BGB-80: WIP system fully integrated — GMP-compliant coating</li>
@@ -1003,12 +1049,14 @@ body{background:var(--bg);color:var(--text-primary);font-family:'Segoe UI',syste
   <div class="risk-box">
     <h4>⚠ Key Risks Across All Vendors</h4>
     <ul style="list-style:none">
+      <li><strong>Both Canaan quotes are past their stated validity as of today (30 Jul 2026)</strong> — the granulation-line quote and the new vibro/capsule quote (QE26070619157, valid "until July 6th, 2026") both need re-confirmation before any PO or price-lock decision.</li>
+      <li>Discrete-machine SCADA risk: Urban, Rich Packing, and Hanyoo supply machines in isolation, not an integrated line — none of them will natively test the machine→Ignition→MES chain in their standard FAT. Insist on (1) standard IQ/OQ docs, (2) open-protocol (OPC-UA/Modbus) documentation, (3) a live FAT data-output demo before shipment, as PO conditions on all three (see SCADA tab).</li>
       <li>Urban Part 11 questionnaire (TSG-PROC-2026-URB-001) deadline 2 July — chase before departure. If Urban fails Part 11 across the line, granulation equipment (non-computerized: vibro sifter, manual equipment) can still be ordered; computerized equipment (GHL-250, FBD) requires separate CSV plan.</li>
-      <li>Hualian BG-80 WIP: if Hualian refuses to add WIP to BG-80 coating machine, award the coating machine order to Rich Packing BGB-80 ($39,500). Do not compromise on this point.</li>
-      <li>Urban blister line alu-alu status must be confirmed on-site on 29 June. If Urban's DPP-260H cannot do cold-form alu-alu, Hualian DPB-270J is the sole blister option.</li>
+      <li>Blister line now has an open cost gap: camera and pinhole detection are unconfirmed on Canaan's DPP-180, and no vendor bundles a cartoner with it — previously all three were free with Hualian's $121,600 package. Get standalone quotes before committing to alu-alu.</li>
+      <li>Urban's DPP-260H alu-alu status is still unconfirmed ("TBC") — if it turns out capable, it may undercut Canaan's DPP-180 on price; worth chasing in parallel.</li>
       <li>Rich Packing quotation dated 10 June (30-day validity) — effectively expired. Request updated quotation and new valid quote before any PO.</li>
-      <li>Canaan quote expires 30 July 2026. If Canaan is kept as backup, price lock decision needed by that date.</li>
-      <li>None of the 4 vendors covers: compressed air, purified water, steam, HVAC, cleanroom — additional facility CapEx required.</li>
+      <li>Hanyoo's entire 14-item offer has zero prices and no Part 11/IQ-OQ statement — treat as a research lead, not a comparable bid, until a priced revision arrives.</li>
+      <li>None of the vendors covers: compressed air, purified water, steam, HVAC, cleanroom — additional facility CapEx required.</li>
     </ul>
   </div>
 </div>
@@ -1024,7 +1072,7 @@ function showTab(id, btn) {
 }
 
 /* ─────────── CHECKLIST ENGINE ─────────── */
-const VENDORS = ['canaan','urban','hualian','rich'];
+const VENDORS = ['canaan','urban','hanyoo','rich'];
 let currentVendor = 'canaan';
 
 const PRE_NOTES = {
@@ -1037,12 +1085,14 @@ const PRE_NOTES = {
     33: "Urban coating machine BG-40E — WIP status unknown. Confirm on-site.",
     51: "GHL-250: 80 kg batch ✓ CORRECT SCALE. Verify this is the actual unit on the production floor, not a showroom display."
   },
-  hualian: {
-    23: "Part 11 not confirmed in quotation. Request written compliance statement before or during visit. Verify live on HMI: audit trail, user access tiers, data lock after batch.",
-    33: "BG-80 has clean gun only — this is NOT WIP. Negotiate full WIP system (fixed spray nozzle manifold covering all drum interior surfaces) as mandatory PO condition. If refused, order coating from Rich Packing BGB-80 instead.",
-    64: "BG-80: 40–80 kg batch — verify physical drum is labelled for 80 kg. Check if SS316L drum, Ra ≤0.8 µm internal surface.",
-    80: "DPB-270J: ALU-ALU cold-form CONFIRMED in quotation. Verify physical cold mould and water-chilled forming station on the factory floor. Mould: 90×50mm included.",
-    83: "HPM brand camera (domestic Chinese). Use Rich Packing's Basler camera ($14,000) as negotiating leverage to upgrade Hualian to Basler as PO condition at no additional cost or minor delta."
+  hanyoo: {
+    23: "No Part 11 or CSV statement anywhere in the 8-page offer — not even a mention. Request a written compliance statement before any further evaluation; treat as unconfirmed until then.",
+    33: "BG-80B: no WIP system mentioned in the spec sheet at all — treat as NOT included until Hanyoo confirms in writing. If refused, coating stays with Rich Packing BGB-80.",
+    51: "GHL-200B: 30–60 kg/batch — same rough scale as Urban's GHL-250 but roughly half its ceiling. No price yet; no Part 11/IQ-OQ statement.",
+    64: "BG-80B: 80 kg max load stated — SS316L / Ra spec not confirmed in the offer. Ask directly.",
+    72: "GL-27: 120,000/hr, 18 holes, #00–#4, one mold included, weight 1,800kg — no IQ/OQ/DQ, no Part 11 statement, price TBC.",
+    80: "DPP-270: spec sheet shows ALU-ALU capable (10–20 blister/min) but the offer only confirms 'one ALU-PVC mold' included — the ALU-ALU mold itself is NOT confirmed as included. Get this in writing before assuming alu-alu is covered at quote price.",
+    83: "No camera inspection system appears anywhere in the 14-item offer — likely not included. Would need to be sourced and added if Hanyoo's blister line is selected."
   },
   rich: {
     23: "Part 11 not confirmed. Request written statement. Verify live on BGB-80 coating machine and HGZ-26D tablet press HMI.",
@@ -1050,7 +1100,7 @@ const PRE_NOTES = {
     51: "HLSG-20: 3–8 kg batch (3–8 LITRES) — R&D/pilot scale only. ABSOLUTELY INCOMPATIBLE with BGB-80 coater (60–80 kg). DO NOT ORDER granulation from Rich Packing under any circumstances. AUTOMATIC DISQUALIFIER for this equipment category.",
     64: "BGB-80: 60–80 kg batch. Verify WIP spray coverage with live demo using water.",
     80: "DPP-270Max: ALU-PVC THERMOFORM ONLY. Cannot do cold-form alu-alu blistering. For moisture-sensitive drugs in Zone IVb tropical markets (Singapore, Malaysia, Thailand), alu-alu is required. FAIL — do NOT order blister from Rich Packing.",
-    83: "Germany Basler camera ($14,000) — superior to Hualian HPM. Use as leverage in Hualian negotiation."
+    83: "Germany Basler camera ($14,000) — the only fully-specified camera system in the vendor set now that Hualian is out. Use as the reference spec when sourcing/confirming a camera for Canaan's blister line."
   }
 };
 
@@ -1126,6 +1176,7 @@ const SECTIONS = [
     {n:54,q:"Is the discharge system pneumatic or manual? Is it fully contained (no dust escape during discharge)?",m:false,e:"Physical demonstration — note any dust generation during mock discharge"},
     {n:55,q:"Bowl, paddle, and chopper material: SS316L? Surface finish (Ra) documented?",m:true,e:"Material certificate + surface finish record for product-contact parts"},
     {n:56,q:"What type of seal is used on the agitator shaft? Mechanical seal or packing? Replacement interval?",m:false,e:"Technical spec — mechanical seal preferred. Note seal part number."},
+    {n:89,q:"Does the vendor provide open communication protocol documentation (OPC-UA or Modbus) for this machine's PLC, and will FAT include a live demonstration of data output in that protocol before shipment?",m:true,e:"Written protocol documentation + FAT protocol line item — without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge. Insist on this as a PO condition, not an afterthought."},
   ]},
   { id:'S48b', title:'S4.8b — Rotary Tablet Press (Primary: Rich Packing)', weight:0, items:[
     {n:57,q:"How many stations? Maximum production rate (tablets/hr) at rated speed?",m:true,e:"Technical spec — Rich Packing HGZ-26D: 26 stations, 165,000 pcs/hr max"},
@@ -1135,8 +1186,9 @@ const SECTIONS = [
     {n:61,q:"Is dust extraction built-in? Confirm the vacuum cleaner unit is included in scope.",m:true,e:"Physical check — confirm vacuum/dust extract is part of the quote"},
     {n:62,q:"Turret material: pre-hardened steel? What is the hardness specification (HRC)?",m:false,e:"Technical spec — note for future validation planning"},
     {n:63,q:"Is there a tablet ejection reject system for tablets that fail weight check?",m:false,e:"Physical demonstration"},
+    {n:90,q:"Does the vendor provide open communication protocol documentation (OPC-UA or Modbus) for this machine's PLC, and will FAT include a live demonstration of data output in that protocol before shipment?",m:true,e:"Written protocol documentation + FAT protocol line item — without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge. Insist on this as a PO condition, not an afterthought."},
   ]},
-  { id:'S48c', title:'S4.8c — Film Coating Machine (Primary: Rich Packing; Secondary: Hualian)', weight:0, items:[
+  { id:'S48c', title:'S4.8c — Film Coating Machine (Primary: Rich Packing)', weight:0, items:[
     {n:64,q:"Batch size: nominal and maximum (kg). Consistent with quoted specification (60–80 kg)?",m:true,e:"Technical spec + physical drum labelling — verify against quotation"},
     {n:65,q:"Drum material: SS316L? Internal surface finish Ra ≤0.8 µm? Mirror-polished interior?",m:true,e:"Material cert + Ra measurement or certificate — physical inspection of drum interior"},
     {n:66,q:"WIP system: fully integrated? Covers all internal product-contact areas? Spray coverage pattern demonstrated?",m:true,e:"PHYSICAL DEMO — run WIP cycle with water and observe coverage inside drum"},
@@ -1145,27 +1197,30 @@ const SECTIONS = [
     {n:69,q:"Negative pressure: Is drum-internal negative pressure actively controlled and displayed on HMI with setpoint?",m:true,e:"LIVE DEMO — set negative pressure setpoint, observe control loop response"},
     {n:70,q:"Drum speed: Continuously variable (VFD)? Accuracy ±0.5 rpm?",m:false,e:"Technical spec confirmation"},
     {n:71,q:"Explosion-proof motors? (Required for organic solvent coating applications — ethanol, acetone etc.)",m:false,e:"Motor nameplate — verify Ex rating"},
+    {n:91,q:"Does the vendor provide open communication protocol documentation (OPC-UA or Modbus) for this machine's PLC, and will FAT include a live demonstration of data output in that protocol before shipment?",m:true,e:"Written protocol documentation + FAT protocol line item — without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge. Insist on this as a PO condition, not an afterthought."},
   ]},
-  { id:'S48d', title:'S4.8d — Capsule Filling Machine (Primary: Urban NJP-2500C)', weight:0, items:[
-    {n:72,q:"Output capacity (capsules/hr) at rated speed? Number of holes per segment?",m:true,e:"Technical spec — Urban NJP-2500C: 150,000/hr, 18 holes (alt NJP-1200C: 72,000/hr, 9 holes). Hualian NJP-2500: 150,000/hr, 18 holes. Rich: 72,000/hr, 9 holes."},
+  { id:'S48d', title:'S4.8d — Capsule Filling Machine (Primary: Urban NJP-2500C; Canaan NJP-2500C as Part-11 fallback)', weight:0, items:[
+    {n:72,q:"Output capacity (capsules/hr) at rated speed? Number of holes per segment?",m:true,e:"Technical spec — Urban NJP-2500C: 150,000/hr, 18 holes (alt NJP-1200C: 72,000/hr, 9 holes). Canaan NJP-2500C (QE26070619157): 150,000/hr, 18 holes, equipped $51,500. Rich: 72,000/hr, 9 holes. Hanyoo GL-27: 120,000/hr, 18 holes, price TBC."},
     {n:73,q:"What capsule sizes are compatible? Can it handle all standard sizes (000 to 5)?",m:true,e:"Technical spec + physical mould inspection"},
     {n:74,q:"Fill weight accuracy/variability? Target: CV% ≤2.0% for powder fills.",m:true,e:"Production records or run a sample fill — measure fill weight variation"},
     {n:75,q:"Dosing principle: tamping disc or dosator? How many dosing stations?",m:false,e:"Technical description — note for downstream validation planning"},
     {n:76,q:"Is there a reject system for capsules that fail fill weight check?",m:true,e:"Physical demonstration — confirm rejection mechanism"},
     {n:77,q:"Is in-process 100% weight monitoring (individual capsule weighing) an option or add-on?",m:false,e:"Ask for pricing and availability"},
-    {n:78,q:"Is the dust extraction system built-in? Vacuum pump brand and model?",m:true,e:"Physical inspection — Urban NJP-2500C: water-ring vacuum pump + dust collector (built-in). Hualian: SEW motor + dust collector. Rich: Becker (DE)."},
-    {n:79,q:"Is an empty capsule sorter / orientation feeder included in the quoted price?",m:true,e:"Physical check against quote — Urban quotes JQS-B capsule loader ($2,200) + QVC-2 powder loader ($2,000) as separate line items (NOT in the $30,800 base); Hualian bundles capsule feeder ($3,000). Confirm what is in Urban's base price."},
+    {n:78,q:"Is the dust extraction system built-in? Vacuum pump brand and model?",m:true,e:"Physical inspection — Urban NJP-2500C: water-ring vacuum pump + dust collector (built-in). Canaan NJP-2500C: Becker vacuum pump (upgrade incl.) + dust collector. Rich: Becker (DE)."},
+    {n:79,q:"Is an empty capsule sorter / orientation feeder included in the quoted price?",m:true,e:"Physical check against quote — Urban quotes JQS-B capsule loader ($2,200) + QVC-2 powder loader ($2,000) as separate line items (NOT in the $30,800 base); Canaan bundles both loaders + Becker pump into its $51,500 equipped price. Confirm what is in Urban's base price."},
+    {n:92,q:"Does the vendor provide open communication protocol documentation (OPC-UA or Modbus) for this machine's PLC, and will FAT include a live demonstration of data output in that protocol before shipment?",m:true,e:"Written protocol documentation + FAT protocol line item — without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge. Insist on this as a PO condition, not an afterthought."},
   ]},
-  { id:'S48e', title:'S4.8e — Blister Packaging (Primary: Hualian; Rich Packing for comparison)', weight:0, items:[
-    {n:80,q:"FORMAT CRITICAL: Can this machine do ALU-ALU (cold-form) blistering — not just ALU-PVC thermoform?",m:true,e:"Physical mould inspection — cold-form requires forming station + water-cooled cold mould. DISQUALIFY if thermoform only."},
-    {n:81,q:"Production speed (cuts/min) achievable with alu-alu format? (Alu-alu is inherently slower than PVC)",m:true,e:"Technical spec + live demo — Hualian: 25–30 cuts/min (appropriate for alu-alu cold form)"},
-    {n:82,q:"Is the traction system servo-driven? Servo-controlled traction stroke for precise pitch accuracy?",m:true,e:"Physical inspection — servo traction required. Hualian: Mitsubishi servo."},
-    {n:83,q:"Camera inspection system: What brand? False reject rate specification?",m:true,e:"Camera spec sheet — test with known defective blister. Hualian: HPM. Rich: Basler (DE)."},
-    {n:84,q:"Pinhole detection for alu material: included? Sensitivity specification? Demonstrated with pinholed foil?",m:true,e:"Physical demo with pinholed foil sample — Hualian includes ($20K). Rich: not quoted."},
+  { id:'S48e', title:'S4.8e — Blister Packaging (Primary: Canaan DPP-180; Rich Packing/Hanyoo/Urban for comparison — no confirmed cartoner/camera/pinhole bundle exists post-Hualian)', weight:0, items:[
+    {n:80,q:"FORMAT CRITICAL: Can this machine do ALU-ALU (cold-form) blistering — not just ALU-PVC thermoform?",m:true,e:"Physical mould inspection — cold-form requires forming station + water-cooled cold mould. DISQUALIFY if thermoform only. Canaan DPP-180 confirmed ALU-ALU in quotation; Hanyoo DPP-270 spec sheet shows ALU-ALU capability but only an ALU-PVC mold is confirmed included."},
+    {n:81,q:"Production speed (cuts/min) achievable with alu-alu format? (Alu-alu is inherently slower than PVC)",m:true,e:"Technical spec + live demo — Canaan DPP-180: 100–200/min (fastest confirmed alu-alu in the vendor set)."},
+    {n:82,q:"Is the traction system servo-driven? Servo-controlled traction stroke for precise pitch accuracy?",m:true,e:"Physical inspection — servo traction required. Canaan DPP-180: Siemens servo."},
+    {n:83,q:"Camera inspection system: What brand? False reject rate specification?",m:true,e:"Camera spec sheet — test with known defective blister. Not confirmed on Canaan's blister line yet; Rich Packing's standalone Basler ($14,000) is the only fully-specified camera in the vendor set — use as reference spec."},
+    {n:84,q:"Pinhole detection for alu material: included? Sensitivity specification? Demonstrated with pinholed foil?",m:true,e:"Physical demo with pinholed foil sample — NOT confirmed on any current vendor (previously bundled free in Hualian's $121,600 price). Get a standalone quote before committing to alu-alu at any vendor."},
     {n:85,q:"Heat seal temperature control accuracy? Number of sealing stations? Uniform sealing pressure?",m:true,e:"Technical spec + live demo — set seal temp, observe uniformity across blister width"},
-    {n:86,q:"What mould is included as standard? Dimensions confirmed for product spec (90×50mm alu-alu)?",m:true,e:"Physical mould inspection — measure cavity dimensions. Hualian: 90×50mm mould confirmed."},
+    {n:86,q:"What mould is included as standard? Dimensions confirmed for product spec (90×50mm alu-alu)?",m:true,e:"Physical mould inspection — measure cavity dimensions. Confirm with Canaan; not stated for DPP-180 in the current quote."},
     {n:87,q:"Mould changeover time? How many tools/steps to change mould format?",m:false,e:"Live demonstration of mould changeover — note time required"},
-    {n:88,q:"Water chiller included for cold mould (alu-alu forming)? What chiller brand?",m:true,e:"Physical inspection — Hualian: water chiller included. Rich: $1,800 chiller quoted."},
+    {n:88,q:"Water chiller included for cold mould (alu-alu forming)? What chiller brand?",m:true,e:"Physical inspection — not stated for Canaan DPP-180 in the current quote. Rich: $1,800 chiller quoted (blister disqualified for alu-alu regardless)."},
+    {n:93,q:"Does the vendor provide open communication protocol documentation (OPC-UA or Modbus) for this machine's PLC, and will FAT include a live demonstration of data output in that protocol before shipment?",m:true,e:"Written protocol documentation + FAT protocol line item — without this, the machine cannot feed the in-house Ignition SCADA layer without a costly proprietary bridge. Insist on this as a PO condition, not an afterthought."},
   ]},
 ];
 
@@ -1400,7 +1455,7 @@ function clearVendorScores() {
 }
 
 function exportChecklist() {
-  const vendorNames = {canaan:'Canaan Technology',urban:'Urban Machinery',hualian:'Hualian Pharma Mach.',rich:'Rich Packing'};
+  const vendorNames = {canaan:'Canaan Technology',urban:'Urban Machinery',hanyoo:'Jiangsu Hanyoo Pharmatech',rich:'Rich Packing'};
   let out = `TruVet SG — GMP Assessment Export\nVendor: ${vendorNames[currentVendor]}\nDate: ${new Date().toLocaleDateString()}\n\n`;
   SECTIONS.forEach(sec => {
     out += `\n=== ${sec.title} ===\n`;
@@ -1503,7 +1558,7 @@ const INSTR = [
       {kind:'sensor', tier:'cpp', q:'Airflow'},
       {kind:'sensor', tier:'cpp', q:'Pan differential / negative pressure'},
       {kind:'sensor', tier:'cpp', q:'Exhaust humidity or dew point'},
-      {kind:'data', q:'WIP wash-cycle confirmation logged (the reason coating is bought from Rich, not Hualian)'},
+      {kind:'data', q:'WIP wash-cycle confirmation logged (the reason coating is bought from Rich, WIP-mandatory)'},
     ]},
   { m:'NJP-2500C Capsule Filler', v:'urban', items:[
       {kind:'sensor', tier:'cpp', q:'Turret / machine speed (RPM → capsules/hr)'},
@@ -1515,8 +1570,8 @@ const INSTR = [
       {kind:'data', q:'Closing-station status'},
       {kind:'sensor', tier:'pat', q:'In-line capsule checkweigher — more defensible here (fill weight is the CQA)'},
     ]},
-  { m:'DPB-270J Blister Line', v:'hualian',
-    note:'Push the Basler camera upgrade as a PO condition. Inspection data must be captured as locked electronic records.', items:[
+  { m:'DPP-180 Blister Line', v:'canaan',
+    note:'Camera and pinhole detection are NOT yet confirmed on this machine (open item since Hualian is out) — get them written into the PO with a spec at least matching Rich Packing\'s Basler camera. Inspection data must be captured as locked electronic records.', items:[
       {kind:'sensor', tier:'cpp', q:'Forming-station temperature'},
       {kind:'sensor', tier:'cpp', q:'Sealing temperature (heating-plate RTD)'},
       {kind:'sensor', tier:'cpp', q:'Sealing pressure (bar)'},
@@ -1529,8 +1584,8 @@ const INSTR = [
       {kind:'data', q:'Lot / expiry print verification'},
       {kind:'data', q:'Reconciliation counts'},
     ]},
-  { m:'ZHJ-150K Cartoner', v:'hualian',
-    note:'Recommended tier — traceability, not a CPP machine (excluded from the CPP-tag count). Specify the serialisation hook NOW; retrofitting a cartoner later is far costlier (Gap A6).', items:[
+  { m:'ZH120 Cartoner', v:'urban',
+    note:'Recommended tier — traceability, not a CPP machine (excluded from the CPP-tag count). Specify the serialisation hook NOW; retrofitting a cartoner later is far costlier (Gap A6). No longer bundled with the blister purchase now that Hualian is out — sourced separately from Urban.', items:[
       {kind:'data', tier:'pat', q:'Machine speed'},
       {kind:'data', tier:'pat', q:'Carton-erection / presence detection'},
       {kind:'data', tier:'pat', q:'Leaflet-insertion detection'},

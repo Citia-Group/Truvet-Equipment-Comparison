@@ -88,7 +88,7 @@ a{color:var(--accent)}
 <div class="header">
   <div>
     <h1>Urban Pricing Configurator</h1>
-    <div class="subtitle">Click machines and add-ons in/out to build the actual purchase price across Urban's granulation + packaging lines</div>
+    <div class="subtitle">Click machines and add-ons in/out to build the actual purchase price for Urban's packaging line — granulation is priced from Canaan instead</div>
   </div>
   <a class="back-link" href="index.html">← Back to vendor comparison</a>
 </div>
@@ -97,8 +97,8 @@ a{color:var(--accent)}
 <div class="main">
 
   <div class="intro">
-    <strong>Why this exists:</strong> Urban quotes two separate lines from two separate dates — a granulation line (Jun 2026, no options, no confirmed Part 11) and a repriced packaging line (17 Jul 2026, Part 11 confirmed but several accessories priced separately). The two don't summarize into one clean number anywhere else in this comparison. Toggle machines and add-ons below; the total on the right updates live. Items badged <span class="badge gmp" style="vertical-align:1px">GMP required</span> are pre-checked for the same reason as the Canaan tool — leaving them out isn't a real option if the goal is FDA/HSA-inspectable production. The blister is badged <span class="badge risk" style="vertical-align:1px">disqualified</span> because Urban's own 17 Jul quote confirms an ALU/PVC-only mould — it's included here for pricing completeness only, not as something to actually buy for this project.
-    <div class="src">Sources: UBM-CN-20260622001 (granulation line, 22 Jun 2026, no stated validity) · UBM-CN060717002-VER1 (packaging line, 17 Jul 2026, valid until 17 Aug 2026) · UBM-CN-20260329002 (standalone NJP-2500C, 29 Mar 2026) · UBM-CN-20260626002 (standalone NJP-1200C, 26 Jun 2026)</div>
+    <strong>Why this exists:</strong> Urban's repriced packaging line (17 Jul 2026, Part 11 confirmed but several accessories priced separately) doesn't summarize into one clean number anywhere else in this comparison. Toggle machines and add-ons below; the total on the right updates live. <strong>Scoped to packaging only</strong> — the granulation line is dropped here: Urban themselves recommended sourcing granulation from Canaan instead, and Truvet's post-granulation equipment is most likely to come from Urban or Rich Packing, pending SCADA confirmation (see Recommendation tab). Items badged <span class="badge gmp" style="vertical-align:1px">GMP required</span> are pre-checked for the same reason as the Canaan tool — leaving them out isn't a real option if the goal is FDA/HSA-inspectable production. The blister is badged <span class="badge risk" style="vertical-align:1px">disqualified</span> because Urban's own 17 Jul quote confirms an ALU/PVC-only mould — it's included here for pricing completeness only, not as something to actually buy for this project.
+    <div class="src">Sources: UBM-CN060717002-VER1 (packaging line, 17 Jul 2026, valid until 17 Aug 2026) · UBM-CN-20260329002 (standalone NJP-2500C, 29 Mar 2026) · UBM-CN-20260626002 (standalone NJP-1200C, 26 Jun 2026)</div>
   </div>
 
   <div class="preset-row">
@@ -107,10 +107,6 @@ a{color:var(--accent)}
     <button class="preset-btn" onclick="applyPreset('everything')">Every option checked</button>
     <button class="preset-btn" onclick="applyPreset('bare')">Bare minimum</button>
   </div>
-
-  <div class="section-label">Granulation line — 22 Jun 2026</div>
-  <div class="line-note">This quote has no separately-priced options anywhere — every line item is billed as part of the $175,125 total. Toggling a machine off here means genuinely not ordering it, not skipping an add-on.</div>
-  <div id="granList"></div>
 
   <div class="section-label">Capsule filler — choose one (packaging line)</div>
   <div id="capsuleChoices"></div>
@@ -130,31 +126,9 @@ a{color:var(--accent)}
 
 <script>
 // ── Data model ──────────────────────────────────────────────
-// Granulation line (UBM-CN-20260622001, 22 Jun 2026). No options exist in this quote --
-// every item is a fixed line in the $175,125 total. Sub-items shown as included/non-removable.
-const GRAN_MACHINES = [
-  { id:'g1', title:'Centrifugal Vibrating Sieve', model:'ZS-800', base:3360, default:true,
-    desc:'180–1000 kg/h, 12–80 mesh, Siemens 1.1kW motor, 316L sifter device.', included:[], options:[] },
-  { id:'g2', title:'High Speed Grinding Granulator', model:'GZL-180', base:6550, default:true,
-    desc:'60–100 kg/batch, 1.5kW, 316-contact bowl, Siemens electricals. Dry/damp granule finishing.', included:[], options:[] },
-  { id:'g3', title:'Jacketed Solution Tank', model:'100L', base:1865, default:true,
-    desc:'316L contact parts, 3 wheels.', included:[], options:[] },
-  { id:'g4', title:'High-Speed Mixer Granulator (core train)', model:'GHL-250 + ZKS-2 + GZL-200', base:35200, default:true,
-    desc:'Bundled as one line item in the quote — cannot be separated. Includes: ZKS-2 vacuum feeding machine, GHL-250 high-speed mixer granulator, GZL-200 high-speed grinding granulator (with 1 sieve).',
-    included:[
-      {label:'ZKS-2 vacuum feeding machine', price:0},
-      {label:'GZL-200 high-speed grinding granulator (1 sieve incl.)', price:0},
-    ], options:[] },
-  { id:'g5', title:'Fluid-Bed Dryer', model:'FG-80', base:29800, default:true,
-    desc:'80 kg/batch, matched to GHL-250.', included:[], options:[] },
-  { id:'g6', title:'Fixed Lifting Vacuum Feeding Milling Machine', model:'NTZS-200', base:21500, default:true,
-    desc:'Includes 1 sieve. Feeds dried granules onward to the bin blender.', included:[], options:[] },
-  { id:'g7', title:'Post Bin Blender', model:'HTD-250', base:26600, default:true,
-    desc:'Hydraulic lifting, 3-level password.',
-    included:[{label:'250L IBC bin', price:3750}], options:[] },
-  { id:'g8', title:'Roller Compactor', model:'GK-50', base:46500, default:true,
-    desc:'30–60 kg/h, water chiller included.', included:[], options:[] },
-];
+// Granulation line intentionally excluded: Urban recommended sourcing granulation from Canaan,
+// and Truvet's granulation-line purchase is expected to be Canaan regardless (see Recommendation
+// tab) -- this tool only prices what Truvet is actually likely to buy from Urban.
 
 // Packaging line (UBM-CN060717002-VER1, 17 Jul 2026) -- Part 11 confirmed included on every
 // numbered item; the sub-items below (deduster, camera, weight checker, etc.) are each their
@@ -211,10 +185,9 @@ const CAPSULE_CHOICES = [
     ], note:'Higher throughput than either NJP-1200C option (150k/hr vs 72k/hr) but no Part 11 statement anywhere in this quote, and it\'s the oldest of the three (29 Mar) — quotation validity (30 days from quote date) has long since expired.', default:false },
 ];
 
-let state = { gran:{}, pkg:{}, capsule:'njp1200new', options:{}, notes:{} };
+let state = { pkg:{}, capsule:'njp1200new', options:{}, notes:{} };
 
 function initState() {
-  GRAN_MACHINES.forEach(m => { state.gran[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
   PKG_MACHINES.forEach(m => { state.pkg[m.id] = m.default; m.options.forEach(o => state.options[o.id] = false); });
   CAPSULE_CHOICES.forEach(c => c.options.forEach(o => state.options[o.id] = false));
 }
@@ -237,7 +210,6 @@ function loadSelectionState() {
     if (raw) {
       const saved = JSON.parse(raw);
       if (saved && typeof saved === 'object') {
-        if (saved.gran) state.gran = saved.gran;
         if (saved.pkg) state.pkg = saved.pkg;
         if (saved.options) state.options = saved.options;
         if (saved.capsule) state.capsule = saved.capsule;
@@ -248,7 +220,7 @@ function loadSelectionState() {
 function persistSelectionState() {
   try {
     localStorage.setItem('urban_cfg_selection', JSON.stringify({
-      gran: state.gran, pkg: state.pkg, options: state.options, capsule: state.capsule
+      pkg: state.pkg, options: state.options, capsule: state.capsule
     }));
   } catch(e) {}
 }
@@ -265,13 +237,11 @@ function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
 let bodyOpen = {};
 function toggleBody(id) { bodyOpen[id] = !bodyOpen[id]; render(); }
-function toggleGran(id) { state.gran[id] = !state.gran[id]; persistSelectionState(); render(); }
 function togglePkg(id) { state.pkg[id] = !state.pkg[id]; persistSelectionState(); render(); }
 function toggleOption(id) { state.options[id] = !state.options[id]; persistSelectionState(); render(); }
 function selectCapsule(id) { state.capsule = id; bodyOpen['capsule'] = true; persistSelectionState(); render(); }
 
 function applyPreset(kind) {
-  GRAN_MACHINES.forEach(m => state.gran[m.id] = true);
   PKG_MACHINES.forEach(m => {
     state.pkg[m.id] = true;
     m.options.forEach(o => {
@@ -323,9 +293,6 @@ function machineBlockHtml(m, on, toggleFn) {
     </div>`;
 }
 
-function renderGran() {
-  document.getElementById('granList').innerHTML = GRAN_MACHINES.map(m => machineBlockHtml(m, state.gran[m.id], 'toggleGran')).join('');
-}
 function renderPkg() {
   document.getElementById('pkgList').innerHTML = PKG_MACHINES.map(m => machineBlockHtml(m, state.pkg[m.id], 'togglePkg')).join('');
 }
@@ -365,13 +332,6 @@ function renderCapsuleChoices() {
 }
 
 function compute() {
-  let granTotal = 0;
-  GRAN_MACHINES.forEach(m => {
-    if (!state.gran[m.id]) return;
-    granTotal += m.base;
-    m.included.forEach(i => granTotal += i.price);
-  });
-
   let pkgBase = 0, pkgOpt = 0, gmpOptTotal = 0;
   PKG_MACHINES.forEach(m => {
     if (!state.pkg[m.id]) return;
@@ -385,16 +345,14 @@ function compute() {
   cap.included.forEach(i => capBase += i.price);
   cap.options.forEach(o => { if (state.options[o.id]) capOpt += o.price; });
 
-  const grandTotal = granTotal + pkgBase + pkgOpt + capBase + capOpt;
-  return { granTotal, pkgBase, pkgOpt, capBase, capOpt, grandTotal, gmpOptTotal, cap };
+  const grandTotal = pkgBase + pkgOpt + capBase + capOpt;
+  return { pkgBase, pkgOpt, capBase, capOpt, grandTotal, gmpOptTotal, cap };
 }
 
 function renderTotals() {
   const r = compute();
   persistSummary(r);
   document.getElementById('totalsBody').innerHTML = `
-    <div class="trow"><span>Granulation line</span><span class="tval">${fmt(r.granTotal)}</span></div>
-    <div class="tdiv"></div>
     <div class="trow"><span>Packaging machines (base + incl.)</span><span class="tval">${fmt(r.pkgBase)}</span></div>
     <div class="trow"><span>Packaging options selected</span><span class="tval">+${fmt(r.pkgOpt)}</span></div>
     <div class="tdiv"></div>
@@ -406,11 +364,11 @@ function renderTotals() {
     </div>
     ${r.gmpOptTotal > 0 ? `<div class="gmp-count">${fmt(r.gmpOptTotal)} of this total is GMP-required options you've checked.</div>` : `<div class="gmp-count" style="color:var(--red)">⚠ No GMP-required options are checked yet.</div>`}
     ${state.pkg['p4'] ? `<div class="gmp-count" style="color:var(--red)">⚠ DPP-260H blister is included in this total but is DISQUALIFIED (ALU/PVC only) — remove it before treating this as a real purchase plan.</div>` : ''}
-    <div class="foot-note">No FAT is quoted on either Urban line (buyer arranges). SAT/installation is a variable cost, not fixed: buyer pays round airfare + hotel (3★) + $150/day + translator for a 7–10 day site visit — not included in this total. Both quotes are FOB (Shanghai for granulation); freight beyond that port is not quoted either.</div>
+    <div class="foot-note">No FAT is quoted on this line (buyer arranges). SAT/installation is a variable cost, not fixed: buyer pays round airfare + hotel (3★) + $150/day + translator for a 7–10 day site visit — not included in this total. Quote is FOB; freight beyond that port is not quoted either. Granulation is priced separately in the Canaan Pricing Configurator.</div>
   `;
 }
 
-function render() { renderGran(); renderPkg(); renderCapsuleChoices(); renderTotals(); }
+function render() { renderPkg(); renderCapsuleChoices(); renderTotals(); }
 loadNotes();
 loadSelectionState();
 render();
